@@ -1,0 +1,13 @@
+[   11641ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/msl-hope-for-students.txt?_rsc=3lb4g:0
+[   11644ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/rising-prices-burden-on-students.txt?_rsc=3lb4g:0
+[   11652ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/teaching-quran.txt?_rsc=3lb4g:0
+[   12110ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/ex-president-ans-muhsi.txt?_rsc=3lb4g:0
+[   12111ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/farewell-ans-muhsi.txt?_rsc=3lb4g:0
+[   12159ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/news-blogs/umer-abbas-president.txt?_rsc=3lb4g:0
+[   12443ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/students-times.txt?_rsc=3lb4g:0
+[   12485ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/departments.txt?_rsc=3lb4g:0
+[   12487ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/press-releases.txt?_rsc=3lb4g:0
+[   12489ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/books.txt?_rsc=3lb4g:0
+[   12491ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/newsletter.txt?_rsc=3lb4g:0
+[   12491ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/terms.txt?_rsc=3lb4g:0
+[   12502ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:3001/privacy.txt?_rsc=3lb4g:0

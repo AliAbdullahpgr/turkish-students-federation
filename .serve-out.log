@@ -1,0 +1,107 @@
+ INFO  Accepting connections at http://127.0.0.1:3001
+ HTTP  4/24/2026 6:53:38 PM 127.0.0.1 GET /
+ HTTP  4/24/2026 6:53:38 PM 127.0.0.1 Returned 200 in 31 ms
+ HTTP  4/24/2026 6:53:56 PM 127.0.0.1 GET /
+ HTTP  4/24/2026 6:53:56 PM 127.0.0.1 Returned 200 in 5 ms
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 GET /
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 Returned 200 in 8 ms
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 GET /_next/static/css/4017aa3d9507307f.css
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 GET /_next/static/css/a14aa23027d9e409.css
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/css/70a9a58aeb470939.css
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/webpack-a7a9d33b573bfb15.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/4bd1b696-c023c6e3521b1417.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/255-6b79f309a27fb98b.js
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 Returned 200 in 165 ms
+ HTTP  4/24/2026 6:54:05 PM 127.0.0.1 Returned 200 in 156 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 146 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 143 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 142 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/main-app-466d9d58ae8de940.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/151-4683061931f75a38.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 35 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 188 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/app/not-found-7ddde793a74f877e.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/269-96a51a047c8771ae.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 98 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 134 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/704-b1d9974978d477a2.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/chunks/app/page-b8fd48d1287887f3.js
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 176 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 165 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 379 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/e4af272ccee01ff0-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/6245472ced48d3be-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/7db6c35d839a711c-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/b957ea75a84b6ea7-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/ed873e0918d65364-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 53 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 51 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 67 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 67 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/eafabf029ad39a43-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 GET /_next/static/media/50a22be602a0c7d8-s.p.woff2
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 98 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 41 ms
+ HTTP  4/24/2026 6:54:06 PM 127.0.0.1 Returned 200 in 535 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /join-msl.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /events.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /news-blogs.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /contact-us.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /favicon.ico
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 99 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 99 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 98 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 98 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 112 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /_next/static/chunks/775-fc423752e385351d.js
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /_next/static/chunks/app/join-msl/page-bcbbcb4f2662300a.js
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /_next/static/chunks/app/news-blogs/page-7cc4573d09de14f6.js
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /_next/static/chunks/app/events/page-f02052200dd9b934.js
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 GET /_next/static/chunks/app/contact-us/page-4640f2b2f7b62f2a.js
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 221 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 255 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 252 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 253 ms
+ HTTP  4/24/2026 6:54:07 PM 127.0.0.1 Returned 200 in 250 ms
+ HTTP  4/24/2026 6:54:11 PM 127.0.0.1 GET /about-us.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:11 PM 127.0.0.1 Returned 200 in 53 ms
+ HTTP  4/24/2026 6:54:11 PM 127.0.0.1 GET /_next/static/chunks/app/about-us/page-f59c96c2c7ab0677.js
+ HTTP  4/24/2026 6:54:11 PM 127.0.0.1 Returned 200 in 100 ms
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 GET /news-blogs/rising-prices-burden-on-students.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 GET /news-blogs/msl-hope-for-students.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 GET /news-blogs/teaching-quran.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 Returned 404 in 12 ms
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 Returned 404 in 17 ms
+ HTTP  4/24/2026 6:54:17 PM 127.0.0.1 Returned 404 in 8 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /news-blogs/ex-president-ans-muhsi.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /news-blogs/farewell-ans-muhsi.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 2 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 2 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /news-blogs/umer-abbas-president.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 3 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /literature.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /students-times.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 3 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 200 in 22 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /_next/static/chunks/app/literature/page-441386ed272d27d6.js
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 200 in 10 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /press-releases.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /departments.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /books.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /newsletter.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 13 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 15 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 13 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /terms.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 11 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 4 ms
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 GET /privacy.txt?_rsc=3lb4g
+ HTTP  4/24/2026 6:54:18 PM 127.0.0.1 Returned 404 in 3 ms
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 GET /_next/static/css/4017aa3d9507307f.css
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 GET /_next/static/css/a14aa23027d9e409.css
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 GET /_next/static/css/70a9a58aeb470939.css
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 Returned 304 in 6 ms
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 Returned 304 in 6 ms
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 Returned 304 in 5 ms
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 GET /.well-known/appspecific/com.chrome.devtools.json
+ HTTP  4/24/2026 6:54:30 PM 127.0.0.1 Returned 404 in 3 ms

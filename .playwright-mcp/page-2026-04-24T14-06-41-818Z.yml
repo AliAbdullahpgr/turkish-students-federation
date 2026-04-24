@@ -1,0 +1,291 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]: Join the movement — MSL Pakistan
+    - link "JOIN US" [ref=e4] [cursor=pointer]:
+      - /url: /join-msl
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "MSL PK" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e8]:
+          - text: MSL
+          - text: PK
+      - button "Toggle menu" [ref=e9]:
+        - img [ref=e10]
+  - main [ref=e11]:
+    - heading "LEADERS IN THE MAKING" [level=1] [ref=e15]:
+      - generic [ref=e16]: LEADERS
+      - generic [ref=e17]: IN THE MAKING
+    - generic [ref=e19]:
+      - generic [ref=e20]: Who We Are?
+      - heading "Muslim Students League Pakistan" [level=2] [ref=e21]
+      - paragraph [ref=e22]: MSL Pakistan is a fast-growing student organization in Pakistan, rooted in the Ideology of Pakistan and driven by a mission to connect youth with their identity and purpose. As a student-led platform, we develop young minds through Islamic guidance, leadership training, and character building, preparing students to lead with confidence.
+      - link "Discover More" [ref=e23] [cursor=pointer]:
+        - /url: /about-us
+    - generic [ref=e25]:
+      - heading "Our Events" [level=2] [ref=e27]
+      - generic [ref=e28]:
+        - button "UPCOMING" [ref=e29]
+        - button "RECENT" [ref=e30]
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - generic [ref=e34]:
+            - generic [ref=e36]: S
+            - heading "Scout Camp" [level=3] [ref=e37]
+            - generic [ref=e38]: Camp
+            - paragraph [ref=e39]: March 2026
+          - generic [ref=e40]: MSL
+        - generic [ref=e41]:
+          - generic [ref=e43]:
+            - generic [ref=e45]: E
+            - heading "Eid Milan" [level=3] [ref=e46]
+            - generic [ref=e47]: Social
+            - paragraph [ref=e48]: April 2026
+          - generic [ref=e49]: MSL
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e55]: OUR ACTIVITIES
+        - heading "What We Do?" [level=2] [ref=e57]
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - img [ref=e61]
+          - generic [ref=e63]:
+            - heading "Multimedia Sessions" [level=3] [ref=e64]
+            - paragraph [ref=e65]: Creative digital sessions designed to educate, inspire, and engage the youth community.
+        - generic [ref=e66]:
+          - img [ref=e68]
+          - generic [ref=e73]:
+            - heading "Seminars" [level=3] [ref=e74]
+            - paragraph [ref=e75]: Knowledge-driven seminars covering education, society, leadership, and Islamic values.
+        - generic [ref=e76]:
+          - img [ref=e78]
+          - generic [ref=e80]:
+            - heading "Quran Classes" [level=3] [ref=e81]
+            - paragraph [ref=e82]: Structured Quran learning, Tafseer studies, and spiritual growth programs.
+        - generic [ref=e83]:
+          - img [ref=e85]
+          - generic [ref=e91]:
+            - heading "Sports Programs" [level=3] [ref=e92]
+            - paragraph [ref=e93]: Healthy sports activities that promote fitness, teamwork, and positive competition.
+        - generic [ref=e94]:
+          - img [ref=e96]
+          - generic [ref=e98]:
+            - heading "Student Rights" [level=3] [ref=e99]
+            - paragraph [ref=e100]: Protecting academic rights, fairness, and representation across institutions.
+        - generic [ref=e101]:
+          - img [ref=e103]
+          - generic [ref=e105]:
+            - heading "Social Welfare" [level=3] [ref=e106]
+            - paragraph [ref=e107]: Community support through relief work, charity drives, and welfare initiatives.
+    - generic [ref=e109]:
+      - heading "Impact Highlights" [level=2] [ref=e110]
+      - generic [ref=e111]:
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e114]: "0"
+            - generic [ref=e115]: +
+          - paragraph [ref=e116]: Weekly Quran Classes
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - generic [ref=e119]: "0"
+            - generic [ref=e120]: +
+          - paragraph [ref=e121]: Attendees in Seminars
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: "0"
+            - generic [ref=e125]: +
+          - paragraph [ref=e126]: Blood Bags Donated
+    - generic [ref=e129]:
+      - generic [ref=e132]: UA
+      - generic [ref=e133]:
+        - generic [ref=e136]: OUR PRESIDENT
+        - heading "Umar Abbas" [level=2] [ref=e138]
+        - paragraph [ref=e139]: President Muslim Students League Pakistan
+        - paragraph [ref=e140]: Umar Abbas, born on February 3, 1999, is the President of Muslim Students League (Pakistan) since December 1, 2025. He is currently an MPhil candidate in Disaster Management at Government College University, Lahore. Umar is known for his active role in student leadership, community service, and fostering youth engagement through the Muslim Students League's programs and initiatives.
+    - generic [ref=e142]:
+      - generic [ref=e143]:
+        - generic [ref=e146]: EXPLORE COURSES
+        - heading "Our Course" [level=2] [ref=e148]
+      - generic [ref=e149]:
+        - generic [ref=e151]:
+          - generic [ref=e153]:
+            - generic [ref=e155]: I
+            - generic [ref=e156]:
+              - heading "Islamic Matters" [level=3] [ref=e157]
+              - paragraph [ref=e158]: Mufti Yousaf Taibi
+              - paragraph [ref=e159]: A structured and modern course to understand basic of Islam
+              - link "Read More" [ref=e160] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e162]:
+            - generic [ref=e164]: L
+            - generic [ref=e165]:
+              - heading "Leadership Essentials" [level=3] [ref=e166]
+              - paragraph [ref=e167]: Umer Abbas
+              - paragraph [ref=e168]: Building leadership skills for the next generation of student leaders
+              - link "Read More" [ref=e169] [cursor=pointer]:
+                - /url: "#"
+          - generic [ref=e171]:
+            - generic [ref=e173]: Q
+            - generic [ref=e174]:
+              - heading "Quran Tafseer" [level=3] [ref=e175]
+              - paragraph [ref=e176]: Dr. Ahmed Ali
+              - paragraph [ref=e177]: In-depth Quranic studies and Tafseer for spiritual growth
+              - link "Read More" [ref=e178] [cursor=pointer]:
+                - /url: "#"
+        - button [disabled] [ref=e179]:
+          - img [ref=e180]
+        - button [ref=e182]:
+          - img [ref=e183]
+    - generic [ref=e187]:
+      - generic [ref=e188]:
+        - generic [ref=e191]: LATEST RELEASE
+        - heading "Taleem Se Takmeel Pakistan Ka Safar" [level=2] [ref=e193]
+        - generic [ref=e194]:
+          - generic [ref=e195]: MSL Pakistan
+          - generic [ref=e196]: Student Organization
+          - generic [ref=e197]: Ex President
+          - generic [ref=e198]: Ans Mushi
+          - generic [ref=e199]: Seminar
+          - generic [ref=e200]: Youth Impact
+        - link "Follow Youtube Channel" [ref=e201] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e202]
+          - text: Follow Youtube Channel
+      - generic [ref=e205]:
+        - img [ref=e206]
+        - paragraph [ref=e208]: Featured Video
+        - paragraph [ref=e209]: Taleem Se Takmeel Pakistan Ka Safar
+    - generic [ref=e211]:
+      - generic [ref=e212]:
+        - generic [ref=e215]: MEDIA & NEWS
+        - heading "Read Our Latest Updates" [level=2] [ref=e217]
+      - generic [ref=e218]:
+        - article [ref=e219]:
+          - img "طلباء پر بڑھتی قیمتوں کا بوجھ" [ref=e221]
+          - generic [ref=e222]:
+            - generic [ref=e223]: APR 03, 2026
+            - heading "طلباء پر بڑھتی قیمتوں کا بوجھ" [level=3] [ref=e224]
+            - paragraph [ref=e225]: پاکستان میں پیٹرول کی قیمتوں میں حالیہ اضافہ...
+            - link "READ MORE" [ref=e226] [cursor=pointer]:
+              - /url: /news-blogs/rising-prices-burden-on-students
+        - article [ref=e227]:
+          - img "مسلم سٹوڈنٹس لیگ ہی طلبہ کی امیدوں کا محور" [ref=e229]
+          - generic [ref=e230]:
+            - generic [ref=e231]: DEC 28, 2025
+            - heading "مسلم سٹوڈنٹس لیگ ہی طلبہ کی امیدوں کا محور" [level=3] [ref=e232]
+            - paragraph [ref=e233]: مسلم سٹوڈنٹس لیگ طلبہ کی امیدوں کی محور...
+            - link "READ MORE" [ref=e234] [cursor=pointer]:
+              - /url: /news-blogs/msl-hope-for-students
+        - article [ref=e235]:
+          - img "تعلیم القران" [ref=e237]
+          - generic [ref=e238]:
+            - generic [ref=e239]: DEC 22, 2025
+            - heading "تعلیم القران" [level=3] [ref=e240]
+            - paragraph [ref=e241]: قَالَ اِنَّمَاۤ اَشۡکُوۡا بَثِّیۡ...
+            - link "READ MORE" [ref=e242] [cursor=pointer]:
+              - /url: /news-blogs/teaching-quran
+        - article [ref=e243]:
+          - img "آپ کی قیادت ایک درخشاں عَشرہ..." [ref=e245]
+          - generic [ref=e246]:
+            - generic [ref=e247]: DEC 17, 2025
+            - heading "آپ کی قیادت ایک درخشاں عَشرہ..." [level=3] [ref=e248]
+            - paragraph [ref=e249]: آپ کی قیادت ایک درخشاں عَشرہ...
+            - link "READ MORE" [ref=e250] [cursor=pointer]:
+              - /url: /news-blogs/ex-president-ans-muhsi
+        - article [ref=e251]:
+          - img "محترم \"عمر عباس\" مسلم سٹوڈنٹس لیگ پاکستان کے صدر..." [ref=e253]
+          - generic [ref=e254]:
+            - generic [ref=e255]: DEC 17, 2025
+            - heading "محترم \"عمر عباس\" مسلم سٹوڈنٹس لیگ پاکستان کے صدر..." [level=3] [ref=e256]
+            - paragraph [ref=e257]: محترم "عمر عباس" مسلم سٹوڈنٹس لیگ پاکستان کے صدر...
+            - link "READ MORE" [ref=e258] [cursor=pointer]:
+              - /url: /news-blogs/umer-abbas-president
+        - article [ref=e259]:
+          - img "مُحبتوں میں ہر ایک لمحہ وِصال ہوگا..." [ref=e261]
+          - generic [ref=e262]:
+            - generic [ref=e263]: DEC 17, 2025
+            - heading "مُحبتوں میں ہر ایک لمحہ وِصال ہوگا..." [level=3] [ref=e264]
+            - paragraph [ref=e265]: مُحبتوں میں ہر ایک لمحہ وِصال ہوگا...
+            - link "READ MORE" [ref=e266] [cursor=pointer]:
+              - /url: /news-blogs/farewell-ans-muhsi
+      - link "MORE BLOGS" [ref=e268] [cursor=pointer]:
+        - /url: /news-blogs
+    - generic [ref=e270]:
+      - heading "Facebook Page" [level=2] [ref=e271]
+      - generic [ref=e272]:
+        - paragraph [ref=e273]: Follow us on Facebook for the latest updates and events.
+        - link "Visit facebook.com/mslpakistan" [ref=e274] [cursor=pointer]:
+          - /url: https://facebook.com/mslpakistan
+  - contentinfo [ref=e275]:
+    - generic [ref=e277]:
+      - generic [ref=e278]:
+        - generic [ref=e279]:
+          - text: MSL
+          - text: PK
+        - paragraph [ref=e280]: MSL is a Students Organization with core agenda of Ideology, Islam, and Muslims identity in students.
+        - generic [ref=e281]:
+          - link "Facebook" [ref=e282] [cursor=pointer]:
+            - /url: https://facebook.com/mslpakistan
+            - img [ref=e283]
+          - link "Instagram" [ref=e285] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e286]
+          - link "X / Twitter" [ref=e288] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e289]
+          - link "LinkedIn" [ref=e291] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e292]
+          - link "YouTube" [ref=e294] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e295]
+      - generic [ref=e297]:
+        - heading "Quick Links" [level=4] [ref=e298]
+        - list [ref=e299]:
+          - listitem [ref=e300]:
+            - link "Home" [ref=e301] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e302]:
+            - link "About Us" [ref=e303] [cursor=pointer]:
+              - /url: /about-us
+          - listitem [ref=e304]:
+            - link "Events" [ref=e305] [cursor=pointer]:
+              - /url: /events
+          - listitem [ref=e306]:
+            - link "Press Releases" [ref=e307] [cursor=pointer]:
+              - /url: /press-releases
+          - listitem [ref=e308]:
+            - link "Our Departments" [ref=e309] [cursor=pointer]:
+              - /url: /departments
+          - listitem [ref=e310]:
+            - link "Terms & Conditions" [ref=e311] [cursor=pointer]:
+              - /url: /terms
+          - listitem [ref=e312]:
+            - link "Privacy Policy" [ref=e313] [cursor=pointer]:
+              - /url: /privacy
+      - generic [ref=e314]:
+        - heading "Literature" [level=4] [ref=e315]
+        - list [ref=e316]:
+          - listitem [ref=e317]:
+            - link "Literature" [ref=e318] [cursor=pointer]:
+              - /url: /literature
+          - listitem [ref=e319]:
+            - link "Blogs" [ref=e320] [cursor=pointer]:
+              - /url: /news-blogs
+          - listitem [ref=e321]:
+            - link "The Students Times" [ref=e322] [cursor=pointer]:
+              - /url: /students-times
+          - listitem [ref=e323]:
+            - link "Books" [ref=e324] [cursor=pointer]:
+              - /url: /books
+          - listitem [ref=e325]:
+            - link "Newsletter" [ref=e326] [cursor=pointer]:
+              - /url: /newsletter
+      - generic [ref=e327]:
+        - heading "Get in touch" [level=4] [ref=e328]
+        - paragraph [ref=e329]: Don't miss our future updates! Get Subscribed Today!
+        - generic [ref=e330]:
+          - textbox "Enter your email" [ref=e331]
+          - button "Subscribe" [ref=e332] [cursor=pointer]
+    - paragraph [ref=e334]: ©2026. MSL IT DEPARTMENT. Design & Develop by Abdul Manan
+  - alert [ref=e335]

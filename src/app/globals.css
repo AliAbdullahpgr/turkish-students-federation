@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Colors */
+  --color-primary: #0B3D2E;
+  --color-primary-dark: #072A1F;
+  --color-primary-light: #1A5C3A;
+  --color-accent: #3CB371;
+  --color-accent-light: #4CD68A;
+  --color-surface: #F4F6F5;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #555555;
+  --color-text-muted: #888888;
+  --color-border-custom: #E0E0E0;
+  --color-overlay: rgba(7, 42, 31, 0.65);
+
+  /* Fonts */
+  --font-heading: 'Poppins', 'Montserrat', sans-serif;
+  --font-body: 'Inter', 'Roboto', sans-serif;
+  --font-turkish: 'Noto Nastaliq Turkish', 'Jameel Noori Nastaleeq', serif;
+
+  /* Typography */
+  --text-section-title: 2.5rem;
+  --text-section-title--line-height: 1.2;
+  --text-body: 1rem;
+  --text-body--line-height: 1.75;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+  --spacing-xl: 64px;
+  --spacing-2xl: 96px;
+  --spacing-section: 80px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 50px;
+  --radius-card: 16px;
+
+  /* Box Shadows */
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.07);
+  --shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-header: 0 2px 10px rgba(0, 0, 0, 0.3);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-btn: 0 8px 20px rgba(11, 61, 46, 0.4);
+  --shadow-about-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+  /* Transitions */
+  --transition-duration-fast: 200ms;
+  --transition-duration-normal: 300ms;
+  --transition-duration-slow: 400ms;
+
+  /* Animation */
+  --animate-fade-in-up: fade-in-up 0.6s ease-out forwards;
+  --animate-fade-in: fade-in 0.4s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@layer base {
+  :root {
+    --color-background: #ffffff;
+    --color-foreground: #1A1A1A;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-foreground);
+    background: var(--color-background);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+  }
+
+  /* Turkish text styles */
+  .turkish-text {
+    font-family: var(--font-turkish);
+    direction: ltr;
+    line-height: 1.8;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #0B3D2E;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #072A1F;
+  }
+}
