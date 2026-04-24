@@ -51,8 +51,8 @@ export default function Footer() {
           {/* Brand Column */}
           <div>
             <Image
-              src="/logo.png"
-              alt="MSL Pakistan"
+              src="/turkish-flag.png"
+              alt="Turkish Student Federation"
               width={112}
               height={112}
               className="w-28 h-28 object-contain mb-4"

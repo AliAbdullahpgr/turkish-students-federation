@@ -17,8 +17,8 @@ export default function Navigation() {
       <div className="flex items-center justify-between px-6 lg:px-12 py-1 max-w-[1280px] mx-auto">
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo.png"
-            alt="MSL Pakistan"
+            src="/turkish-flag.png"
+            alt="Turkish Student Federation"
             width={112}
             height={112}
             className="h-20 w-auto object-contain"
