@@ -2,6 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import FadeIn from "@/components/animation/FadeIn";
+import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -47,147 +50,140 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white/80 pt-16">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-12">
+        <StaggerContainer
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-12"
+          staggerDelay={0.1}
+        >
           {/* Brand Column */}
-          <div>
-            <Image
-              src="/logo.png"
-              alt="MSL Pakistan"
-              width={112}
-              height={112}
-              className="w-28 h-28 object-contain mb-4"
-            />
-            <p className="text-sm leading-relaxed mb-5">
-              TSF is a Students Organization with core agenda of Ideology,
-              Islam, and Muslims identity in students.
-            </p>
-            <div className="flex gap-3">
-              <Link
-                href="https://facebook.com/tsfturkey"
-                prefetch={false}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                aria-label="Facebook"
-              >
-                <FacebookIcon className="w-4 h-4" />
-              </Link>
-              <Link
-                href="#"
-                prefetch={false}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                aria-label="Instagram"
-              >
-                <InstagramIcon className="w-4 h-4" />
-              </Link>
-              <Link
-                href="#"
-                prefetch={false}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                aria-label="X / Twitter"
-              >
-                <TwitterIcon className="w-4 h-4" />
-              </Link>
-              <Link
-                href="#"
-                prefetch={false}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon className="w-4 h-4" />
-              </Link>
-              <Link
-                href="#"
-                prefetch={false}
-                className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                aria-label="YouTube"
-              >
-                <YoutubeIcon className="w-4 h-4" />
-              </Link>
+          <StaggerItem>
+            <div>
+              <Image
+                src="/logo.png"
+                alt="MSL Pakistan"
+                width={112}
+                height={112}
+                className="w-28 h-28 object-contain mb-4"
+              />
+              <p className="text-sm leading-relaxed mb-5">
+                TSF is a Students Organization with core agenda of Ideology,
+                Islam, and Muslims identity in students.
+              </p>
+              <div className="flex gap-3">
+                {[
+                  { href: "https://facebook.com/tsfturkey", label: "Facebook", Icon: FacebookIcon },
+                  { href: "#", label: "Instagram", Icon: InstagramIcon },
+                  { href: "#", label: "X / Twitter", Icon: TwitterIcon },
+                  { href: "#", label: "LinkedIn", Icon: LinkedinIcon },
+                  { href: "#", label: "YouTube", Icon: YoutubeIcon },
+                ].map(({ href, label, Icon }) => (
+                  <motion.div key={label} whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
+                    <Link
+                      href={href}
+                      prefetch={false}
+                      className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
+                      aria-label={label}
+                    >
+                      <Icon className="w-4 h-4" />
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
             </div>
-          </div>
+          </StaggerItem>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-              Quick Links
-            </h4>
-            <ul className="list-none p-0 m-0">
-              {[
-                { label: "Home", href: "/" },
-                { label: "About Us", href: "/about-us/" },
-                { label: "Events", href: "/events/" },
-                { label: "Press Releases", href: "/press-releases/" },
-                { label: "Our Departments", href: "/departments/" },
-                { label: "Terms & Conditions", href: "/terms/" },
-                { label: "Privacy Policy", href: "/privacy/" },
-              ].map((link) => (
-                <li key={link.label} className="mb-2.5">
-                  <Link
-                    href={link.href}
-                    prefetch={false}
-                    className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <StaggerItem>
+            <div>
+              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
+                Quick Links
+              </h4>
+              <ul className="list-none p-0 m-0">
+                {[
+                  { label: "Home", href: "/" },
+                  { label: "About Us", href: "/about-us/" },
+                  { label: "Events", href: "/events/" },
+                  { label: "Press Releases", href: "/press-releases/" },
+                  { label: "Our Departments", href: "/departments/" },
+                  { label: "Terms & Conditions", href: "/terms/" },
+                  { label: "Privacy Policy", href: "/privacy/" },
+                ].map((link) => (
+                  <li key={link.label} className="mb-2.5">
+                    <Link
+                      href={link.href}
+                      prefetch={false}
+                      className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </StaggerItem>
 
           {/* Literature */}
-          <div>
-            <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-              Literature
-            </h4>
-            <ul className="list-none p-0 m-0">
-              {[
-                { label: "Literature", href: "/literature/" },
-                { label: "Blogs", href: "/news-blogs/" },
-                { label: "The Students Times", href: "/students-times/" },
-                { label: "Books", href: "/books/" },
-                { label: "Newsletter", href: "/newsletter/" },
-              ].map((link) => (
-                <li key={link.label} className="mb-2.5">
-                  <Link
-                    href={link.href}
-                    prefetch={false}
-                    className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <StaggerItem>
+            <div>
+              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
+                Literature
+              </h4>
+              <ul className="list-none p-0 m-0">
+                {[
+                  { label: "Literature", href: "/literature/" },
+                  { label: "Blogs", href: "/news-blogs/" },
+                  { label: "The Students Times", href: "/students-times/" },
+                  { label: "Books", href: "/books/" },
+                  { label: "Newsletter", href: "/newsletter/" },
+                ].map((link) => (
+                  <li key={link.label} className="mb-2.5">
+                    <Link
+                      href={link.href}
+                      prefetch={false}
+                      className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </StaggerItem>
 
           {/* Newsletter */}
-          <div>
-            <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-              Get in touch
-            </h4>
-            <p className="text-sm leading-relaxed mb-4">
-              Don&apos;t miss our future updates! Get Subscribed Today!
-            </p>
-            <form className="flex flex-col gap-2.5">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.08] text-white text-sm outline-none placeholder:text-white/50"
-              />
-              <button
-                type="submit"
-                className="bg-primary-light text-white px-8 py-3 rounded-pill text-sm font-semibold border-none cursor-pointer transition-all hover:bg-primary-dark hover:-translate-y-0.5"
-              >
-                Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
+          <StaggerItem>
+            <div>
+              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
+                Get in touch
+              </h4>
+              <p className="text-sm leading-relaxed mb-4">
+                Don&apos;t miss our future updates! Get Subscribed Today!
+              </p>
+              <form className="flex flex-col gap-2.5">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.08] text-white text-sm outline-none placeholder:text-white/50 transition-all focus:border-accent focus:bg-white/10"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="bg-primary-light text-white px-8 py-3 rounded-pill text-sm font-semibold border-none cursor-pointer transition-colors hover:bg-primary-dark"
+                >
+                  Subscribe
+                </motion.button>
+              </form>
+            </div>
+          </StaggerItem>
+        </StaggerContainer>
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/10 mt-12 py-5 px-6 lg:px-12 text-center text-[13px] text-white/50">
-        <p>©2026. TSF IT DEPARTMENT. Design & Develop by Abdul Manan</p>
-      </div>
+      <FadeIn>
+        <div className="border-t border-white/10 mt-12 py-5 px-6 lg:px-12 text-center text-[13px] text-white/50">
+          <p>©2026. TSF IT DEPARTMENT. Design & Develop by Abdul Manan</p>
+        </div>
+      </FadeIn>
     </footer>
   );
 }

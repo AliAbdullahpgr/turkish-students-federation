@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 interface PageHeroProps {
   title: string;
   accentWord: string;
@@ -24,11 +26,16 @@ export default function PageHero({
     >
       <div className="absolute inset-0 bg-[rgba(7,42,31,0.6)]" />
       <div className="relative z-[2] text-center px-6">
-        <h1 className="text-[clamp(32px,5vw,52px)] font-extrabold text-white">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+          className="text-[clamp(32px,5vw,52px)] font-extrabold text-white"
+        >
           {titleParts[0]}
           <span className="text-accent">{accentWord}</span>
           {titleParts[1] || ""}
-        </h1>
+        </motion.h1>
       </div>
     </section>
   );

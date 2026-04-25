@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface BlogCardProps {
   date: string;
@@ -20,14 +21,18 @@ export default function BlogCard({
   thumbnail,
 }: BlogCardProps) {
   return (
-    <article className="bg-white rounded-md overflow-hidden shadow-card transition-all duration-normal hover:-translate-y-1 hover:shadow-card-hover group">
+    <motion.article
+      whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-md overflow-hidden shadow-card group cursor-pointer"
+    >
       {thumbnail && (
         <div className="aspect-video overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={thumbnail}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-slow group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         </div>
       )}
@@ -57,6 +62,6 @@ export default function BlogCard({
           READ MORE
         </Link>
       </div>
-    </article>
+    </motion.article>
   );
 }

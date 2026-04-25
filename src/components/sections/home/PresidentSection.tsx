@@ -1,15 +1,21 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import FadeIn from "@/components/animation/FadeIn";
 
 export default function PresidentSection() {
   return (
     <section className="py-section bg-surface">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="flex justify-center">
-            <div className="w-[280px] h-[350px] lg:w-[350px] lg:h-[420px] rounded-[20px] overflow-hidden">
+          <FadeIn direction="left" className="flex justify-center">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className="w-[280px] h-[350px] lg:w-[350px] lg:h-[420px] rounded-[20px] overflow-hidden shadow-card"
+            >
               <Image
                 src="/image/leader.png"
                 alt="Umar Abbas - President"
@@ -17,9 +23,9 @@ export default function PresidentSection() {
                 height={420}
                 className="w-full h-full object-cover object-top"
               />
-            </div>
-          </div>
-          <div>
+            </motion.div>
+          </FadeIn>
+          <FadeIn direction="right" delay={0.2}>
             <SectionEyebrow text="OUR PRESIDENT" />
             <h2 className="text-section-title font-heading font-bold text-text-primary mb-2">
               Umar Abbas
@@ -35,7 +41,7 @@ export default function PresidentSection() {
               leadership, community service, and fostering youth engagement
               through the Turkish Student Federation&apos;s programs and initiatives.
             </p>
-          </div>
+          </FadeIn>
         </div>
       </div>
     </section>

@@ -1,7 +1,9 @@
 "use client";
 
+import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import FadeIn from "@/components/animation/FadeIn";
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -16,40 +18,57 @@ export default function LatestReleaseSection() {
     <section className="py-section bg-surface">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <SectionEyebrow text="LATEST RELEASE" />
-            <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
-              Taleem Se Takmeel Turkey Ka Safar
-            </h2>
-            <div className="flex flex-wrap gap-2 mb-6">
-              {[
-                "Turkish Student Federation",
-                "Student Organization",
-                "Ex President",
-                "Ans Mushi",
-                "Seminar",
-                "Youth Impact",
-              ].map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full"
+          <FadeIn direction="left">
+            <div>
+              <SectionEyebrow text="LATEST RELEASE" />
+              <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
+                Taleem Se Takmeel Turkey Ka Safar
+              </h2>
+              <div className="flex flex-wrap gap-2 mb-6">
+                {[
+                  "Turkish Student Federation",
+                  "Student Organization",
+                  "Ex President",
+                  "Ans Mushi",
+                  "Seminar",
+                  "Youth Impact",
+                ].map((tag, i) => (
+                  <motion.span
+                    key={tag}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * i, duration: 0.3 }}
+                    className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full"
+                  >
+                    {tag}
+                  </motion.span>
+                ))}
+              </div>
+              <PrimaryButton href="#" className="gap-2">
+                <YoutubeIcon className="w-4 h-4" />
+                Follow Youtube Channel
+              </PrimaryButton>
+            </div>
+          </FadeIn>
+          <FadeIn direction="right" delay={0.2}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+              className="aspect-video bg-primary rounded-[16px] flex items-center justify-center cursor-pointer"
+            >
+              <div className="text-center text-white">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  {tag}
-                </span>
-              ))}
-            </div>
-            <PrimaryButton href="#" className="gap-2">
-              <YoutubeIcon className="w-4 h-4" />
-              Follow Youtube Channel
-            </PrimaryButton>
-          </div>
-          <div className="aspect-video bg-primary rounded-[16px] flex items-center justify-center">
-            <div className="text-center text-white">
-              <YoutubeIcon className="w-16 h-16 mx-auto mb-4 opacity-80" />
-              <p className="text-lg font-semibold">Featured Video</p>
-              <p className="text-sm text-white/70">Taleem Se Takmeel Turkey Ka Safar</p>
-            </div>
-          </div>
+                  <YoutubeIcon className="w-16 h-16 mx-auto mb-4 opacity-80" />
+                </motion.div>
+                <p className="text-lg font-semibold">Featured Video</p>
+                <p className="text-sm text-white/70">Taleem Se Takmeel Turkey Ka Safar</p>
+              </div>
+            </motion.div>
+          </FadeIn>
         </div>
       </div>
     </section>

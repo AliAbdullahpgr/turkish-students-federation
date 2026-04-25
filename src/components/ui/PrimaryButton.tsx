@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface PrimaryButtonProps {
   href?: string;
@@ -19,23 +20,32 @@ export default function PrimaryButton({
   className = "",
 }: PrimaryButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center bg-primary text-white px-8 py-3.5 rounded-pill text-sm font-semibold no-underline border-none cursor-pointer transition-all duration-normal hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-btn active:translate-y-0";
+    "inline-flex items-center justify-center bg-primary text-white px-8 py-3.5 rounded-pill text-sm font-semibold no-underline border-none cursor-pointer transition-all duration-normal hover:bg-primary-dark hover:shadow-btn";
+
+  const motionProps = {
+    whileHover: { scale: 1.03, y: -2 },
+    whileTap: { scale: 0.98 },
+    transition: { duration: 0.2 },
+  };
 
   if (href) {
     return (
-      <Link href={href} className={`${baseClasses} ${className}`}>
-        {children}
-      </Link>
+      <motion.div {...motionProps} className="inline-block">
+        <Link href={href} className={`${baseClasses} ${className}`}>
+          {children}
+        </Link>
+      </motion.div>
     );
   }
 
   return (
-    <button
+    <motion.button
       type={type}
       onClick={onClick}
       className={`${baseClasses} ${className}`}
+      {...motionProps}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
