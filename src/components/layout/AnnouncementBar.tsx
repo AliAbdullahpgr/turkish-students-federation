@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { siteIdentity } from "@/data/siteContent";
 
 export default function AnnouncementBar() {
   return (
@@ -11,13 +12,13 @@ export default function AnnouncementBar() {
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       className="bg-primary-light text-white flex items-center justify-center gap-4 px-6 py-2 text-[13px] font-medium sticky top-0 z-[1000]"
     >
-      <span>Harekete katıl — Pakistan Türk Öğrenci Birliği</span>
+      <span>{siteIdentity.guideName}: Pakistan&apos;a hazırlanan Türk öğrenciler için ana kaynak</span>
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Link
-          href="/join-tsf/"
+          href={siteIdentity.guideHref}
           className="bg-transparent border-[1.5px] border-white text-white px-4 py-1 rounded-pill text-xs font-bold uppercase tracking-wider no-underline transition-all duration-fast hover:bg-white hover:text-primary-light"
         >
-          BİZE KATIL
+          REHBERİ AÇ
         </Link>
       </motion.div>
     </motion.div>

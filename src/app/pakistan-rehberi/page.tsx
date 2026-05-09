@@ -4,6 +4,7 @@ import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import PageHero from "@/components/ui/PageHero";
 import { pakistanGuideData, GuideSection } from "@/data/pakistanGuide";
+import { siteIdentity } from "@/data/siteContent";
 import { MapPin, BookOpen, GraduationCap, Heart, Landmark, Phone } from "lucide-react";
 
 function SectionIcon({ title }: { title: string }) {
@@ -84,9 +85,8 @@ function TableOfContents({ sections }: { sections: GuideSection[] }) {
 }
 
 export const metadata: Metadata = {
-  title: "Pakistan Öğrenci Rehberi - Turkish Student Federation",
-  description:
-    "Pakistan'da eğitim görmeyi planlayan Türk öğrenciler için kapsamlı rehber. Vize, konaklama, üniversiteler, sağlık, turistik mekânlar ve daha fazlası.",
+  title: `${siteIdentity.guideName} - ${siteIdentity.name}`,
+  description: siteIdentity.guideDescription,
 };
 
 export default function PakistanGuidePage() {
@@ -115,9 +115,7 @@ export default function PakistanGuidePage() {
                       Pakistan <span className="text-accent">Öğrenci Rehberi</span>
                     </h1>
                     <p className="text-body text-text-secondary mt-4 max-w-[700px]">
-                      Pakistan&apos;da eğitim hayatına başlamayı planlayan Türk öğrenciler için 
-                      hazırlanmış kapsamlı bir rehber. Vize işlemlerinden konaklamaya, 
-                      üniversitelerden sağlık hizmetlerine kadar her konuda bilgi edinebilirsiniz.
+                      {siteIdentity.guideDescription}
                     </p>
                   </div>
 

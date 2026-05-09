@@ -10,11 +10,11 @@ import KeyActivitiesSection from "@/components/sections/about/KeyActivitiesSecti
 import LeadershipTeamSection from "@/components/sections/about/LeadershipTeamSection";
 import ImpactNumbersSection from "@/components/sections/about/ImpactNumbersSection";
 import CTABannerSection from "@/components/sections/about/CTABannerSection";
+import { siteIdentity } from "@/data/siteContent";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda - Pakistan Türk Öğrenci Birliği",
-  description:
-    "Pakistan Türk Öğrenci Birliği hakkında bilgi edinin. Pakistan'da eğitim gören Türk öğrencilere destek olan kardeşlik ve rehberlik topluluğu.",
+  title: `Hakkımızda - ${siteIdentity.guideName}`,
+  description: siteIdentity.description,
 };
 
 export default function AboutUsPage() {
@@ -23,7 +23,7 @@ export default function AboutUsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Pakistan Türk Öğrenci Birliği Hakkında" accentWord="Öğrenci" />
+        <PageHero title={`${siteIdentity.guideName} Hakkında`} accentWord="Öğrenci" />
         <WhoWeAreSection />
         <MissionVisionSection />
         <CoreValuesSection />

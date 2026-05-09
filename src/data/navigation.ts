@@ -1,32 +1,37 @@
+import { guideSourceSections, siteIdentity } from "@/data/siteContent";
+
 export const navItems = [
   { label: "Ana Sayfa", href: "/" },
   {
+    label: "Pakistan Rehberi",
+    href: siteIdentity.guideHref,
+    children: guideSourceSections.map((section) => ({
+      label: section.title,
+      href: section.href,
+    })),
+  },
+  {
     label: "Hakkımızda",
     href: "/about-us/",
-    children: [{ label: "Hakkımızda", href: "/about-us/" }],
-  },
-  { label: "Etkinlikler", href: "/events/" },
-  {
-    label: "Bize Katıl",
-    href: "/join-tsf/",
-    children: [{ label: "Bize Katıl", href: "/join-tsf/" }],
-  },
-  { label: "Haberler & Blog", href: "/news-blogs/" },
-  {
-    label: "Edebiyat",
-    href: "/literature/",
-    children: [{ label: "Edebiyat", href: "/literature/" }],
-  },
-  { label: "Pakistan Rehberi", href: "/pakistan-rehberi/" },
-  { label: "İletişim", href: "/contact-us/" },
-  {
-    label: "Sayfalar",
-    href: "#",
     children: [
-      { label: "Basın Açıklamaları", href: "/press-releases/" },
+      { label: "Biz Kimiz?", href: "/pakistan-rehberi/#biz-kimiz" },
+      { label: "Hakkımızda", href: "/about-us/" },
       { label: "Birimlerimiz", href: "/departments/" },
-      { label: "Kullanım Koşulları", href: "/terms/" },
-      { label: "Gizlilik Politikası", href: "/privacy/" },
     ],
   },
+  { label: "Etkinlikler", href: "/events/" },
+  { label: "Haberler & Blog", href: "/news-blogs/" },
+  {
+    label: "Yayınlar",
+    href: "/literature/",
+    children: [
+      { label: "Edebiyat", href: "/literature/" },
+      { label: "The Students Times", href: "/students-times/" },
+      { label: "Kitaplar", href: "/books/" },
+      { label: "Bülten", href: "/newsletter/" },
+      { label: "Basın Açıklamaları", href: "/press-releases/" },
+    ],
+  },
+  { label: "Bize Katıl", href: siteIdentity.joinHref },
+  { label: "İletişim", href: "/contact-us/" },
 ];

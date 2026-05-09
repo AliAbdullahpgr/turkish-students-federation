@@ -12,11 +12,11 @@ import CoursesCarouselSection from "@/components/sections/home/CoursesCarouselSe
 import LatestReleaseSection from "@/components/sections/home/LatestReleaseSection";
 import MediaNewsSection from "@/components/sections/home/MediaNewsSection";
 import FacebookFeedSection from "@/components/sections/home/FacebookFeedSection";
+import { siteIdentity } from "@/data/siteContent";
 
 export const metadata: Metadata = {
-  title: "Ana Sayfa - Pakistan Türk Öğrenci Birliği",
-  description:
-    "Pakistan Türk Öğrenci Birliği, Pakistan'da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.",
+  title: `Ana Sayfa - ${siteIdentity.guideName}`,
+  description: siteIdentity.guideDescription,
 };
 
 export default function HomePage() {

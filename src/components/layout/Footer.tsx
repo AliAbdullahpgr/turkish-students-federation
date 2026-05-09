@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
+import { siteIdentity } from "@/data/siteContent";
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -65,7 +66,7 @@ export default function Footer() {
                 className="w-28 h-28 object-contain mb-4"
               />
               <p className="text-sm leading-relaxed mb-5">
-                Pakistan Türk Öğrenci Birliği, Pakistan&apos;da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.
+                {siteIdentity.description}
               </p>
               <div className="flex gap-3">
                 {[
@@ -99,6 +100,7 @@ export default function Footer() {
               <ul className="list-none p-0 m-0">
                 {[
                   { label: "Ana Sayfa", href: "/" },
+                  { label: "Pakistan Öğrenci Rehberi", href: siteIdentity.guideHref },
                   { label: "Hakkımızda", href: "/about-us/" },
                   { label: "Etkinlikler", href: "/events/" },
                   { label: "Basın Açıklamaları", href: "/press-releases/" },

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Inter, Lora, Noto_Nastaliq_Urdu } from "next/font/google";
+import { siteIdentity } from "@/data/siteContent";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -27,15 +28,13 @@ const notoNastaliqUrdu = Noto_Nastaliq_Urdu({
 });
 
 export const metadata: Metadata = {
-  title: "Ana Sayfa - Pakistan Türk Öğrenci Birliği",
-  description:
-    "Pakistan Türk Öğrenci Birliği, Pakistan'da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.",
+  title: `${siteIdentity.guideName} - ${siteIdentity.name}`,
+  description: siteIdentity.guideDescription,
   openGraph: {
-    title: "Pakistan Türk Öğrenci Birliği",
-    description:
-      "Pakistan Türk Öğrenci Birliği, Pakistan'da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.",
+    title: siteIdentity.guideName,
+    description: siteIdentity.guideDescription,
     url: "https://tsfturkey.org",
-    siteName: "Pakistan Türk Öğrenci Birliği",
+    siteName: siteIdentity.name,
     locale: "tr_TR",
     type: "website",
   },
