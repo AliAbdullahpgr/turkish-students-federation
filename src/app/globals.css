@@ -7,6 +7,9 @@
   --color-primary-light: #1A5C3A;
   --color-accent: #3CB371;
   --color-accent-light: #4CD68A;
+  --color-turkish-red: #E30A17;
+  --color-turkish-red-dark: #C40812;
+  --color-turkish-red-light: #FF2A3A;
   --color-surface: #F4F6F5;
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #555555;
@@ -117,7 +120,7 @@
     border-radius: 4px;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #072A1F;
+  ::-webkit-scrollbar-thumb:active {
+    background: #E30A17;
   }
 }

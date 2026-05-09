@@ -12,7 +12,7 @@ export default function CTABannerSection() {
         <FadeIn>
           <SectionEyebrow text="HAREKETE KATIL" />
           <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
-            Pakistan Türk Öğrenci Birliği&apos;ne Katılın — <span className="text-accent">Geleceği</span> Şekillendirin
+            Pakistan Türk Öğrenci Birliği&apos;ne Katılın — <span className="text-turkish-red">Geleceği</span> Şekillendirin
           </h2>
         </FadeIn>
         <FadeIn delay={0.15}>
@@ -27,7 +27,7 @@ export default function CTABannerSection() {
               <PrimaryButton href="/join-tsf/">Bugün Üye Olun</PrimaryButton>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <PrimaryButton href="/pakistan-rehberi/" className="bg-white text-primary border-2 border-primary hover:bg-primary hover:text-white">
+              <PrimaryButton href="/pakistan-rehberi/" className="bg-transparent text-turkish-red border-2 border-turkish-red hover:bg-turkish-red hover:text-white">
                 Pakistan Rehberini İncele
               </PrimaryButton>
             </motion.div>

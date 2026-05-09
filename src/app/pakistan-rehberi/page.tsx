@@ -9,12 +9,12 @@ import { MapPin, BookOpen, GraduationCap, Heart, Landmark, Phone } from "lucide-
 
 function SectionIcon({ title }: { title: string }) {
   const lower = title.toLowerCase();
-  if (lower.includes("vize") || lower.includes("pasaport") || lower.includes("işlem") || lower.includes("ehliyet") || lower.includes("konaklama")) return <BookOpen className="w-5 h-5 text-accent" />;
-  if (lower.includes("üniversite") || lower.includes("eğitim") || lower.includes("kurs")) return <GraduationCap className="w-5 h-5 text-accent" />;
-  if (lower.includes("sağlık") || lower.includes("hastane")) return <Heart className="w-5 h-5 text-accent" />;
-  if (lower.includes("turistik") || lower.includes("mekân") || lower.includes("cami") || lower.includes("kale") || lower.includes("türbe") || lower.includes("museum") || lower.includes("park") || lower.includes("garden") || lower.includes("beach") || lower.includes("pazar") || lower.includes("meydan")) return <Landmark className="w-5 h-5 text-accent" />;
-  if (lower.includes("iletişim") || lower.includes("numara") || lower.includes("ulaşım") || lower.includes("döviz")) return <Phone className="w-5 h-5 text-accent" />;
-  return <MapPin className="w-5 h-5 text-accent" />;
+  if (lower.includes("vize") || lower.includes("pasaport") || lower.includes("işlem") || lower.includes("ehliyet") || lower.includes("konaklama")) return <BookOpen className="w-5 h-5 text-turkish-red" />;
+  if (lower.includes("üniversite") || lower.includes("eğitim") || lower.includes("kurs")) return <GraduationCap className="w-5 h-5 text-turkish-red" />;
+  if (lower.includes("sağlık") || lower.includes("hastane")) return <Heart className="w-5 h-5 text-turkish-red" />;
+  if (lower.includes("turistik") || lower.includes("mekân") || lower.includes("cami") || lower.includes("kale") || lower.includes("türbe") || lower.includes("museum") || lower.includes("park") || lower.includes("garden") || lower.includes("beach") || lower.includes("pazar") || lower.includes("meydan")) return <Landmark className="w-5 h-5 text-turkish-red" />;
+  if (lower.includes("iletişim") || lower.includes("numara") || lower.includes("ulaşım") || lower.includes("döviz")) return <Phone className="w-5 h-5 text-turkish-red" />;
+  return <MapPin className="w-5 h-5 text-turkish-red" />;
 }
 
 function GuideSectionComponent({ section, depth = 0 }: { section: GuideSection; depth?: number }) {
@@ -108,11 +108,11 @@ export default function PakistanGuidePage() {
               <div className="lg:col-span-3">
                 <div className="bg-white rounded-[16px]">
                   <div className="mb-8 pb-8 border-b border-gray-100">
-                    <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase rounded-full mb-4">
+                    <span className="inline-block px-3 py-1 bg-turkish-red/10 text-turkish-red text-xs font-bold uppercase rounded-full mb-4">
                       Rehber
                     </span>
                     <h1 className="text-[clamp(28px,4vw,42px)] font-bold text-text-primary leading-tight">
-                      Pakistan <span className="text-accent">Öğrenci Rehberi</span>
+                      Pakistan <span className="text-turkish-red">Öğrenci Rehberi</span>
                     </h1>
                     <p className="text-body text-text-secondary mt-4 max-w-[700px]">
                       {siteIdentity.guideDescription}

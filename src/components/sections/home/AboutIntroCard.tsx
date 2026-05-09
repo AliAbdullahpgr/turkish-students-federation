@@ -19,7 +19,7 @@ export default function AboutIntroCard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-[13px] font-semibold text-accent uppercase tracking-[2px] block mb-3"
+          className="text-[13px] font-semibold text-turkish-red uppercase tracking-[2px] block mb-3"
         >
           Rehberden Alıntı
         </motion.span>

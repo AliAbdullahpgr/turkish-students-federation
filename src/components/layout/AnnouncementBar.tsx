@@ -16,7 +16,7 @@ export default function AnnouncementBar() {
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Link
           href={siteIdentity.guideHref}
-          className="bg-transparent border-[1.5px] border-white text-white px-4 py-1 rounded-pill text-xs font-bold uppercase tracking-wider no-underline transition-all duration-fast hover:bg-white hover:text-primary-light"
+          className="bg-transparent border-[1.5px] border-white text-white px-4 py-1 rounded-pill text-xs font-bold uppercase tracking-wider no-underline transition-all duration-fast hover:bg-turkish-red hover:border-turkish-red hover:text-white"
         >
           REHBERİ AÇ
         </Link>

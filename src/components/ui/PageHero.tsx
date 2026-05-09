@@ -33,7 +33,7 @@ export default function PageHero({
           className="text-[clamp(32px,5vw,52px)] font-extrabold text-white"
         >
           {titleParts[0]}
-          <span className="text-accent">{accentWord}</span>
+          <span className="text-turkish-red">{accentWord}</span>
           {titleParts[1] || ""}
         </motion.h1>
       </div>

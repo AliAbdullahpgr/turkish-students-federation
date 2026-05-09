@@ -20,7 +20,7 @@ export default function PrimaryButton({
   className = "",
 }: PrimaryButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center bg-primary text-white px-8 py-3.5 rounded-pill text-sm font-semibold no-underline border-none cursor-pointer transition-all duration-normal hover:bg-primary-dark hover:shadow-btn";
+    "inline-flex items-center justify-center bg-turkish-red text-white px-8 py-3.5 rounded-pill text-sm font-semibold no-underline border-none cursor-pointer transition-all duration-normal hover:bg-turkish-red-dark hover:shadow-btn";
 
   const motionProps = {
     whileHover: { scale: 1.03, y: -2 },
