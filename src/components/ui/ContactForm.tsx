@@ -26,7 +26,7 @@ export default function ContactForm() {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    alert("Message sent! We will get back to you within 24 hours.");
+    alert("Mesajınız gönderildi! 24 saat içinde size dönüş yapacağız.");
   };
 
   return (
@@ -40,22 +40,22 @@ export default function ContactForm() {
               transition={{ duration: 0.3 }}
               className="bg-white rounded-[16px] p-10 shadow-card"
             >
-              <SectionEyebrow text="GET IN TOUCH" />
+              <SectionEyebrow text="İLETİŞİME GEÇ" />
               <h2 className="text-section-title font-heading font-bold text-text-primary mb-2">
-                Contact Us
+                Bize Ulaşın
               </h2>
               <p className="text-body text-text-secondary mb-8">
-                Submit your inquiry and our team will respond within 24 hours.
+                Sorularınızı gönderin, ekibimiz 24 saat içinde yanıt verecektir.
               </p>
 
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Name
+                    Ad Soyad
                   </label>
                   <input
-                    {...register("name", { required: "Name is required" })}
-                    placeholder="Enter your full name"
+                    {...register("name", { required: "Ad soyad gereklidir" })}
+                    placeholder="Adınızı ve soyadınızı girin"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                   />
                   {errors.name && (
@@ -66,12 +66,12 @@ export default function ContactForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                      Email
+                      E-posta
                     </label>
                     <input
                       type="email"
-                      {...register("email", { required: "Email is required" })}
-                      placeholder="Enter your email"
+                      {...register("email", { required: "E-posta gereklidir" })}
+                      placeholder="E-posta adresinizi girin"
                       className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                     />
                     {errors.email && (
@@ -85,7 +85,7 @@ export default function ContactForm() {
                     <input
                       type="tel"
                       {...register("whatsapp")}
-                      placeholder="Enter your WhatsApp number"
+                      placeholder="WhatsApp numaranızı girin"
                       className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                     />
                   </div>
@@ -94,38 +94,38 @@ export default function ContactForm() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                      Membership ID (optional)
+                      Üyelik No (isteğe bağlı)
                     </label>
                     <input
                       {...register("membership")}
-                      placeholder="Enter your membership ID"
+                      placeholder="Üyelik numaranızı girin"
                       className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                     />
                   </div>
                   <div>
                     <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                      Department
+                      Birim
                     </label>
                     <select
                       {...register("department")}
                       className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                     >
-                      <option value="">Select Department</option>
-                      <option value="general">General Inquiry</option>
-                      <option value="membership">Membership</option>
-                      <option value="media">Media & PR</option>
-                      <option value="events">Events</option>
+                      <option value="">Birim Seçin</option>
+                      <option value="general">Genel Soru</option>
+                      <option value="membership">Üyelik</option>
+                      <option value="media">Medya & Halkla İlişkiler</option>
+                      <option value="events">Etkinlikler</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Subject
+                    Konu
                   </label>
                   <input
-                    {...register("subject", { required: "Subject is required" })}
-                    placeholder="Enter subject"
+                    {...register("subject", { required: "Konu gereklidir" })}
+                    placeholder="Konuyu girin"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
                   />
                   {errors.subject && (
@@ -135,12 +135,12 @@ export default function ContactForm() {
 
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Message
+                    Mesaj
                   </label>
                   <textarea
-                    {...register("message", { required: "Message is required" })}
+                    {...register("message", { required: "Mesaj gereklidir" })}
                     rows={5}
-                    placeholder="Write your message here..."
+                    placeholder="Mesajınızı buraya yazın..."
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm resize-none"
                   />
                   {errors.message && (
@@ -149,7 +149,7 @@ export default function ContactForm() {
                 </div>
 
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <PrimaryButton type="submit">Send Message</PrimaryButton>
+                  <PrimaryButton type="submit">Mesaj Gönder</PrimaryButton>
                 </motion.div>
               </form>
             </motion.div>
@@ -162,9 +162,9 @@ export default function ContactForm() {
               transition={{ duration: 0.3 }}
               className="bg-primary rounded-[16px] p-10 text-white"
             >
-              <h3 className="text-[22px] font-bold mb-2.5">Contact Information</h3>
+              <h3 className="text-[22px] font-bold mb-2.5">İletişim Bilgileri</h3>
               <p className="text-white/80 mb-8">
-                Reach us directly through email, WhatsApp, or our office address.
+                Bize doğrudan e-posta, WhatsApp veya ofis adresimizden ulaşabilirsiniz.
               </p>
 
               <div className="space-y-6">
@@ -174,7 +174,7 @@ export default function ContactForm() {
                   className="p-4 bg-white/[0.08] rounded-[10px]"
                 >
                   <span className="block text-[11px] font-bold tracking-[2px] text-accent mb-1.5">
-                    EMAIL
+                    E-POSTA
                   </span>
                   <a
                     href="mailto:query@tsfturkey.org"
@@ -205,11 +205,11 @@ export default function ContactForm() {
                   className="p-4 bg-white/[0.08] rounded-[10px]"
                 >
                   <span className="block text-[11px] font-bold tracking-[2px] text-accent mb-1.5">
-                    ADDRESS
+                    ADRES
                   </span>
                   <span className="flex items-start gap-2">
                     <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                    Turkish Student Federation, Main Office, Istanbul, Marmara, Turkey
+                    Pakistan Türk Öğrenci Birliği, Ana Ofis, İslamabad, Pakistan
                   </span>
                 </motion.div>
               </div>

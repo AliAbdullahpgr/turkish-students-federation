@@ -8,52 +8,52 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 const departments = [
   {
     id: "1",
-    name: "Media & Publications",
+    name: "Medya & Yayınlar",
     description:
-      "Responsible for managing TSF's digital presence, social media, newsletters, and official publications. Ensures effective communication with students and the public.",
+      "Dijital varlığı, sosyal medyayı, bültenleri ve resmi yayınları yönetmekten sorumludur. Öğrenciler ve kamuoyuyla etkili iletişim sağlar.",
     icon: "📢",
   },
   {
     id: "2",
-    name: "Student Welfare",
+    name: "Öğrenci Refahı",
     description:
-      "Focuses on student wellbeing, financial assistance programs, mental health initiatives, and support services for students in need.",
+      "Öğrenci refahına, mali yardım programlarına, ruh sağlığı girişimlerine ve ihtiyaç sahibi öğrenciler için destek hizmetlerine odaklanır.",
     icon: "🤝",
   },
   {
     id: "3",
-    name: "Islamic Education",
+    name: "İslami Eğitim",
     description:
-      "Organizes Quran classes, Islamic studies workshops, and spiritual development programs for students seeking religious education.",
+      "Dini eğitim arayan öğrenciler için Kuran dersleri, İslami çalışmalar atölyeleri ve manevi gelişim programları düzenler.",
     icon: "📖",
   },
   {
     id: "4",
-    name: "Event Management",
+    name: "Etkinlik Yönetimi",
     description:
-      "Plans and executes conferences, seminars, cultural events, and student gatherings at local and national levels.",
+      "Yerel ve ulusal düzeyde konferansları, seminerleri, kültürel etkinlikleri ve öğrenci buluşmalarını planlar ve yürütür.",
     icon: "🎉",
   },
   {
     id: "5",
-    name: "Research & Development",
+    name: "Araştırma & Geliştirme",
     description:
-      "Promotes academic research, innovation, and collaboration between students and faculty members across various disciplines.",
+      "Akademik araştırmayı, yeniliği ve çeşitli disiplinlerde öğrenciler ile öğretim üyeleri arasındaki işbirliğini teşvik eder.",
     icon: "🔬",
   },
   {
     id: "6",
-    name: "International Relations",
+    name: "Uluslararası İlişkiler",
     description:
-      "Builds connections with student organizations worldwide, manages exchange programs, and represents TSF at international forums.",
+      "Dünya çapındaki öğrenci örgütleriyle bağlantılar kurar, değişim programlarını yönetir ve uluslararası forumlarda PTÖB'yi temsil eder.",
     icon: "🌍",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Our Departments - Turkish Student Federation",
+  title: "Birimlerimiz - Pakistan Türk Öğrenci Birliği",
   description:
-    "Explore the various departments within Turkish Student Federation and their roles in serving the student community.",
+    "Pakistan Türk Öğrenci Birliği içindeki çeşitli birimleri ve öğrenci topluluğuna hizmet rollerini keşfedin.",
 };
 
 export default function DepartmentsPage() {
@@ -62,17 +62,17 @@ export default function DepartmentsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Our Departments" accentWord="Departments" />
+        <PageHero title="Birimlerimiz" accentWord="Birimler" />
 
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="ORGANIZATIONAL STRUCTURE" />
+              <SectionEyebrow text="ORGANİZASYON YAPISI" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                TSF <span className="text-accent">Departments</span>
+                <span className="text-accent">Birimlerimiz</span>
               </h2>
               <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Our dedicated departments work together to serve the student community and advance our mission.
+                Öğrenci topluluğuna hizmet etmek ve misyonumuzu ilerletmek için birlikte çalışan özel birimlerimiz.
               </p>
             </div>
 

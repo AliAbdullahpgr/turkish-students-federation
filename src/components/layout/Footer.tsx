@@ -65,8 +65,7 @@ export default function Footer() {
                 className="w-28 h-28 object-contain mb-4"
               />
               <p className="text-sm leading-relaxed mb-5">
-                TSF is a Students Organization with core agenda of Ideology,
-                Islam, and Muslims identity in students.
+                Pakistan Türk Öğrenci Birliği, Pakistan&apos;da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.
               </p>
               <div className="flex gap-3">
                 {[
@@ -95,17 +94,17 @@ export default function Footer() {
           <StaggerItem>
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                Quick Links
+                Hızlı Bağlantılar
               </h4>
               <ul className="list-none p-0 m-0">
                 {[
-                  { label: "Home", href: "/" },
-                  { label: "About Us", href: "/about-us/" },
-                  { label: "Events", href: "/events/" },
-                  { label: "Press Releases", href: "/press-releases/" },
-                  { label: "Our Departments", href: "/departments/" },
-                  { label: "Terms & Conditions", href: "/terms/" },
-                  { label: "Privacy Policy", href: "/privacy/" },
+                  { label: "Ana Sayfa", href: "/" },
+                  { label: "Hakkımızda", href: "/about-us/" },
+                  { label: "Etkinlikler", href: "/events/" },
+                  { label: "Basın Açıklamaları", href: "/press-releases/" },
+                  { label: "Birimlerimiz", href: "/departments/" },
+                  { label: "Kullanım Koşulları", href: "/terms/" },
+                  { label: "Gizlilik Politikası", href: "/privacy/" },
                 ].map((link) => (
                   <li key={link.label} className="mb-2.5">
                     <Link
@@ -125,15 +124,15 @@ export default function Footer() {
           <StaggerItem>
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                Literature
+                Edebiyat
               </h4>
               <ul className="list-none p-0 m-0">
                 {[
-                  { label: "Literature", href: "/literature/" },
-                  { label: "Blogs", href: "/news-blogs/" },
+                  { label: "Edebiyat", href: "/literature/" },
+                  { label: "Bloglar", href: "/news-blogs/" },
                   { label: "The Students Times", href: "/students-times/" },
-                  { label: "Books", href: "/books/" },
-                  { label: "Newsletter", href: "/newsletter/" },
+                  { label: "Kitaplar", href: "/books/" },
+                  { label: "Bülten", href: "/newsletter/" },
                 ].map((link) => (
                   <li key={link.label} className="mb-2.5">
                     <Link
@@ -153,15 +152,15 @@ export default function Footer() {
           <StaggerItem>
             <div>
               <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                Get in touch
+                İletişime Geç
               </h4>
               <p className="text-sm leading-relaxed mb-4">
-                Don&apos;t miss our future updates! Get Subscribed Today!
+                Gelecek güncellemelerimizi kaçırma! Hemen abone ol!
               </p>
               <form className="flex flex-col gap-2.5">
                 <input
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="E-posta adresinizi girin"
                   className="px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.08] text-white text-sm outline-none placeholder:text-white/50 transition-all focus:border-accent focus:bg-white/10"
                 />
                 <motion.button
@@ -170,7 +169,7 @@ export default function Footer() {
                   type="submit"
                   className="bg-primary-light text-white px-8 py-3 rounded-pill text-sm font-semibold border-none cursor-pointer transition-colors hover:bg-primary-dark"
                 >
-                  Subscribe
+                  Abone Ol
                 </motion.button>
               </form>
             </div>

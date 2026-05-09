@@ -15,7 +15,7 @@ export default function EventsPreviewSection() {
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-10">
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Our <span className="text-accent">Events</span>
+            Etkinliklerimiz
           </h2>
         </FadeIn>
 
@@ -30,7 +30,7 @@ export default function EventsPreviewSection() {
                   : "bg-surface text-text-secondary hover:text-primary"
               }`}
             >
-              UPCOMING
+              YAKLAŞAN
             </motion.button>
             <motion.button
               onClick={() => setActiveTab("recent")}
@@ -41,7 +41,7 @@ export default function EventsPreviewSection() {
                   : "bg-surface text-text-secondary hover:text-primary"
               }`}
             >
-              RECENT
+              GEÇMİŞ
             </motion.button>
           </div>
         </FadeIn>

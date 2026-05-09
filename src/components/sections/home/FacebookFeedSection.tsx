@@ -9,7 +9,7 @@ export default function FacebookFeedSection() {
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12 text-center">
         <FadeIn className="mb-8">
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Facebook <span className="text-accent">Page</span>
+            Facebook <span className="text-accent">Sayfamız</span>
           </h2>
         </FadeIn>
         <FadeIn delay={0.2}>
@@ -19,7 +19,7 @@ export default function FacebookFeedSection() {
             className="max-w-[500px] mx-auto bg-white rounded-[16px] p-8 shadow-card"
           >
             <p className="text-text-secondary mb-4">
-              Follow us on Facebook for the latest updates and events.
+              En son güncellemeler ve etkinlikler için bizi Facebook&apos;tan takip edin.
             </p>
             <motion.a
               href="https://facebook.com/tsfturkey"
@@ -29,7 +29,7 @@ export default function FacebookFeedSection() {
               whileTap={{ scale: 0.98 }}
               className="inline-flex items-center justify-center bg-[#1877F2] text-white px-6 py-3 rounded-pill text-sm font-semibold no-underline transition-colors hover:bg-[#166fe5]"
             >
-              Visit facebook.com/tsfturkey
+              facebook.com/tsfturkey
             </motion.a>
           </motion.div>
         </FadeIn>

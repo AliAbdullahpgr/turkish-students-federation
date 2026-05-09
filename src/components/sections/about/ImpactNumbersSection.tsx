@@ -6,10 +6,10 @@ import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
 const stats = [
-  { target: 50000, suffix: "+", label: "Active Members" },
-  { target: 100, suffix: "+", label: "Districts Covered", format: false },
-  { target: 500, suffix: "+", label: "Events Conducted", format: false },
-  { target: 200, suffix: "+", label: "Chapters Nationwide", format: false },
+  { target: 500, suffix: "+", label: "Aktif Üye" },
+  { target: 10, suffix: "+", label: "Şehir", format: false },
+  { target: 50, suffix: "+", label: "Düzenlenen Etkinlik", format: false },
+  { target: 100, suffix: "+", label: "Rehber Sayfaları", format: false },
 ];
 
 export default function ImpactNumbersSection() {
@@ -17,9 +17,9 @@ export default function ImpactNumbersSection() {
     <section className="py-section bg-primary text-center">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="mb-12">
-          <SectionEyebrow text="OUR IMPACT" />
+          <SectionEyebrow text="ETKİMİZ" />
           <h2 className="text-section-title font-heading font-bold text-white">
-            Numbers That Tell the <span className="text-accent">Story</span>
+            Rakamlarla <span className="text-accent">Hikayemiz</span>
           </h2>
         </FadeIn>
 

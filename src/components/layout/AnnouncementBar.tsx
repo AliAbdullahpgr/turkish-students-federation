@@ -11,13 +11,13 @@ export default function AnnouncementBar() {
       transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
       className="bg-primary-light text-white flex items-center justify-center gap-4 px-6 py-2 text-[13px] font-medium sticky top-0 z-[1000]"
     >
-      <span>Join the movement — Turkish Student Federation</span>
+      <span>Harekete katıl — Pakistan Türk Öğrenci Birliği</span>
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
         <Link
           href="/join-tsf/"
           className="bg-transparent border-[1.5px] border-white text-white px-4 py-1 rounded-pill text-xs font-bold uppercase tracking-wider no-underline transition-all duration-fast hover:bg-white hover:text-primary-light"
         >
-          JOIN US
+          BİZE KATIL
         </Link>
       </motion.div>
     </motion.div>

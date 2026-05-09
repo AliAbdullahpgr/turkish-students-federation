@@ -11,9 +11,9 @@ export default function ActivitiesSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="OUR ACTIVITIES" />
+          <SectionEyebrow text="FAALİYETLERİMİZ" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            What We <span className="text-accent">Do?</span>
+            Ne Yapıyoruz?
           </h2>
         </FadeIn>
 

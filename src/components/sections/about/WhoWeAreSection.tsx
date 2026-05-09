@@ -11,49 +11,40 @@ export default function WhoWeAreSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn>
-          <SectionEyebrow text="WHO WE ARE" />
+          <SectionEyebrow text="BİZ KİMİZ?" />
           <h2 className="text-section-title font-heading font-bold text-text-primary mb-8">
-            A Movement Built on Ideology, Leadership & Patriotism
+            Pakistan Türk Öğrenci Birliği
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.15}>
           <div className="space-y-6 text-body text-text-secondary leading-relaxed max-w-[900px]">
             <p>
-              Turkish Student Federation (Turkish Student Federation) is a growing student
-              organization in Turkey dedicated to shaping the future of youth
-              through Islamic values, leadership development, and social
-              responsibility.
+              Biz; Pakistan&apos;da eğitim tahsil etme yolculuğuna çıkan ve çıkmak isteyen öğrencilere destek olmak,
+              onların eğitim sürecini kolaylaştırmak ve bu yolculukta yalnız olmadıklarını hissettirmek için kurulmuş
+              bir kardeşlik ve rehberlik grubuyuz. Niyetimiz; burada bulunan öğrencilerin hem akademik hem de kişisel
+              gelişimlerinde Allah rızası doğrultusunda yanlarında olmak, karşılaştıkları zorluklarda kolaylaştırıcı,
+              ihtiyaç duyduklarında yönlendirici bir destek ağı oluşturmaktır.
             </p>
             <p>
-              Turkish Student Federation is a student-driven platform that works to guide,
-              connect, and empower students across colleges and universities. Built
-              on a strong foundation of ideology and purpose, the organization
-              focuses on developing character, knowledge, and leadership skills
-              among young individuals.
+              Bu kitapçık; Pakistan&apos;a yeni gelen veya gelmeyi düşünen kardeşlerimizin güvenli, bilinçli ve huzurlu
+              bir şekilde eğitim hayatlarına başlamaları için hazırlanmıştır. Amacımız; onları doğru bilgiyle buluşturmak,
+              karşılaşabilecekleri durumlara hazırlamak ve sorunsuz bir başlangıç yapmalarına vesile olmaktır.
             </p>
             <p>
-              Through a structured grassroots network, Turkish Student Federation operates at
-              institutional, city, and national levels. From campus units to
-              regional leadership, students are actively engaged in learning,
-              organizing, and serving their communities. This system ensures that
-              every member becomes part of a meaningful movement, not just a
-              network.
-            </p>
-            <p>
-              At Turkish Student Federation, we believe that real change begins with students. By
-              promoting discipline, unity, Islamic awareness, and civic
-              responsibility, we prepare a generation that is ready to lead with
-              integrity and purpose.
+              Üyelerimiz; Pakistan&apos;ı tanıyan ve buradaki akademik hayatı bilen kişilerden oluşmaktadır. Biz sadece
+              danışmanlık sağlayan bir grup değil, aynı zamanda ihtiyaç anında dayanabileceğiniz bir kardeşlik topluluğu
+              olmaya çalışıyoruz. Burada bulunduğunuz süre boyunca yanınızda olmaya, her adımda destek vermeye devam
+              etmeye çalışacağız. İlim yolculuğunuzun bereketli ve hayırlı olmasını diliyoruz.
             </p>
           </div>
         </FadeIn>
 
         <StaggerContainer className="flex flex-wrap gap-4 mt-8" staggerDelay={0.1}>
           {[
-            "Student-Led National Organization",
-            "Leadership, Education & Welfare Initiatives",
-            "Community Service & Social Impact Programs",
+            "Öğrenci Liderliği ve Rehberlik",
+            "Eğitim, Kültür ve Sosyal Girişimler",
+            "Topluluk Hizmeti ve Sosyal Etki Programları",
           ].map((item) => (
             <StaggerItem key={item}>
               <motion.div

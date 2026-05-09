@@ -6,9 +6,9 @@ import PageHero from "@/components/ui/PageHero";
 import ContactForm from "@/components/ui/ContactForm";
 
 export const metadata: Metadata = {
-  title: "Contact US - Turkish Student Federation",
+  title: "İletişim - Pakistan Türk Öğrenci Birliği",
   description:
-    "Get in touch with Turkish Student Federation. Submit your inquiry and our team will respond within 24 hours.",
+    "Pakistan Türk Öğrenci Birliği ile iletişime geçin. Sorularınızı gönderin, ekibimiz 24 saat içinde yanıt verecektir.",
 };
 
 export default function ContactUsPage() {
@@ -17,7 +17,7 @@ export default function ContactUsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Let's Get Connect" accentWord="Connect" />
+        <PageHero title="Bize Ulaşın" accentWord="Ulaşın" />
         <ContactForm />
       </main>
       <Footer />

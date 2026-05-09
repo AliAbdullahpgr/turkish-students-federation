@@ -9,11 +9,11 @@ export default function NotFoundPage() {
           404
         </h1>
         <p className="text-xl text-text-secondary mt-4 mb-8">
-          The page you were looking for does not exist
+          Aradığınız sayfa bulunamadı
         </p>
         <PrimaryButton href="/">
           <ArrowLeft className="w-4 h-4 mr-2" />
-          Back Home
+          Ana Sayfaya Dön
         </PrimaryButton>
       </div>
     </div>

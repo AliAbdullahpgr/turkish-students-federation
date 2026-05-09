@@ -20,18 +20,18 @@ export default function LatestReleaseSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <FadeIn direction="left">
             <div>
-              <SectionEyebrow text="LATEST RELEASE" />
+              <SectionEyebrow text="SON YAYIN" />
               <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
                 Taleem Se Takmeel Turkey Ka Safar
               </h2>
               <div className="flex flex-wrap gap-2 mb-6">
                 {[
-                  "Turkish Student Federation",
-                  "Student Organization",
-                  "Ex President",
+                  "Pakistan Türk Öğrenci Birliği",
+                  "Öğrenci Organizasyonu",
+                  "Eski Başkan",
                   "Ans Mushi",
-                  "Seminar",
-                  "Youth Impact",
+                  "Seminer",
+                  "Gençlik Etkisi",
                 ].map((tag, i) => (
                   <motion.span
                     key={tag}
@@ -47,7 +47,7 @@ export default function LatestReleaseSection() {
               </div>
               <PrimaryButton href="#" className="gap-2">
                 <YoutubeIcon className="w-4 h-4" />
-                Follow Youtube Channel
+                Youtube Kanalını Takip Et
               </PrimaryButton>
             </div>
           </FadeIn>

@@ -14,9 +14,9 @@ import MediaNewsSection from "@/components/sections/home/MediaNewsSection";
 import FacebookFeedSection from "@/components/sections/home/FacebookFeedSection";
 
 export const metadata: Metadata = {
-  title: "Home - Turkish Student Federation",
+  title: "Ana Sayfa - Pakistan Türk Öğrenci Birliği",
   description:
-    "Turkish Student Federation is a fast-growing student organization in Turkey, rooted in the Ideology of Turkey and driven by a mission to connect youth with their identity and purpose.",
+    "Pakistan Türk Öğrenci Birliği, Pakistan'da eğitim gören Türk öğrencilere destek olan bir kardeşlik ve rehberlik topluluğudur.",
 };
 
 export default function HomePage() {

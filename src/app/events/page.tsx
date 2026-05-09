@@ -17,14 +17,14 @@ export default function EventsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Our Events" accentWord="Events" />
+        <PageHero title="Etkinliklerimiz" accentWord="Etkinlikler" />
 
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-10">
-              <SectionEyebrow text="EVENTS" />
+              <SectionEyebrow text="ETKİNLİKLER" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Upcoming & <span className="text-accent">Recent</span> Events
+                Yaklaşan ve <span className="text-accent">Geçmiş</span> Etkinlikler
               </h2>
             </div>
 
@@ -37,7 +37,7 @@ export default function EventsPage() {
                     : "bg-surface text-text-secondary hover:text-primary"
                 }`}
               >
-                UPCOMING
+                YAKLAŞAN
               </button>
               <button
                 onClick={() => setActiveTab("recent")}
@@ -47,7 +47,7 @@ export default function EventsPage() {
                     : "bg-surface text-text-secondary hover:text-primary"
                 }`}
               >
-                RECENT
+                GEÇMİŞ
               </button>
             </div>
 
@@ -81,7 +81,7 @@ export default function EventsPage() {
                     </div>
                   </div>
                   <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-[10px] font-bold text-primary">
-                    TSF
+                    PTÖB
                   </div>
                 </div>
               ))}

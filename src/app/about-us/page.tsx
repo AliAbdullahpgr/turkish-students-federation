@@ -12,9 +12,9 @@ import ImpactNumbersSection from "@/components/sections/about/ImpactNumbersSecti
 import CTABannerSection from "@/components/sections/about/CTABannerSection";
 
 export const metadata: Metadata = {
-  title: "About US - Turkish Student Federation",
+  title: "Hakkımızda - Pakistan Türk Öğrenci Birliği",
   description:
-    "Learn about Turkish Student Federation - a movement built on ideology, leadership, and patriotism. Discover our mission, vision, core values, and leadership team.",
+    "Pakistan Türk Öğrenci Birliği hakkında bilgi edinin. Pakistan'da eğitim gören Türk öğrencilere destek olan kardeşlik ve rehberlik topluluğu.",
 };
 
 export default function AboutUsPage() {
@@ -23,7 +23,7 @@ export default function AboutUsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="About Turkish Student Federation" accentWord="Turkey" />
+        <PageHero title="Pakistan Türk Öğrenci Birliği Hakkında" accentWord="Öğrenci" />
         <WhoWeAreSection />
         <MissionVisionSection />
         <CoreValuesSection />

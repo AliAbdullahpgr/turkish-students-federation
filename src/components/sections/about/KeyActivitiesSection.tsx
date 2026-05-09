@@ -11,13 +11,13 @@ export default function KeyActivitiesSection() {
     <section className="py-section bg-surface">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="WHAT WE DO" />
+          <SectionEyebrow text="NE YAPIYORUZ" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Our Key <span className="text-accent">Activities</span>
+            Temel <span className="text-accent">Faaliyetlerimiz</span>
           </h2>
           <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-            From grassroots community work to large-scale national events - here
-            is how we make an impact.
+            Yerel topluluk çalışmalarından ulusal çapta büyük etkinliklere kadar —
+            işte etki yaratma şeklimiz.
           </p>
         </FadeIn>
 

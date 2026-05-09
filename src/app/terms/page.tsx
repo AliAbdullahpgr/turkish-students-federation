@@ -6,9 +6,9 @@ import PageHero from "@/components/ui/PageHero";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions - Turkish Student Federation",
+  title: "Kullanım Koşulları - Pakistan Türk Öğrenci Birliği",
   description:
-    "Terms and conditions for using the Turkish Student Federation website and services.",
+    "Pakistan Türk Öğrenci Birliği web sitesi ve hizmetlerini kullanmak için kullanım koşulları.",
 };
 
 export default function TermsPage() {
@@ -17,71 +17,71 @@ export default function TermsPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Terms & Conditions" accentWord="Conditions" />
+        <PageHero title="Kullanım Koşulları" accentWord="Koşulları" />
 
         <section className="py-section bg-white">
           <div className="max-w-[800px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="LEGAL" />
+              <SectionEyebrow text="YASAL" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Terms & <span className="text-accent">Conditions</span>
+                Kullanım <span className="text-accent">Koşulları</span>
               </h2>
             </div>
 
             <div className="prose prose-lg max-w-none text-text-secondary space-y-6">
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">1. Introduction</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">1. Giriş</h3>
                 <p className="text-sm leading-relaxed">
-                  Welcome to Turkish Student Federation (TSF). By accessing and using this website, you accept and agree to be bound by the terms and provisions of this agreement.
+                  Pakistan Türk Öğrenci Birliği&apos;ne (PTÖB) hoş geldiniz. Bu web sitesine erişerek ve kullanarak, bu anlaşmanın şartlarını ve hükümlerini kabul etmiş ve bağlı olmayı kabul etmiş sayılırsınız.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">2. Use of Website</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">2. Web Sitesinin Kullanımı</h3>
                 <p className="text-sm leading-relaxed">
-                  The content of this website is for your general information and use only. It is subject to change without notice. Unauthorized use of this website may give rise to a claim for damages and/or be a criminal offense.
+                  Bu web sitesinin içeriği yalnızca genel bilginiz ve kullanımınız içindir. Önceden haber verilmeksizin değişikliğe tabidir. Bu web sitesinin yetkisiz kullanımı, zarar talebine ve/veya cezai suça yol açabilir.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">3. Membership</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">3. Üyelik</h3>
                 <p className="text-sm leading-relaxed">
-                  TSF membership is open to all students who share our values and mission. Members are expected to uphold the organization&apos;s principles and act in accordance with our code of conduct.
+                  PTÖB üyeliği, değerlerimizi ve misyonumuzu paylaşan tüm öğrencilere açıktır. Üyelerin kuruluşun ilkelerini savunması ve davranış kurallarımıza uygun hareket etmesi beklenir.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">4. Intellectual Property</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">4. Fikri Mülkiyet</h3>
                 <p className="text-sm leading-relaxed">
-                  All content on this website, including but not limited to text, graphics, logos, and images, is the property of Turkish Student Federation and is protected by copyright laws.
+                  Bu web sitesindeki tüm içerik, metin, grafikler, logolar ve görseller dahil ancak bunlarla sınırlı olmamak üzere, Pakistan Türk Öğrenci Birliği&apos;nin mülkiyetindedir ve telif hakkı yasalarıyla korunmaktadır.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">5. Limitation of Liability</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">5. Sorumluluğun Sınırlandırılması</h3>
                 <p className="text-sm leading-relaxed">
-                  Turkish Student Federation shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use this website.
+                  Pakistan Türk Öğrenci Birliği, bu web sitesinin kullanımından veya kullanılamamasından kaynaklanan doğrudan, dolaylı, arızi veya sonuçsal zararlardan sorumlu tutulamaz.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">6. Governing Law</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">6. Uygulanacak Hukuk</h3>
                 <p className="text-sm leading-relaxed">
-                  These terms and conditions are governed by and construed in accordance with the laws of the Republic of Turkey. Any disputes shall be subject to the exclusive jurisdiction of the courts of Turkey.
+                  Bu kullanım koşulları, Türkiye Cumhuriyeti kanunlarına tabidir. Herhangi bir anlaşmazlık, Türkiye mahkemelerinin münhasır yargı yetkisine tabi olacaktır.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">7. Changes to Terms</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">7. Koşullardaki Değişiklikler</h3>
                 <p className="text-sm leading-relaxed">
-                  Turkish Student Federation reserves the right to modify these terms at any time. Changes will be effective immediately upon posting to the website. Your continued use of the website following any changes constitutes acceptance of those changes.
+                  Pakistan Türk Öğrenci Birliği, bu koşulları herhangi bir zamanda değiştirme hakkını saklı tutar. Değişiklikler web sitesinde yayınlandığı anda yürürlüğe girer. Değişikliklerden sonraki web sitesini kullanmaya devam etmeniz, bu değişikliklerin kabulü anlamına gelir.
                 </p>
               </div>
 
               <div className="bg-surface rounded-[16px] p-8">
-                <h3 className="text-lg font-bold text-text-primary mb-3">8. Contact Information</h3>
+                <h3 className="text-lg font-bold text-text-primary mb-3">8. İletişim Bilgileri</h3>
                 <p className="text-sm leading-relaxed">
-                  If you have any questions about these Terms & Conditions, please contact us through our Contact Us page or email us at info@tsfturkey.org.
+                  Bu Kullanım Koşulları hakkında herhangi bir sorunuz varsa, lütfen İletişim sayfamız aracılığıyla veya info@tsfturkey.org adresinden bize ulaşın.
                 </p>
               </div>
             </div>

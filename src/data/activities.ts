@@ -1,44 +1,44 @@
 export const activities = [
   {
     id: "multimedia",
-    title: "Multimedia Sessions",
+    title: "Multimedya Etkinlikleri",
     description:
-      "Creative digital sessions designed to educate, inspire, and engage the youth community.",
+      "Gençlik topluluğunu eğitmek, ilham vermek ve dahil etmek için tasarlanan yaratıcı dijital oturumlar.",
     icon: "Monitor",
   },
   {
     id: "seminars",
-    title: "Seminars",
+    title: "Seminerler",
     description:
-      "Knowledge-driven seminars covering education, society, leadership, and Islamic values.",
+      "Eğitim, toplum, liderlik ve İslami değerleri kapsayan bilgi odaklı seminerler.",
     icon: "Users",
   },
   {
     id: "quran",
-    title: "Quran Classes",
+    title: "Kuran Dersleri",
     description:
-      "Structured Quran learning, Tafseer studies, and spiritual growth programs.",
+      "Yapılandırılmış Kuran öğrenimi, tefsir çalışmaları ve manevi gelişim programları.",
     icon: "BookOpen",
   },
   {
     id: "sports",
-    title: "Sports Programs",
+    title: "Spor Programları",
     description:
-      "Healthy sports activities that promote fitness, teamwork, and positive competition.",
+      "Fitness, takım çalışması ve olumlu rekabeti teşvik eden sağlıklı spor aktiviteleri.",
     icon: "Trophy",
   },
   {
     id: "student-rights",
-    title: "Student Rights",
+    title: "Öğrenci Hakları",
     description:
-      "Protecting academic rights, fairness, and representation across institutions.",
+      "Kurumlar arasında akademik hakları, adaleti ve temsiliyeti koruma.",
     icon: "Shield",
   },
   {
     id: "social-welfare",
-    title: "Social Welfare",
+    title: "Sosyal Yardım",
     description:
-      "Community support through relief work, charity drives, and welfare initiatives.",
+      "Yardım çalışmaları, hayırseverlik kampanyaları ve refah girişimleri aracılığıyla toplum desteği.",
     icon: "Heart",
   },
 ];

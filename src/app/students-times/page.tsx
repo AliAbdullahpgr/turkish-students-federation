@@ -8,46 +8,46 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 const editions = [
   {
     id: "1",
-    title: "The Students Times - April 2026",
-    description: "Covering student activism, rising education costs, and upcoming TSF events.",
-    date: "APR 2026",
+    title: "The Students Times - Nisan 2026",
+    description: "Öğrenci aktivizmi, artan eğitim maliyetleri ve yaklaşan PTÖB etkinliklerini kapsıyor.",
+    date: "NİS 2026",
   },
   {
     id: "2",
-    title: "The Students Times - March 2026",
-    description: "Special edition on leadership development and campus initiatives across Turkey.",
+    title: "The Students Times - Mart 2026",
+    description: "Liderlik gelişimi ve Türkiye genelindeki kampüs girişimlerine özel sayı.",
     date: "MAR 2026",
   },
   {
     id: "3",
-    title: "The Students Times - February 2026",
-    description: "Focus on international student relations and educational policy updates.",
-    date: "FEB 2026",
+    title: "The Students Times - Şubat 2026",
+    description: "Uluslararası öğrenci ilişkileri ve eğitim politikası güncellemelerine odaklanıyor.",
+    date: "ŞUB 2026",
   },
   {
     id: "4",
-    title: "The Students Times - January 2026",
-    description: "Year opener with goals for 2026 and reflections on the past year's achievements.",
-    date: "JAN 2026",
+    title: "The Students Times - Ocak 2026",
+    description: "2026 hedefleri ve geçen yılın başarılarının yansıtıldığı yıl açılışı.",
+    date: "OCA 2026",
   },
   {
     id: "5",
-    title: "The Students Times - December 2025",
-    description: "Annual review highlighting major milestones, events, and student success stories.",
-    date: "DEC 2025",
+    title: "The Students Times - Aralık 2025",
+    description: "Büyük kilometre taşları, etkinlikler ve öğrenci başarı hikayelerini vurgulayan yıllık değerlendirme.",
+    date: "ARA 2025",
   },
   {
     id: "6",
-    title: "The Students Times - November 2025",
-    description: "In-depth coverage of the National Student Convention and policy discussions.",
-    date: "NOV 2025",
+    title: "The Students Times - Kasım 2025",
+    description: "Ulusal Öğrenci Konvansiyonu ve politika tartışmalarının derinlemesine kapsamı.",
+    date: "KAS 2025",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "The Students Times - Turkish Student Federation",
+  title: "The Students Times - Pakistan Türk Öğrenci Birliği",
   description:
-    "Read The Students Times, the official publication of Turkish Student Federation. Stay informed about student issues, events, and achievements.",
+    "Pakistan Türk Öğrenci Birliği'nin resmi yayını olan The Students Times'ı okuyun. Öğrenci konuları, etkinlikler ve başarılar hakkında bilgi sahibi olun.",
 };
 
 export default function StudentsTimesPage() {
@@ -61,12 +61,12 @@ export default function StudentsTimesPage() {
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="OFFICIAL PUBLICATION" />
+              <SectionEyebrow text="RESMİ YAYIN" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
                 The <span className="text-accent">Students</span> Times
               </h2>
               <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Our monthly publication dedicated to student issues, achievements, and the voice of the student community.
+                Öğrenci konularına, başarılarına ve öğrenci topluluğunun sesine adanmış aylık yayınımız.
               </p>
             </div>
 

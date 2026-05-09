@@ -8,52 +8,52 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 const pressReleases = [
   {
     id: "1",
-    title: "TSF Announces New Leadership Structure for 2026",
-    date: "JAN 15, 2026",
+    title: "PTÖB 2026 İçin Yeni Liderlik Yapısını Duyurdu",
+    date: "15 OCA 2026",
     excerpt:
-      "Turkish Student Federation is pleased to announce a restructured leadership model aimed at better serving students across all regions of Turkey.",
+      "Pakistan Türk Öğrenci Birliği, Türkiye'nin tüm bölgelerindeki öğrencilere daha iyi hizmet etmeyi amaçlayan yeniden yapılandırılmış bir liderlik modelini duyurmaktan mutluluk duyar.",
   },
   {
     id: "2",
-    title: "Student Welfare Initiative Launched Nationwide",
-    date: "DEC 28, 2025",
+    title: "Öğrenci Refahı Girişimi Ulusal Çapta Başlatıldı",
+    date: "28 ARA 2025",
     excerpt:
-      "A new nationwide student welfare initiative has been launched to provide support and resources to students facing economic challenges.",
+      "Ekonomik zorluklarla karşı karşıya kalan öğrencilere destek ve kaynak sağlamak amacıyla yeni bir ulusal öğrenci refahı girişimi başlatıldı.",
   },
   {
     id: "3",
-    title: "TSF Partners with Local Universities for Research Programs",
-    date: "DEC 10, 2025",
+    title: "PTÖB Yerel Üniversitelerle Araştırma Programları İçin Ortaklık Kurdu",
+    date: "10 ARA 2025",
     excerpt:
-      "Turkish Student Federation has established partnerships with leading universities to foster research and innovation among students.",
+      "Pakistan Türk Öğrenci Birliği, öğrenciler arasında araştırma ve yeniliği teşvik etmek için önde gelen üniversitelerle ortaklıklar kurdu.",
   },
   {
     id: "4",
-    title: "Annual Student Convention Dates Announced",
-    date: "NOV 22, 2025",
+    title: "Yıllık Öğrenci Konvansiyonu Tarihleri Açıklandı",
+    date: "22 KAS 2025",
     excerpt:
-      "The annual TSF Student Convention will take place in Istanbul next summer, bringing together students from across the country.",
+      "Yıllık PTÖB Öğrenci Konvansiyonu gelecek yaz İstanbul'da gerçekleşecek ve ülke genelinden öğrencileri bir araya getirecek.",
   },
   {
     id: "5",
-    title: "TSF Launches Digital Learning Platform",
-    date: "NOV 05, 2025",
+    title: "PTÖB Dijital Öğrenme Platformunu Başlattı",
+    date: "05 KAS 2025",
     excerpt:
-      "A new digital learning platform has been launched to provide students with access to educational resources and online courses.",
+      "Öğrencilere eğitim kaynaklarına ve çevrimiçi kurslara erişim sağlamak amacıyla yeni bir dijital öğrenme platformu başlatıldı.",
   },
   {
     id: "6",
-    title: "Solidarity Fund for Students in Need",
-    date: "OCT 18, 2025",
+    title: "İhtiyaç Sahibi Öğrenciler İçin Dayanışma Fonu",
+    date: "18 EKİ 2025",
     excerpt:
-      "Turkish Student Federation has established a solidarity fund to support students facing financial hardship during their academic journey.",
+      "Pakistan Türk Öğrenci Birliği, akademik yolculukları sırasında maddi zorluklarla karşı karşıya kalan öğrencilere destek olmak amacıyla bir dayanışma fonu oluşturdu.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Press Releases - Turkish Student Federation",
+  title: "Basın Açıklamaları - Pakistan Türk Öğrenci Birliği",
   description:
-    "Official press releases from Turkish Student Federation. Stay updated with our latest announcements and initiatives.",
+    "Pakistan Türk Öğrenci Birliği'nin resmi basın açıklamaları. En son duyurular ve girişimlerle güncel kalın.",
 };
 
 export default function PressReleasesPage() {
@@ -62,17 +62,17 @@ export default function PressReleasesPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Press Releases" accentWord="Releases" />
+        <PageHero title="Basın Açıklamaları" accentWord="Açıklamaları" />
 
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="OFFICIAL STATEMENTS" />
+              <SectionEyebrow text="RESMİ AÇIKLAMALAR" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Latest <span className="text-accent">Press</span> Releases
+                Son <span className="text-accent">Basın</span> Açıklamaları
               </h2>
               <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Stay informed with the latest announcements, initiatives, and official statements from Turkish Student Federation.
+                Pakistan Türk Öğrenci Birliği&apos;nin en son duyuruları, girişimleri ve resmi açıklamalarıyla bilgi sahibi olun.
               </p>
             </div>
 

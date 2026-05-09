@@ -9,34 +9,34 @@ import PrimaryButton from "@/components/ui/PrimaryButton";
 const newsletters = [
   {
     id: "1",
-    title: "TSF Newsletter - April 2026",
-    description: "Updates on upcoming events, new membership benefits, and student success stories.",
-    date: "APR 2026",
+    title: "PTÖB Bülteni - Nisan 2026",
+    description: "Yaklaşan etkinlikler, yeni üyelik avantajları ve öğrenci başarı hikayeleri hakkında güncellemeler.",
+    date: "NİS 2026",
   },
   {
     id: "2",
-    title: "TSF Newsletter - March 2026",
-    description: "Highlights from the Leadership Summit and upcoming volunteer opportunities.",
+    title: "PTÖB Bülteni - Mart 2026",
+    description: "Liderlik Zirvesi'nden öne çıkanlar ve yaklaşan gönüllülük fırsatları.",
     date: "MAR 2026",
   },
   {
     id: "3",
-    title: "TSF Newsletter - February 2026",
-    description: "Coverage of the National Student Day celebrations and scholarship announcements.",
-    date: "FEB 2026",
+    title: "PTÖB Bülteni - Şubat 2026",
+    description: "Ulusal Öğrenci Günü kutlamalarının kapsamı ve burs duyuruları.",
+    date: "ŞUB 2026",
   },
   {
     id: "4",
-    title: "TSF Newsletter - January 2026",
-    description: "New year goals, department updates, and welcome to new members.",
-    date: "JAN 2026",
+    title: "PTÖB Bülteni - Ocak 2026",
+    description: "Yeni yıl hedefleri, birim güncellemeleri ve yeni üyelere hoş geldiniz.",
+    date: "OCA 2026",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Newsletter - Turkish Student Federation",
+  title: "Bülten - Pakistan Türk Öğrenci Birliği",
   description:
-    "Subscribe to the Turkish Student Federation newsletter. Stay updated with the latest news, events, and student initiatives.",
+    "Pakistan Türk Öğrenci Birliği bültenine abone olun. En son haberler, etkinlikler ve öğrenci girişimleriyle güncel kalın.",
 };
 
 export default function NewsletterPage() {
@@ -45,17 +45,17 @@ export default function NewsletterPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="TSF Newsletter" accentWord="Newsletter" />
+        <PageHero title="PTÖB Bülteni" accentWord="Bülteni" />
 
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="STAY UPDATED" />
+              <SectionEyebrow text="GÜNCEL KALIN" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Subscribe to Our <span className="text-accent">Newsletter</span>
+                Bültenimize <span className="text-accent">Abone Olun</span>
               </h2>
               <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Get the latest updates on events, initiatives, and student news delivered directly to your inbox.
+                Etkinlikler, girişimler ve öğrenci haberleriyle ilgili en son güncellemeleri doğrudan gelen kutunuza alın.
               </p>
             </div>
 
@@ -64,23 +64,23 @@ export default function NewsletterPage() {
                 <form className="flex flex-col gap-4">
                   <input
                     type="email"
-                    placeholder="Enter your email address"
+                    placeholder="E-posta adresinizi girin"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                   />
                   <PrimaryButton type="submit" className="w-full">
-                    Subscribe Now
+                    Hemen Abone Ol
                   </PrimaryButton>
                 </form>
                 <p className="text-xs text-text-muted text-center mt-4">
-                  We respect your privacy. Unsubscribe at any time.
+                  Gizliliğinize saygı duyuyoruz. İstediğiniz zaman abonelikten çıkabilirsiniz.
                 </p>
               </div>
             </div>
 
             <div className="text-center mb-12">
-              <SectionEyebrow text="ARCHIVE" />
+              <SectionEyebrow text="ARŞİV" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Past <span className="text-accent">Newsletters</span>
+                Geçmiş <span className="text-accent">Bültenler</span>
               </h2>
             </div>
 

@@ -16,13 +16,13 @@ export default function LeadershipTeamSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="THE PEOPLE BEHIND TSF" />
+          <SectionEyebrow text="EKİP" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Our Leadership <span className="text-accent">Team</span>
+            Proje <span className="text-accent">Ekibimiz</span>
           </h2>
           <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-            Driven, dedicated, and deeply committed to Turkey&apos;s future - meet
-            the team leading Turkish Student Federation.
+            Kararlı, adanmış ve öğrenci topluluğuna derinden bağlı —
+            Pakistan Öğrenci Rehberi&apos;ni hazırlayan ekiple tanışın.
           </p>
         </FadeIn>
 

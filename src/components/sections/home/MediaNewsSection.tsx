@@ -14,9 +14,9 @@ export default function MediaNewsSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="MEDIA & NEWS" />
+          <SectionEyebrow text="MEDYA & HABERLER" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Read Our Latest <span className="text-accent">Updates</span>
+            Son <span className="text-accent">Güncellemeler</span>
           </h2>
         </FadeIn>
 
@@ -39,7 +39,7 @@ export default function MediaNewsSection() {
         </StaggerContainer>
 
         <FadeIn delay={0.4} className="text-center mt-12">
-          <PrimaryButton href="/news-blogs/">MORE BLOGS</PrimaryButton>
+          <PrimaryButton href="/news-blogs/">DAHA FAZLA BLOG</PrimaryButton>
         </FadeIn>
       </div>
     </section>

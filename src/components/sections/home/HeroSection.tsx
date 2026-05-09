@@ -15,9 +15,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="block text-[clamp(64px,10vw,120px)] font-black text-white tracking-[-2px] leading-none uppercase"
+            className="block text-[clamp(48px,8vw,100px)] font-black text-white tracking-[-2px] leading-none uppercase"
           >
-            LEADERS
+            Geleceğin
           </motion.span>
           <motion.span
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -26,7 +26,7 @@ export default function HeroSection() {
             className="inline-block max-w-[calc(100vw-2rem)] bg-primary text-white text-[26px] sm:text-[clamp(32px,5vw,64px)] font-extrabold px-6 sm:px-10 py-3 uppercase mt-4 whitespace-nowrap"
             style={{ clipPath: "polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%)" }}
           >
-            IN THE MAKING
+            Liderleri
           </motion.span>
         </h1>
       </div>

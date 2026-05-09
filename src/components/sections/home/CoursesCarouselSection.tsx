@@ -18,9 +18,9 @@ export default function CoursesCarouselSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="EXPLORE COURSES" />
+          <SectionEyebrow text="KURSLARIMIZ" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Our <span className="text-accent">Courses</span>
+            Kurslarımız
           </h2>
         </FadeIn>
 
@@ -63,7 +63,7 @@ export default function CoursesCarouselSection() {
                         {course.description}
                       </p>
                       <PrimaryButton href={course.href} className="self-start text-xs py-2.5 px-5">
-                        Read More
+                        Devamını Oku
                       </PrimaryButton>
                     </div>
                   </motion.div>

@@ -26,7 +26,7 @@ export default function JoinTSFPage() {
 
   const onSubmit = (data: JoinFormData) => {
     console.log(data);
-    alert("Thank you for your interest! We will contact you soon.");
+    alert("İlginiz için teşekkürler! Sizinle yakında iletişime geçeceğiz.");
   };
 
   return (
@@ -34,18 +34,18 @@ export default function JoinTSFPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Join Turkish Student Federation" accentWord="Turkey" />
+        <PageHero title="Pakistan Türk Öğrenci Birliği'ne Katılın" accentWord="Katılın" />
 
         <section className="py-section bg-white">
           <div className="max-w-[800px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="BECOME A MEMBER" />
+              <SectionEyebrow text="ÜYE OL" />
               <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
-                Join the <span className="text-accent">Movement</span>
+                Harekete <span className="text-accent">Katıl</span>
               </h2>
               <p className="text-body text-text-secondary">
-                Become a part of Turkey&apos;s largest student organization. Fill
-                out the form below and our team will reach out to you.
+                Pakistan Türk Öğrenci Birliği&apos;nin bir parçası olun. Aşağıdaki formu doldurun,
+                ekibimiz size ulaşacaktır.
               </p>
             </div>
 
@@ -55,11 +55,11 @@ export default function JoinTSFPage() {
             >
               <div>
                 <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                  Full Name
+                  Ad Soyad
                 </label>
                 <input
-                  {...register("fullName", { required: "Full name is required" })}
-                  placeholder="Enter your full name"
+                  {...register("fullName", { required: "Ad soyad gereklidir" })}
+                  placeholder="Adınızı ve soyadınızı girin"
                   className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                 />
                 {errors.fullName && (
@@ -72,12 +72,12 @@ export default function JoinTSFPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Email
+                    E-posta
                   </label>
                   <input
                     type="email"
-                    {...register("email", { required: "Email is required" })}
-                    placeholder="Enter your email"
+                    {...register("email", { required: "E-posta gereklidir" })}
+                    placeholder="E-posta adresinizi girin"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                   />
                   {errors.email && (
@@ -88,12 +88,12 @@ export default function JoinTSFPage() {
                 </div>
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Phone Number
+                    Telefon Numarası
                   </label>
                   <input
                     type="tel"
-                    {...register("phone", { required: "Phone is required" })}
-                    placeholder="Enter your phone number"
+                    {...register("phone", { required: "Telefon gereklidir" })}
+                    placeholder="Telefon numaranızı girin"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                   />
                   {errors.phone && (
@@ -107,11 +107,11 @@ export default function JoinTSFPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    Institution
+                    Kurum
                   </label>
                   <input
-                    {...register("institution", { required: "Institution is required" })}
-                    placeholder="Your school / college / university"
+                    {...register("institution", { required: "Kurum gereklidir" })}
+                    placeholder="Okul / Üniversiteniz"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                   />
                   {errors.institution && (
@@ -122,11 +122,11 @@ export default function JoinTSFPage() {
                 </div>
                 <div>
                   <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                    City
+                    Şehir
                   </label>
                   <input
-                    {...register("city", { required: "City is required" })}
-                    placeholder="Your city"
+                    {...register("city", { required: "Şehir gereklidir" })}
+                    placeholder="Bulunduğunuz şehir"
                     className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
                   />
                   {errors.city && (
@@ -139,12 +139,12 @@ export default function JoinTSFPage() {
 
               <div>
                 <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
-                  Why do you want to join TSF?
+                  Neden bize katılmak istiyorsunuz?
                 </label>
                 <textarea
-                  {...register("motivation", { required: "This field is required" })}
+                  {...register("motivation", { required: "Bu alan gereklidir" })}
                   rows={5}
-                  placeholder="Tell us about your motivation..."
+                  placeholder="Motivasyonunuzu bizimle paylaşın..."
                   className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent resize-none"
                 />
                 {errors.motivation && (
@@ -155,7 +155,7 @@ export default function JoinTSFPage() {
               </div>
 
               <PrimaryButton type="submit" className="w-full">
-                Submit Application
+                Başvuruyu Gönder
               </PrimaryButton>
             </form>
           </div>

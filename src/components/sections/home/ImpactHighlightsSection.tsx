@@ -10,7 +10,7 @@ export default function ImpactHighlightsSection() {
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="mb-12">
           <h2 className="text-section-title font-heading font-bold text-white">
-            Impact <span className="text-accent">Highlights</span>
+            Etki <span className="text-accent">Rakamları</span>
           </h2>
         </FadeIn>
 
@@ -19,17 +19,17 @@ export default function ImpactHighlightsSection() {
           staggerDelay={0.15}
         >
           <StaggerItem>
-            <ImpactCounter target={50} suffix="+" label="Weekly Quran Classes" format={false} />
+            <ImpactCounter target={50} suffix="+" label="Haftalık Kuran Dersi" format={false} />
           </StaggerItem>
           <StaggerItem>
             <ImpactCounter
               target={5000}
               suffix="+"
-              label="Attendees in Seminars"
+              label="Seminer Katılımcısı"
             />
           </StaggerItem>
           <StaggerItem>
-            <ImpactCounter target={200} suffix="+" label="Blood Bags Donated" format={false} />
+            <ImpactCounter target={200} suffix="+" label="Bağışlanan Kan Torbası" format={false} />
           </StaggerItem>
         </StaggerContainer>
       </div>

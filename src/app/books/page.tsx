@@ -8,46 +8,46 @@ import SectionEyebrow from "@/components/ui/SectionEyebrow";
 const books = [
   {
     id: "1",
-    title: "Youth Leadership Guide",
-    description: "A comprehensive guide for aspiring student leaders covering communication, organization, and advocacy skills.",
-    category: "Leadership",
+    title: "Gençlik Liderliği Rehberi",
+    description: "İletişim, organizasyon ve savunuculuk becerilerini kapsayan kapsamlı bir öğrenci liderliği rehberi.",
+    category: "Liderlik",
   },
   {
     id: "2",
-    title: "Islamic Studies Workbook",
-    description: "Educational workbook for Quran classes and Islamic learning designed for university students.",
-    category: "Education",
+    title: "İslami Çalışmalar Çalışma Kitabı",
+    description: "Üniversite öğrencileri için tasarlanmış Kuran dersleri ve İslami öğrenme çalışma kitabı.",
+    category: "Eğitim",
   },
   {
     id: "3",
-    title: "Student Activism Handbook",
-    description: "A practical handbook on organizing student movements, campaigns, and advocating for student rights.",
-    category: "Activism",
+    title: "Öğrenci Aktivizmi El Kitabı",
+    description: "Öğrenci hareketleri, kampanyalar ve öğrenci hakları savunuculuğu hakkında pratik bir el kitabı.",
+    category: "Aktivizm",
   },
   {
     id: "4",
-    title: "History of Student Movements in Turkey",
-    description: "An in-depth look at the evolution and impact of student organizations throughout Turkish history.",
-    category: "History",
+    title: "Türkiye'de Öğrenci Hareketleri Tarihi",
+    description: "Türk tarihi boyunca öğrenci örgütlerinin evrimi ve etkisine derinlemesine bir bakış.",
+    category: "Tarih",
   },
   {
     id: "5",
-    title: "Effective Study Techniques",
-    description: "Research-backed methods to improve academic performance, time management, and exam preparation.",
-    category: "Academic",
+    title: "Etkili Çalışma Teknikleri",
+    description: "Akademik performansı, zaman yönetimini ve sınav hazırlığını iyileştirmek için araştırmaya dayalı yöntemler.",
+    category: "Akademik",
   },
   {
     id: "6",
-    title: "Building Communities",
-    description: "Strategies for building strong, inclusive student communities on campus and beyond.",
-    category: "Community",
+    title: "Topluluk İnşası",
+    description: "Kampüste ve ötesinde güçlü, kapsayıcı öğrenci toplulukları oluşturmak için stratejiler.",
+    category: "Topluluk",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Books - Turkish Student Federation",
+  title: "Kitaplar - Pakistan Türk Öğrenci Birliği",
   description:
-    "Explore the TSF book collection including leadership guides, educational workbooks, and student activism resources.",
+    "Liderlik rehberleri, eğitim çalışma kitapları ve öğrenci aktivizmi kaynakları dahil olmak üzere kitap koleksiyonumuzu keşfedin.",
 };
 
 export default function BooksPage() {
@@ -56,17 +56,17 @@ export default function BooksPage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <PageHero title="Books Collection" accentWord="Books" />
+        <PageHero title="Kitap Koleksiyonu" accentWord="Kitap" />
 
         <section className="py-section bg-white">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
             <div className="text-center mb-12">
-              <SectionEyebrow text="LIBRARY" />
+              <SectionEyebrow text="KÜTÜPHANE" />
               <h2 className="text-section-title font-heading font-bold text-text-primary">
-                TSF <span className="text-accent">Books</span> Collection
+                Kitap <span className="text-accent">Koleksiyonu</span>
               </h2>
               <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Discover our curated collection of books focused on leadership, education, activism, and student development.
+                Liderlik, eğitim, aktivizm ve öğrenci gelişimi odaklı özenle seçilmiş kitap koleksiyonumuzu keşfedin.
               </p>
             </div>
 

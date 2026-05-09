@@ -9,39 +9,39 @@ import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerCon
 const values = [
   {
     icon: Crown,
-    title: "Leadership",
+    title: "Liderlik",
     description:
-      "We raise students who lead with vision, confidence, and responsibility.",
+      "Vizyon, özgüven ve sorumlulukla liderlik eden öğrenciler yetiştiriyoruz.",
   },
   {
     icon: Shield,
-    title: "Integrity",
+    title: "Dürüstlük",
     description:
-      "We stand for honesty, ethics, and doing the right thing—always.",
+      "Her zaman dürüstlük, etik ve doğru olanı yapma ilkelerine bağlıyız.",
   },
   {
     icon: Users,
-    title: "Unity",
+    title: "Birlik",
     description:
-      "We connect students beyond differences to build unity and brotherhood.",
+      "Farklılıkların ötesinde öğrencileri bir araya getirerek birlik ve kardeşlik inşa ediyoruz.",
   },
   {
     icon: TrendingUp,
-    title: "Growth",
+    title: "Gelişim",
     description:
-      "We focus on continuous learning, skill development, and self-improvement.",
+      "Sürekli öğrenmeye, beceri geliştirmeye ve kendini iyileştirmeye odaklanıyoruz.",
   },
   {
     icon: Heart,
-    title: "Service",
+    title: "Hizmet",
     description:
-      "We dedicate ourselves to helping communities with compassion and action.",
+      "Şefkat ve eylemle toplumlara yardım etmeye kendimizi adıyoruz.",
   },
   {
     icon: Lightbulb,
-    title: "Innovation",
+    title: "Yenilikçilik",
     description:
-      "We encourage creative thinking to solve modern challenges faced by students.",
+      "Öğrencilerin karşılaştığı modern zorlukları çözmek için yaratıcı düşünmeyi teşvik ediyoruz.",
   },
 ];
 
@@ -50,13 +50,13 @@ export default function CoreValuesSection() {
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="WHAT WE STAND FOR" />
+          <SectionEyebrow text="TEMEL DEĞERLERİMİZ" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Our Core <span className="text-accent">Values</span>
+            Temel <span className="text-accent">Değerlerimiz</span>
           </h2>
           <p className="text-body text-text-secondary mt-4 max-w-[700px] mx-auto">
-            At Turkish Student Federation (Turkish Student Federation), our values shape
-            every action, every program, and every student we empower.
+            Pakistan Türk Öğrenci Birliği&apos;nde değerlerimiz, her eylemimizi, her programımızı
+            ve desteklediğimiz her öğrenciyi şekillendirir.
           </p>
         </FadeIn>
 
