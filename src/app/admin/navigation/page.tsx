@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
+import { Fragment } from "react";
 
 interface NavItem {
   id: string;
@@ -38,19 +39,19 @@ export default function NavigationListPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-heading font-bold text-text-primary">Navigasyon</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <h1 className="text-xl sm:text-2xl font-heading font-bold text-text-primary">Navigasyon</h1>
         <Link href="/admin/navigation/new" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark"><Plus className="w-4 h-4" /> Yeni Link</Link>
       </div>
       {loading ? <p className="text-text-muted">Yükleniyor...</p> : (
-        <div className="bg-white rounded-card shadow-card border border-border-custom">
-          <table className="w-full">
+        <div className="bg-white rounded-card shadow-card border border-border-custom overflow-x-auto">
+          <table className="w-full min-w-[600px]">
             <thead><tr className="border-b border-border-custom text-left"><th className="p-4 text-sm font-semibold text-text-secondary">Etiket</th><th className="p-4 text-sm font-semibold text-text-secondary">Link</th><th className="p-4 text-sm font-semibold text-text-secondary">Sıra</th><th className="p-4 text-sm font-semibold text-text-secondary">Görünür</th><th className="p-4 text-sm font-semibold text-text-secondary text-right">İşlemler</th></tr></thead>
             <tbody>
               {topLevel.map((item) => {
                 const children = items.filter((i) => i.parentId === item.id);
                 return (
-                  <tbody key={item.id}>
+                  <Fragment key={item.id}>
                     <tr className="border-b border-border-custom hover:bg-surface/50 bg-surface/30">
                       <td className="p-4 font-medium">{item.label}</td>
                       <td className="p-4 text-sm">{item.href}</td>
@@ -77,7 +78,7 @@ export default function NavigationListPage() {
                         </td>
                       </tr>
                     ))}
-                  </tbody>
+                  </Fragment>
                 );
               })}
             </tbody>

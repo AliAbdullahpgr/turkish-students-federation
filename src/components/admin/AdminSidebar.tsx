@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { SignOutButton } from "@clerk/nextjs";
+import { X } from "lucide-react";
 import {
   LayoutDashboard,
   Newspaper,
@@ -31,15 +32,20 @@ const links = [
   { href: "/admin/contact-submissions", label: "İletişim Mesajları", icon: Mail },
 ];
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
     <aside className="w-64 min-h-screen bg-primary text-white flex flex-col">
-      <div className="p-6 border-b border-white/10">
-        <Link href="/admin" className="text-lg font-heading font-bold">
+      <div className="p-6 border-b border-white/10 flex items-center justify-between">
+        <Link href="/admin" className="text-lg font-heading font-bold" onClick={onClose}>
           PTÖB Admin
         </Link>
+        {onClose && (
+          <button onClick={onClose} className="lg:hidden text-white/70 hover:text-white" aria-label="Menüyü kapat">
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
@@ -54,6 +60,7 @@ export default function AdminSidebar() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={onClose}
               className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
                 isActive
                   ? "bg-white/20 text-white font-medium"

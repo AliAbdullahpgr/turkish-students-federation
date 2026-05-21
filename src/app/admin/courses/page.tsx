@@ -26,13 +26,13 @@ export default function CoursesListPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-heading font-bold text-text-primary">Kurslar</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <h1 className="text-xl sm:text-2xl font-heading font-bold text-text-primary">Kurslar</h1>
         <Link href="/admin/courses/new" className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark"><Plus className="w-4 h-4" /> Yeni Kurs</Link>
       </div>
       {loading ? <p className="text-text-muted">Yükleniyor...</p> : (
-        <div className="bg-white rounded-card shadow-card border border-border-custom">
-          <table className="w-full">
+        <div className="bg-white rounded-card shadow-card border border-border-custom overflow-x-auto">
+          <table className="w-full min-w-[480px]">
             <thead><tr className="border-b border-border-custom text-left"><th className="p-4 text-sm font-semibold text-text-secondary">Başlık</th><th className="p-4 text-sm font-semibold text-text-secondary">Eğitmen</th><th className="p-4 text-sm font-semibold text-text-secondary text-right">İşlemler</th></tr></thead>
             <tbody>
               {courses.map((c) => (
