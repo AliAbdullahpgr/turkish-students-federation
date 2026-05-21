@@ -12,12 +12,6 @@ export default clerkMiddleware(async (auth, req) => {
 
   if (isAdminRoute(req) || isAdminApi(req)) {
     await auth.protect();
-    const { sessionClaims } = await auth();
-    const metadata = sessionClaims?.publicMetadata as Record<string, unknown> | undefined;
-    const isAdmin = metadata?.isAdmin;
-    if (!isAdmin) {
-      return NextResponse.redirect(new URL("/", req.url));
-    }
   }
 });
 
