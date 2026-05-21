@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider signUpUrl="/sign-up">
       <html
         lang="tr"
         className={`${poppins.variable} ${inter.variable} ${lora.variable} ${notoNastaliqUrdu.variable} antialiased`}
