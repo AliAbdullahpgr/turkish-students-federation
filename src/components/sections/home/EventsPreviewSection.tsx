@@ -2,11 +2,24 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { events } from "@/data/events";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
-export default function EventsPreviewSection() {
+interface EventItem {
+  id: string;
+  title: string;
+  posterImage?: string | null;
+  category?: string | null;
+  status: "upcoming" | "recent";
+  date?: string | null;
+  location?: string | null;
+}
+
+interface EventsPreviewSectionProps {
+  events: EventItem[];
+}
+
+export default function EventsPreviewSection({ events }: EventsPreviewSectionProps) {
   const [activeTab, setActiveTab] = useState<"upcoming" | "recent">("upcoming");
   const filteredEvents = events.filter((e) => e.status === activeTab);
 

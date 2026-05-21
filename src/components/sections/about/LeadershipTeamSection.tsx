@@ -6,12 +6,24 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/navigation";
-import { teamMembers } from "@/data/team";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import TeamCard from "@/components/ui/TeamCard";
 import FadeIn from "@/components/animation/FadeIn";
 
-export default function LeadershipTeamSection() {
+interface TeamMemberItem {
+  id: string;
+  name: string;
+  role: string;
+  bio?: string | null;
+  photo?: string | null;
+  order: number;
+}
+
+interface LeadershipTeamSectionProps {
+  members: TeamMemberItem[];
+}
+
+export default function LeadershipTeamSection({ members }: LeadershipTeamSectionProps) {
   return (
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
@@ -42,17 +54,17 @@ export default function LeadershipTeamSection() {
               }}
               className="pb-4"
             >
-              {teamMembers.map((member) => (
+              {members.map((member) => (
                 <SwiperSlide key={member.id}>
                   <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ duration: 0.3 }}
                   >
                     <TeamCard
-                      photo={member.photo}
+                      photo={member.photo ?? undefined}
                       name={member.name}
                       role={member.role}
-                      bio={member.bio}
+                      bio={member.bio ?? ""}
                     />
                   </motion.div>
                 </SwiperSlide>

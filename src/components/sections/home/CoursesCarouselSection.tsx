@@ -6,12 +6,24 @@ import type { Swiper as SwiperType } from "swiper";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import "swiper/css";
-import { courses } from "@/data/courses";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import FadeIn from "@/components/animation/FadeIn";
 
-export default function CoursesCarouselSection() {
+interface CourseItem {
+  id: string;
+  title: string;
+  instructor?: string | null;
+  description?: string | null;
+  thumbnail?: string | null;
+  href: string | null;
+}
+
+interface CoursesCarouselSectionProps {
+  courses: CourseItem[];
+}
+
+export default function CoursesCarouselSection({ courses }: CoursesCarouselSectionProps) {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
@@ -45,12 +57,14 @@ export default function CoursesCarouselSection() {
                     className="bg-white rounded-[16px] overflow-hidden shadow-card border border-border-custom flex flex-col h-full"
                   >
                   <div className="aspect-video bg-surface overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={course.thumbnail}
-                      alt={course.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
+                    {course.thumbnail && (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={course.thumbnail}
+                        alt={course.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    )}
                   </div>
                     <div className="p-6 flex flex-col flex-grow">
                       <h3 className="text-lg font-bold text-text-primary mb-1">
@@ -62,7 +76,7 @@ export default function CoursesCarouselSection() {
                       <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-grow">
                         {course.description}
                       </p>
-                      <PrimaryButton href={course.href} className="self-start text-xs py-2.5 px-5">
+                      <PrimaryButton href={course.href ?? "#"} className="self-start text-xs py-2.5 px-5">
                         Devamını Oku
                       </PrimaryButton>
                     </div>

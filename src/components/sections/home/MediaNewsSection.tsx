@@ -1,14 +1,29 @@
 "use client";
 
-import { blogPosts } from "@/data/blogs";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BlogCard from "@/components/ui/BlogCard";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
-export default function MediaNewsSection() {
-  const latestPosts = blogPosts.slice(0, 6);
+interface BlogPostItem {
+  id: string;
+  title: string;
+  excerpt: string;
+  slug: string;
+  thumbnail?: string | null;
+  isFeatured?: boolean | null;
+  category?: string | null;
+  publishedAt?: string | null;
+  author?: string | null;
+}
+
+interface MediaNewsSectionProps {
+  posts: BlogPostItem[];
+}
+
+export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
+  const latestPosts = posts.slice(0, 6);
 
   return (
     <section className="py-section bg-white">
@@ -27,12 +42,12 @@ export default function MediaNewsSection() {
           {latestPosts.map((post) => (
             <StaggerItem key={post.id}>
               <BlogCard
-                date={post.date}
-                title={post.titleTurkish || post.title}
-                excerpt={post.excerptTurkish || post.excerpt}
+                date={post.publishedAt ?? ""}
+                title={post.title}
+                excerpt={post.excerpt}
                 href={`/news-blogs/${post.slug}/`}
-                isTurkish={post.isTurkish}
-                thumbnail={post.thumbnail}
+                isTurkish={true}
+                thumbnail={post.thumbnail ?? undefined}
               />
             </StaggerItem>
           ))}

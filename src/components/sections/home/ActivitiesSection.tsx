@@ -1,12 +1,22 @@
 "use client";
 
-import { activities } from "@/data/activities";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import ActivityCard from "@/components/ui/ActivityCard";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
-export default function ActivitiesSection() {
+interface ActivityItem {
+  id: string;
+  title: string;
+  description: string | null;
+  icon: string;
+}
+
+interface ActivitiesSectionProps {
+  activities: ActivityItem[];
+}
+
+export default function ActivitiesSection({ activities }: ActivitiesSectionProps) {
   return (
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">

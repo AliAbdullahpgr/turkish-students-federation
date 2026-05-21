@@ -6,9 +6,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navItems } from "@/data/navigation";
+import type { NavItem } from "@/db/queries/navigation";
 
-export default function Navigation() {
+interface NavigationProps {
+  navItems: NavItem[];
+}
+
+export default function Navigation({ navItems }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const pathname = usePathname();

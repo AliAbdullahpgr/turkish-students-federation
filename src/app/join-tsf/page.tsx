@@ -1,9 +1,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import AnnouncementBar from "@/components/layout/AnnouncementBar";
-import Navigation from "@/components/layout/Navigation";
-import Footer from "@/components/layout/Footer";
+import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
+import Navigation from "@/components/layout/NavigationRSC";
+import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PrimaryButton from "@/components/ui/PrimaryButton";

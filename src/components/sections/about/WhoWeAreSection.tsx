@@ -5,22 +5,68 @@ import { motion } from "framer-motion";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
-import { guideSourceSections, homeMessaging, siteIdentity } from "@/data/siteContent";
 
-export default function WhoWeAreSection() {
+interface HomeMessaging {
+  aboutIntro: string;
+}
+
+interface SiteIdentity {
+  name: string;
+  guideHref: string;
+}
+
+const guideSourceSections = [
+  {
+    title: "Kimlik ve Topluluk",
+    href: "/pakistan-rehberi/#biz-kimiz",
+    summary: "Pakistan'daki Türk öğrenci topluluğunun kimliği, misyonu ve dayanışma kültürü.",
+  },
+  {
+    title: "Vize ve Pasaport",
+    href: "/pakistan-rehberi/#vize-ve-pasaport",
+    summary: "Öğrenci vizesi başvuru süreci, gerekli belgeler ve pasaport işlemleri.",
+  },
+  {
+    title: "Resmi İşlemler",
+    href: "/pakistan-rehberi/#ogrenci-resmi-islemleri",
+    summary: "Elçilik adres beyanı, denklik, üniversite kayıt süreçleri.",
+  },
+  {
+    title: "Üniversiteler ve Eğitim",
+    href: "/pakistan-rehberi/#universiteler",
+    summary: "Pakistan'daki üniversite seçenekleri, kayıt hazırlığı ve yükseköğretim hayatı.",
+  },
+  {
+    title: "Sağlık ve Günlük Hayat",
+    href: "/pakistan-rehberi/#saglik",
+    summary: "Sağlık hizmetleri, güvenli başlangıç ve günlük hayatı kolaylaştıran bilgiler.",
+  },
+  {
+    title: "Şehirler ve Kültür",
+    href: "/pakistan-rehberi/#turistik-ve-tarihi-mekanlar",
+    summary: "İslamabad, Lahor, Karaçi ve diğer şehirlerdeki tarihi, kültürel noktalar.",
+  },
+];
+
+interface WhoWeAreSectionProps {
+  messaging: HomeMessaging;
+  identity: SiteIdentity;
+}
+
+export default function WhoWeAreSection({ messaging, identity }: WhoWeAreSectionProps) {
   return (
     <section className="py-section bg-white">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn>
           <SectionEyebrow text="BİZ KİMİZ?" />
           <h2 className="text-section-title font-heading font-bold text-text-primary mb-8">
-            {siteIdentity.name}
+            {identity.name}
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.15}>
           <div className="space-y-6 text-body text-text-secondary leading-relaxed max-w-[900px]">
-            <p>{homeMessaging.aboutIntro}</p>
+            <p>{messaging.aboutIntro}</p>
             <p>
               Bu nedenle web sitesinin ana dili de rehberdir: her bölüm öğrencinin
               Pakistan&apos;a gelmeden önce ve geldikten sonra ihtiyaç duyacağı bilgiye

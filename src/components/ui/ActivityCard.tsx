@@ -15,7 +15,7 @@ const iconMap: Record<string, LucideIcon> = {
 interface ActivityCardProps {
   icon: string;
   title: string;
-  description: string;
+  description: string | null;
 }
 
 export default function ActivityCard({ icon, title, description }: ActivityCardProps) {

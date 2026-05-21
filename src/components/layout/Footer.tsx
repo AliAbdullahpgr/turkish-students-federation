@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
-import { siteIdentity } from "@/data/siteContent";
+
+interface FooterProps {
+  description: string;
+  guideHref: string;
+}
 
 function YoutubeIcon({ className }: { className?: string }) {
   return (
@@ -47,7 +50,7 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-export default function Footer() {
+export default function Footer({ description, guideHref }: FooterProps) {
   return (
     <footer className="bg-primary text-white/80 pt-16">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
@@ -58,7 +61,8 @@ export default function Footer() {
           {/* Brand Column */}
           <StaggerItem>
             <div>
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.png"
                 alt="MSL Pakistan"
                 width={112}
@@ -66,7 +70,7 @@ export default function Footer() {
                 className="w-28 h-28 object-contain mb-4"
               />
               <p className="text-sm leading-relaxed mb-5">
-                {siteIdentity.description}
+                {description}
               </p>
               <div className="flex gap-3">
                 {[
@@ -100,7 +104,7 @@ export default function Footer() {
               <ul className="list-none p-0 m-0">
                 {[
                   { label: "Ana Sayfa", href: "/" },
-                  { label: "Pakistan Öğrenci Rehberi", href: siteIdentity.guideHref },
+                  { label: "Pakistan Öğrenci Rehberi", href: guideHref },
                   { label: "Hakkımızda", href: "/about-us/" },
                   { label: "Etkinlikler", href: "/events/" },
                   { label: "Basın Açıklamaları", href: "/press-releases/" },

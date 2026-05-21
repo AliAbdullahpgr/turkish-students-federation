@@ -3,9 +3,33 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { homeMessaging, siteIdentity } from "@/data/siteContent";
 
-export default function HeroSection() {
+interface HomeMessaging {
+  eyebrow: string;
+  titleTop: string;
+  titleBottom: string;
+  summary: string;
+  primaryCta: string;
+  secondaryCta: string;
+  aboutIntro: string;
+}
+
+interface SiteIdentity {
+  name: string;
+  shortName: string;
+  guideName: string;
+  guideHref: string;
+  joinHref: string;
+  description: string;
+  guideDescription: string;
+}
+
+interface HeroSectionProps {
+  messaging: HomeMessaging;
+  identity: SiteIdentity;
+}
+
+export default function HeroSection({ messaging, identity }: HeroSectionProps) {
   return (
     <section
       className="relative w-full min-h-[85vh] flex items-center overflow-hidden bg-cover bg-center"
@@ -21,8 +45,8 @@ export default function HeroSection() {
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-[clamp(40px,7vw,84px)] font-black text-white leading-[1.05] uppercase tracking-tight"
           >
-            {homeMessaging.titleTop}{" "}
-            <span className="text-turkish-red">{homeMessaging.titleBottom}</span>
+            {messaging.titleTop}{" "}
+            <span className="text-turkish-red">{messaging.titleBottom}</span>
           </motion.h1>
 
           <motion.p
@@ -31,7 +55,7 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
             className="max-w-[560px] text-[17px] leading-7 text-white/80 mt-6"
           >
-            {homeMessaging.summary}
+            {messaging.summary}
           </motion.p>
 
           <motion.div
@@ -41,10 +65,10 @@ export default function HeroSection() {
             className="mt-8"
           >
             <Link
-              href={siteIdentity.guideHref}
+              href={identity.guideHref}
               className="inline-flex items-center gap-2 bg-turkish-red text-white px-7 py-3.5 rounded-pill text-sm font-bold no-underline transition-all hover:bg-turkish-red-dark"
             >
-              {homeMessaging.primaryCta}
+              {messaging.primaryCta}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
