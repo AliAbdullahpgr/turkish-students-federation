@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 
 interface EventForm {
   title: string;
@@ -17,12 +19,14 @@ interface EventForm {
 export default function NewEventPage() {
   const router = useRouter();
   const { register, handleSubmit } = useForm<EventForm>({ defaultValues: { status: "upcoming" } });
+  const [posterMediaId, setPosterMediaId] = useState<string | null>(null);
+  const [posterPreviewUrl, setPosterPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: EventForm) {
     const res = await fetch("/api/admin/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, posterMediaId }),
     });
     if (res.ok) router.push("/admin/events");
   }
@@ -32,6 +36,21 @@ export default function NewEventPage() {
       <PageHeader title="Yeni Etkinlik" backHref="/admin/events" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+        <FormField label="Poster">
+          <ImageUploadField
+            value={posterMediaId}
+            previewUrl={posterPreviewUrl}
+            onChange={(id, url) => {
+              setPosterMediaId(id);
+              setPosterPreviewUrl(url);
+            }}
+            onClear={() => {
+              setPosterMediaId(null);
+              setPosterPreviewUrl(null);
+            }}
+          />
+        </FormField>
+
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}

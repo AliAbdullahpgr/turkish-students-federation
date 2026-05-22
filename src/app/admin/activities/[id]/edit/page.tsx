@@ -50,7 +50,7 @@ export default function EditActivityPage() {
     <div>
       <PageHeader title="Aktivite Düzenle" backHref="/admin/activities" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}

@@ -8,12 +8,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-surface">
+    <div className="h-screen flex overflow-hidden bg-surface">
       <div
         className={`${
           sidebarOpen
             ? "fixed inset-0 z-50 lg:relative lg:z-auto"
-            : "hidden lg:block"
+            : "hidden lg:block lg:shrink-0"
         }`}
       >
         {sidebarOpen && (
@@ -27,15 +27,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </div>
 
-      <main className="flex-1 p-4 lg:p-8 overflow-auto">
-        <button
-          className="lg:hidden mb-4 p-2 -ml-2 text-text-secondary hover:text-accent rounded-md"
-          onClick={() => setSidebarOpen(true)}
-          aria-label="Menüyü aç"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-        {children}
+      <main className="flex-1 min-w-0 overflow-y-auto">
+        <div className="p-4 lg:p-8">
+          <button
+            className="lg:hidden mb-4 p-2 -ml-2 text-text-secondary hover:text-accent rounded-md"
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Menüyü aç"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          {children}
+        </div>
       </main>
     </div>
   );

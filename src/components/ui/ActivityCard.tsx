@@ -2,6 +2,8 @@
 
 import { Monitor, Users, BookOpen, Trophy, Shield, Heart, LucideIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const iconMap: Record<string, LucideIcon> = {
   Monitor,
@@ -36,7 +38,11 @@ export default function ActivityCard({ icon, title, description }: ActivityCardP
       </motion.div>
       <div>
         <h3 className="text-[17px] font-bold text-primary mb-2">{title}</h3>
-        <p className="text-sm text-text-secondary leading-relaxed">{description}</p>
+        <div className="prose prose-sm prose-slate max-w-none text-sm text-text-secondary leading-relaxed">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {description || ""}
+          </ReactMarkdown>
+        </div>
       </div>
     </motion.div>
   );

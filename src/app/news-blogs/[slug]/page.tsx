@@ -2,6 +2,8 @@ import { Metadata } from "next";
 export const revalidate = 60;
 
 import { notFound } from "next/navigation";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
@@ -65,10 +67,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {post.excerpt}
               </p>
               {post.body && (
-                <div
-                  className="text-body text-text-secondary leading-relaxed prose prose-sm max-w-none"
-                  dangerouslySetInnerHTML={{ __html: post.body }}
-                />
+                <article className="prose prose-slate max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {post.body}
+                  </ReactMarkdown>
+                </article>
               )}
               {!post.body && (
                 <p className="text-body text-text-secondary leading-relaxed">

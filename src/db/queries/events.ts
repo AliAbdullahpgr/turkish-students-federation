@@ -1,31 +1,38 @@
 import { db } from "@/db/client";
 import { events } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { resolveMediaUrls } from "./resolve-media";
 
 export async function getAllEvents() {
-  return db.select().from(events).all();
+  const rows = await db.select().from(events).all();
+  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
 }
 
 export async function getUpcomingEvents() {
-  return db
+  const rows = await db
     .select()
     .from(events)
     .where(eq(events.status, "upcoming"))
     .all();
+  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
 }
 
 export async function getRecentEvents() {
-  return db
+  const rows = await db
     .select()
     .from(events)
     .where(eq(events.status, "recent"))
     .all();
+  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
 }
 
 export async function getEventById(id: string) {
-  return db
+  const row = await db
     .select()
     .from(events)
     .where(eq(events.id, id))
     .get();
+  if (!row) return null;
+  const [resolved] = await resolveMediaUrls([row], "posterMediaId", "posterImage");
+  return resolved;
 }

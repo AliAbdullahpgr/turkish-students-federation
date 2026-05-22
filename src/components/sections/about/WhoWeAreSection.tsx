@@ -2,6 +2,8 @@
 
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
@@ -65,8 +67,10 @@ export default function WhoWeAreSection({ messaging, identity }: WhoWeAreSection
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="space-y-6 text-body text-text-secondary leading-relaxed max-w-[900px]">
-            <p>{messaging.aboutIntro}</p>
+          <div className="prose prose-slate max-w-none max-w-[900px]">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {messaging.aboutIntro}
+            </ReactMarkdown>
             <p>
               Bu nedenle web sitesinin ana dili de rehberdir: her bölüm öğrencinin
               Pakistan&apos;a gelmeden önce ve geldikten sonra ihtiyaç duyacağı bilgiye

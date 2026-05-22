@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 
 interface BlogPostForm {
   title: string;
@@ -20,12 +22,14 @@ export default function NewBlogPostPage() {
   const router = useRouter();
   const { register, handleSubmit, watch, setValue } = useForm<BlogPostForm>();
   const bodyValue = watch("body") || "";
+  const [thumbnailMediaId, setThumbnailMediaId] = useState<string | null>(null);
+  const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: BlogPostForm) {
     const res = await fetch("/api/admin/blog-posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, thumbnailMediaId }),
     });
     if (res.ok) router.push("/admin/blog-posts");
   }
@@ -35,6 +39,21 @@ export default function NewBlogPostPage() {
       <PageHeader title="Yeni Blog Yazısı" backHref="/admin/blog-posts" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormField label="Kapak Görseli">
+          <ImageUploadField
+            value={thumbnailMediaId}
+            previewUrl={thumbnailPreviewUrl}
+            onChange={(id, url) => {
+              setThumbnailMediaId(id);
+              setThumbnailPreviewUrl(url);
+            }}
+            onClear={() => {
+              setThumbnailMediaId(null);
+              setThumbnailPreviewUrl(null);
+            }}
+          />
+        </FormField>
+
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}

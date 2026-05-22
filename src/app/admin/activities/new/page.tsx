@@ -37,7 +37,7 @@ export default function NewActivityPage() {
     <div>
       <PageHeader title="Yeni Aktivite" backHref="/admin/activities" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}

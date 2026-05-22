@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 
 interface FormData {
   title: string;
@@ -16,12 +18,14 @@ interface FormData {
 export default function NewCoursePage() {
   const router = useRouter();
   const { register, handleSubmit } = useForm<FormData>({ defaultValues: { href: "#" } });
+  const [thumbnailMediaId, setThumbnailMediaId] = useState<string | null>(null);
+  const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: FormData) {
     const res = await fetch("/api/admin/courses", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, thumbnailMediaId }),
     });
     if (res.ok) router.push("/admin/courses");
   }
@@ -30,7 +34,22 @@ export default function NewCoursePage() {
     <div>
       <PageHeader title="Yeni Kurs" backHref="/admin/courses" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormField label="Görsel">
+          <ImageUploadField
+            value={thumbnailMediaId}
+            previewUrl={thumbnailPreviewUrl}
+            onChange={(id, url) => {
+              setThumbnailMediaId(id);
+              setThumbnailPreviewUrl(url);
+            }}
+            onClear={() => {
+              setThumbnailMediaId(null);
+              setThumbnailPreviewUrl(null);
+            }}
+          />
+        </FormField>
+
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}

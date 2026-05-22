@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface TeamCardProps {
   photo?: string;
@@ -38,7 +40,11 @@ export default function TeamCard({ photo, name, role, bio }: TeamCardProps) {
       <span className="text-[13px] font-semibold text-accent block mb-3.5">
         {role}
       </span>
-      <p className="text-[13px] text-text-secondary leading-relaxed">{bio}</p>
+      <div className="prose prose-sm prose-slate max-w-none text-left text-[13px] text-text-secondary leading-relaxed">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {bio}
+        </ReactMarkdown>
+      </div>
     </motion.div>
   );
 }

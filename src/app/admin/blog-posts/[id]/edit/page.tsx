@@ -7,6 +7,7 @@ import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
+import ImageUploadField from "@/components/admin/ImageUploadField";
 
 interface BlogPostForm {
   title: string;

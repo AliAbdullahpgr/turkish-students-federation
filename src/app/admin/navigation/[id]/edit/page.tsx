@@ -52,7 +52,7 @@ export default function EditNavigationItemPage() {
     <div>
       <PageHeader title="Link Düzenle" backHref="/admin/navigation" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         <FormField label="Etiket" required>
           <input
             {...register("label", { required: true })}

@@ -1,6 +1,8 @@
 "use client";
 
 import { MapPin, BookOpen, GraduationCap, Heart, Landmark, Phone } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import type { GuideSectionTree } from "@/db/queries/guide-sections";
 
 
@@ -40,8 +42,10 @@ function GuideSectionComponent({ section, depth = 0 }: { section: GuideSectionTr
       </h3>
 
       {hasContent && (
-        <div className="text-body text-text-secondary leading-relaxed whitespace-pre-line mb-6">
-          {section.content}
+        <div className="prose prose-slate max-w-none mb-6">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {section.content}
+          </ReactMarkdown>
         </div>
       )}
 
@@ -100,9 +104,11 @@ export default function GuidePageClient({ guideTree, guideDescription }: GuidePa
                 <h1 className="text-[clamp(28px,4vw,42px)] font-bold text-text-primary leading-tight">
                   Pakistan <span className="text-turkish-red">Öğrenci Rehberi</span>
                 </h1>
-                <p className="text-body text-text-secondary mt-4 max-w-[700px]">
-                  {guideDescription}
-                </p>
+                <div className="prose prose-slate max-w-none max-w-[700px] mt-4">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {guideDescription}
+                  </ReactMarkdown>
+                </div>
               </div>
 
               <div className="mb-10 p-6 bg-surface rounded-[12px]">
