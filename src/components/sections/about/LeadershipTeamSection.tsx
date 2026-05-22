@@ -1,14 +1,5 @@
-"use client";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
-import "swiper/css";
-import "swiper/css/navigation";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import TeamCard from "@/components/ui/TeamCard";
-import FadeIn from "@/components/animation/FadeIn";
 
 interface TeamMemberItem {
   id: string;
@@ -25,68 +16,30 @@ interface LeadershipTeamSectionProps {
 
 export default function LeadershipTeamSection({ members }: LeadershipTeamSectionProps) {
   return (
-    <section className="py-section bg-white">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="EKİP" />
+    <section className="bg-white py-section">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
+        <div className="mb-12 text-center">
+          <SectionEyebrow text="EKIP" />
           <h2 className="text-section-title font-heading font-bold text-text-primary">
             Proje <span className="text-accent">Ekibimiz</span>
           </h2>
-          <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-            Kararlı, adanmış ve öğrenci topluluğuna derinden bağlı —
-            Pakistan Öğrenci Rehberi&apos;ni hazırlayan ekiple tanışın.
+          <p className="mx-auto mt-4 max-w-[600px] text-body text-text-secondary">
+            Kararli, adanmis ve ogrenci topluluguna derinden bagli; Pakistan Ogrenci Rehberi&apos;ni
+            hazirlayan ekiple tanisin.
           </p>
-        </FadeIn>
+        </div>
 
-        <FadeIn delay={0.2}>
-          <div className="relative overflow-hidden sm:overflow-visible">
-            <Swiper
-              modules={[Navigation]}
-              spaceBetween={24}
-              slidesPerView={1}
-              navigation={{
-                prevEl: ".team-prev",
-                nextEl: ".team-next",
-              }}
-              breakpoints={{
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-              className="pb-4"
-            >
-              {members.map((member) => (
-                <SwiperSlide key={member.id}>
-                  <motion.div
-                    whileHover={{ y: -6 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <TeamCard
-                      photo={member.photo ?? undefined}
-                      name={member.name}
-                      role={member.role}
-                      bio={member.bio ?? ""}
-                    />
-                  </motion.div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="team-prev absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-6 z-10 hidden sm:flex w-10 h-10 rounded-full bg-primary text-white items-center justify-center shadow-lg hover:bg-primary-dark transition-colors cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="team-next absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-6 z-10 hidden sm:flex w-10 h-10 rounded-full bg-primary text-white items-center justify-center shadow-lg hover:bg-primary-dark transition-colors cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
-          </div>
-        </FadeIn>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {members.map((member) => (
+            <TeamCard
+              key={member.id}
+              photo={member.photo ?? undefined}
+              name={member.name}
+              role={member.role}
+              bio={member.bio ?? ""}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

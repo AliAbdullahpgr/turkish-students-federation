@@ -1,61 +1,85 @@
-"use client";
-
-import { MapPin, BookOpen, GraduationCap, Heart, Landmark, Phone } from "lucide-react";
+import { BookOpen, GraduationCap, Heart, Landmark, MapPin, Phone } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { GuideSectionTree } from "@/db/queries/guide-sections";
 
-
 function SectionIcon({ title }: { title: string }) {
   const lower = title.toLowerCase();
-  if (lower.includes("vize") || lower.includes("pasaport") || lower.includes("işlem") || lower.includes("ehliyet") || lower.includes("konaklama")) return <BookOpen className="w-5 h-5 text-turkish-red" />;
-  if (lower.includes("üniversite") || lower.includes("eğitim") || lower.includes("kurs")) return <GraduationCap className="w-5 h-5 text-turkish-red" />;
-  if (lower.includes("sağlık") || lower.includes("hastane")) return <Heart className="w-5 h-5 text-turkish-red" />;
-  if (lower.includes("turistik") || lower.includes("mekân") || lower.includes("cami") || lower.includes("kale") || lower.includes("türbe") || lower.includes("museum") || lower.includes("park") || lower.includes("garden") || lower.includes("beach") || lower.includes("pazar") || lower.includes("meydan")) return <Landmark className="w-5 h-5 text-turkish-red" />;
-  if (lower.includes("iletişim") || lower.includes("numara") || lower.includes("ulaşım") || lower.includes("döviz")) return <Phone className="w-5 h-5 text-turkish-red" />;
-  return <MapPin className="w-5 h-5 text-turkish-red" />;
+  if (
+    lower.includes("vize") ||
+    lower.includes("pasaport") ||
+    lower.includes("islem") ||
+    lower.includes("ehliyet") ||
+    lower.includes("konaklama")
+  ) {
+    return <BookOpen className="h-5 w-5 text-turkish-red" />;
+  }
+  if (lower.includes("universite") || lower.includes("egitim") || lower.includes("kurs")) {
+    return <GraduationCap className="h-5 w-5 text-turkish-red" />;
+  }
+  if (lower.includes("saglik") || lower.includes("hastane")) {
+    return <Heart className="h-5 w-5 text-turkish-red" />;
+  }
+  if (
+    lower.includes("turistik") ||
+    lower.includes("mekan") ||
+    lower.includes("cami") ||
+    lower.includes("kale") ||
+    lower.includes("turbe") ||
+    lower.includes("museum") ||
+    lower.includes("park") ||
+    lower.includes("garden") ||
+    lower.includes("beach") ||
+    lower.includes("pazar") ||
+    lower.includes("meydan")
+  ) {
+    return <Landmark className="h-5 w-5 text-turkish-red" />;
+  }
+  if (lower.includes("iletisim") || lower.includes("numara") || lower.includes("ulasim") || lower.includes("doviz")) {
+    return <Phone className="h-5 w-5 text-turkish-red" />;
+  }
+  return <MapPin className="h-5 w-5 text-turkish-red" />;
 }
 
-function GuideSectionComponent({ section, depth = 0 }: { section: GuideSectionTree; depth?: number }) {
-  const hasContent = section.content && section.content.trim().length > 0;
-  const hasChildren = section.children && section.children.length > 0;
+function GuideSectionComponent({ section }: { section: GuideSectionTree }) {
+  const hasContent = Boolean(section.content?.trim());
+  const hasChildren = Boolean(section.children?.length);
 
   if (!hasContent && !hasChildren) return null;
 
   const headingClasses: Record<number, string> = {
-    1: "text-3xl font-bold text-text-primary mt-12 mb-6",
-    2: "text-2xl font-bold text-text-primary mt-10 mb-4",
-    3: "text-xl font-bold text-text-primary mt-8 mb-3",
-    4: "text-lg font-bold text-text-primary mt-6 mb-2",
+    1: "mt-12 mb-6 text-3xl font-bold text-text-primary",
+    2: "mt-10 mb-4 text-2xl font-bold text-text-primary",
+    3: "mt-8 mb-3 text-xl font-bold text-text-primary",
+    4: "mt-6 mb-2 text-lg font-bold text-text-primary",
   };
 
   return (
     <div id={section.id} className="scroll-mt-28">
       <h3 className={headingClasses[section.level] || headingClasses[4]}>
-        {section.level <= 2 && (
+        {section.level <= 2 ? (
           <span className="inline-flex items-center gap-2">
             <SectionIcon title={section.title} />
             {section.title}
           </span>
+        ) : (
+          section.title
         )}
-        {section.level > 2 && section.title}
       </h3>
 
-      {hasContent && (
-        <div className="prose prose-slate max-w-none mb-6">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {section.content}
-          </ReactMarkdown>
+      {hasContent ? (
+        <div className="prose prose-slate mb-6 max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>{section.content}</ReactMarkdown>
         </div>
-      )}
+      ) : null}
 
-      {hasChildren && (
+      {hasChildren ? (
         <div>
           {section.children!.map((child) => (
-            <GuideSectionComponent key={child.id} section={child} depth={depth + 1} />
+            <GuideSectionComponent key={child.id} section={child} />
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
@@ -66,21 +90,19 @@ function TableOfContents({ sections }: { sections: GuideSectionTree[] }) {
       <div key={item.id} className={depth > 0 ? "ml-4" : ""}>
         <a
           href={`#${item.id}`}
-          className="block py-1 text-sm text-text-secondary hover:text-accent transition-colors"
+          className="block py-1 text-sm text-text-secondary transition-colors hover:text-accent"
         >
           {item.title}
         </a>
-        {item.children && renderTocItems(item.children, depth + 1)}
+        {item.children ? renderTocItems(item.children, depth + 1) : null}
       </div>
     ));
   }
 
   return (
-    <div className="bg-surface rounded-[16px] p-6 sticky top-32">
-      <h3 className="text-lg font-bold text-text-primary mb-4">İçindekiler</h3>
-      <nav className="space-y-1 max-h-[70vh] overflow-y-auto pr-2">
-        {renderTocItems(sections)}
-      </nav>
+    <div className="sticky top-32 rounded-[16px] bg-surface p-6">
+      <h3 className="mb-4 text-lg font-bold text-text-primary">Icindekiler</h3>
+      <nav className="max-h-[70vh] space-y-1 overflow-y-auto pr-2">{renderTocItems(sections)}</nav>
     </div>
   );
 }
@@ -92,39 +114,38 @@ interface GuidePageClientProps {
 
 export default function GuidePageClient({ guideTree, guideDescription }: GuidePageClientProps) {
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+    <section className="bg-white py-12">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-[16px]">
-              <div className="mb-8 pb-8 border-b border-gray-100">
-                <span className="inline-block px-3 py-1 bg-turkish-red/10 text-turkish-red text-xs font-bold uppercase rounded-full mb-4">
+            <div className="rounded-[16px] bg-white">
+              <div className="mb-8 border-b border-gray-100 pb-8">
+                <span className="mb-4 inline-block rounded-full bg-turkish-red/10 px-3 py-1 text-xs font-bold uppercase text-turkish-red">
                   Rehber
                 </span>
-                <h1 className="text-[clamp(28px,4vw,42px)] font-bold text-text-primary leading-tight">
-                  Pakistan <span className="text-turkish-red">Öğrenci Rehberi</span>
+                <h1 className="text-[clamp(28px,4vw,42px)] font-bold leading-tight text-text-primary">
+                  Pakistan <span className="text-turkish-red">Ogrenci Rehberi</span>
                 </h1>
-                <div className="prose prose-slate max-w-none max-w-[700px] mt-4">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {guideDescription}
-                  </ReactMarkdown>
+                <div className="prose prose-slate mt-4 max-w-[700px]">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{guideDescription}</ReactMarkdown>
                 </div>
               </div>
 
-              <div className="mb-10 p-6 bg-surface rounded-[12px]">
-                <h2 className="text-lg font-bold text-text-primary mb-4">Proje Ekibi</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-text-secondary">
+              <div className="mb-10 rounded-[12px] bg-surface p-6">
+                <h2 className="mb-4 text-lg font-bold text-text-primary">Proje Ekibi</h2>
+                <div className="grid grid-cols-1 gap-4 text-sm text-text-secondary sm:grid-cols-2">
                   <div>
-                    <span className="font-semibold text-text-primary">Ekip:</span> Halid Kaya, Muhammet Akpunar, Nurullah Bakırhan, Mürsel Salih Kör
+                    <span className="font-semibold text-text-primary">Ekip:</span> Halid Kaya, Muhammet Akpunar,
+                    Nurullah Bakirhan, Mursel Salih Kor
                   </div>
                   <div>
-                    <span className="font-semibold text-text-primary">Editör:</span> Muhammet Akpunar
+                    <span className="font-semibold text-text-primary">Editor:</span> Muhammet Akpunar
                   </div>
                   <div>
-                    <span className="font-semibold text-text-primary">Tasarım:</span> Mürsel Salih Kör
+                    <span className="font-semibold text-text-primary">Tasarim:</span> Mursel Salih Kor
                   </div>
                   <div>
-                    <span className="font-semibold text-text-primary">Yayın Yeri:</span> İslamabad, 2026
+                    <span className="font-semibold text-text-primary">Yayin Yeri:</span> Islamabad, 2026
                   </div>
                 </div>
               </div>
@@ -135,7 +156,7 @@ export default function GuidePageClient({ guideTree, guideDescription }: GuidePa
             </div>
           </div>
 
-          <div className="hidden lg:block lg:col-span-1">
+          <div className="hidden lg:col-span-1 lg:block">
             <TableOfContents sections={guideTree} />
           </div>
         </div>

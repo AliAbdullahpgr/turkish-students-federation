@@ -1,9 +1,5 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import FadeIn from "@/components/animation/FadeIn";
-import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
 interface FooterProps {
   description: string;
@@ -50,145 +46,126 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+const quickLinks = [
+  { label: "Ana Sayfa", href: "/" },
+  { label: "Hakkimizda", href: "/about-us/" },
+  { label: "Etkinlikler", href: "/events/" },
+  { label: "Basin Aciklamalari", href: "/press-releases/" },
+  { label: "Birimlerimiz", href: "/departments/" },
+  { label: "Kullanim Kosullari", href: "/terms/" },
+  { label: "Gizlilik Politikasi", href: "/privacy/" },
+];
+
+const literatureLinks = [
+  { label: "Edebiyat", href: "/literature/" },
+  { label: "Bloglar", href: "/news-blogs/" },
+  { label: "The Students Times", href: "/students-times/" },
+  { label: "Kitaplar", href: "/books/" },
+  { label: "Bulten", href: "/newsletter/" },
+];
+
+const socialLinks = [
+  { href: "https://facebook.com/tsfturkey", label: "Facebook", Icon: FacebookIcon },
+  { href: "#", label: "Instagram", Icon: InstagramIcon },
+  { href: "#", label: "X / Twitter", Icon: TwitterIcon },
+  { href: "#", label: "LinkedIn", Icon: LinkedinIcon },
+  { href: "#", label: "YouTube", Icon: YoutubeIcon },
+];
+
 export default function Footer({ description, guideHref }: FooterProps) {
   return (
-    <footer className="bg-primary text-white/80 pt-16">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr] gap-12"
-          staggerDelay={0.1}
-        >
-          {/* Brand Column */}
-          <StaggerItem>
-            <div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.png"
-                alt="MSL Pakistan"
-                width={112}
-                height={112}
-                className="w-28 h-28 object-contain mb-4"
-              />
-              <p className="text-sm leading-relaxed mb-5">
-                {description}
-              </p>
-              <div className="flex gap-3">
-                {[
-                  { href: "https://facebook.com/tsfturkey", label: "Facebook", Icon: FacebookIcon },
-                  { href: "#", label: "Instagram", Icon: InstagramIcon },
-                  { href: "#", label: "X / Twitter", Icon: TwitterIcon },
-                  { href: "#", label: "LinkedIn", Icon: LinkedinIcon },
-                  { href: "#", label: "YouTube", Icon: YoutubeIcon },
-                ].map(({ href, label, Icon }) => (
-                  <motion.div key={label} whileHover={{ scale: 1.15, y: -2 }} whileTap={{ scale: 0.95 }}>
-                    <Link
-                      href={href}
-                      prefetch={false}
-                      className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white transition-colors hover:bg-accent"
-                      aria-label={label}
-                    >
-                      <Icon className="w-4 h-4" />
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </StaggerItem>
-
-          {/* Quick Links */}
-          <StaggerItem>
-            <div>
-              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                Hızlı Bağlantılar
-              </h4>
-              <ul className="list-none p-0 m-0">
-                {[
-                  { label: "Ana Sayfa", href: "/" },
-                  { label: "Pakistan Öğrenci Rehberi", href: guideHref },
-                  { label: "Hakkımızda", href: "/about-us/" },
-                  { label: "Etkinlikler", href: "/events/" },
-                  { label: "Basın Açıklamaları", href: "/press-releases/" },
-                  { label: "Birimlerimiz", href: "/departments/" },
-                  { label: "Kullanım Koşulları", href: "/terms/" },
-                  { label: "Gizlilik Politikası", href: "/privacy/" },
-                ].map((link) => (
-                  <li key={link.label} className="mb-2.5">
-                    <Link
-                      href={link.href}
-                      prefetch={false}
-                      className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </StaggerItem>
-
-          {/* Literature */}
-          <StaggerItem>
-            <div>
-              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                Edebiyat
-              </h4>
-              <ul className="list-none p-0 m-0">
-                {[
-                  { label: "Edebiyat", href: "/literature/" },
-                  { label: "Bloglar", href: "/news-blogs/" },
-                  { label: "The Students Times", href: "/students-times/" },
-                  { label: "Kitaplar", href: "/books/" },
-                  { label: "Bülten", href: "/newsletter/" },
-                ].map((link) => (
-                  <li key={link.label} className="mb-2.5">
-                    <Link
-                      href={link.href}
-                      prefetch={false}
-                      className="text-white/70 text-sm no-underline transition-colors hover:text-accent"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </StaggerItem>
-
-          {/* Newsletter */}
-          <StaggerItem>
-            <div>
-              <h4 className="text-[15px] font-bold text-white mb-5 uppercase tracking-wider">
-                İletişime Geç
-              </h4>
-              <p className="text-sm leading-relaxed mb-4">
-                Gelecek güncellemelerimizi kaçırma! Hemen abone ol!
-              </p>
-              <form className="flex flex-col gap-2.5">
-                <input
-                  type="email"
-                  placeholder="E-posta adresinizi girin"
-                  className="px-4 py-2.5 rounded-lg border border-white/20 bg-white/[0.08] text-white text-sm outline-none placeholder:text-white/50 transition-all focus:border-accent focus:bg-white/10"
-                />
-                <motion.button
-                  whileHover={{ scale: 1.03, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit"
-                  className="bg-primary-light text-white px-8 py-3 rounded-pill text-sm font-semibold border-none cursor-pointer transition-colors hover:bg-primary-dark"
+    <footer className="bg-primary pt-16 text-white/80">
+      <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
+          <div>
+            <Image
+              src="/logo.png"
+              alt="MSL Pakistan"
+              width={112}
+              height={112}
+              className="mb-4 h-28 w-28 object-contain"
+            />
+            <p className="mb-5 text-sm leading-relaxed">{description}</p>
+            <div className="flex gap-3">
+              {socialLinks.map(({ href, label, Icon }) => (
+                <Link
+                  key={label}
+                  href={href}
+                  prefetch={false}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-accent"
+                  aria-label={label}
                 >
-                  Abone Ol
-                </motion.button>
-              </form>
+                  <Icon className="h-4 w-4" />
+                </Link>
+              ))}
             </div>
-          </StaggerItem>
-        </StaggerContainer>
+          </div>
+
+          <div>
+            <h4 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-white">
+              Hizli Baglantilar
+            </h4>
+            <ul className="m-0 list-none p-0">
+              {[{ label: "Pakistan Ogrenci Rehberi", href: guideHref }, ...quickLinks].map((link) => (
+                <li key={link.label} className="mb-2.5">
+                  <Link
+                    href={link.href}
+                    prefetch={false}
+                    className="text-sm text-white/70 no-underline transition-colors hover:text-accent"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-white">
+              Edebiyat
+            </h4>
+            <ul className="m-0 list-none p-0">
+              {literatureLinks.map((link) => (
+                <li key={link.label} className="mb-2.5">
+                  <Link
+                    href={link.href}
+                    prefetch={false}
+                    className="text-sm text-white/70 no-underline transition-colors hover:text-accent"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-white">
+              Iletisime Gec
+            </h4>
+            <p className="mb-4 text-sm leading-relaxed">
+              Gelecek guncellemelerimizi kacirma! Hemen abone ol!
+            </p>
+            <form className="flex flex-col gap-2.5">
+              <input
+                type="email"
+                placeholder="E-posta adresinizi girin"
+                className="rounded-lg border border-white/20 bg-white/[0.08] px-4 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/50 focus:border-accent focus:bg-white/10"
+              />
+              <button
+                type="submit"
+                className="rounded-pill bg-primary-light px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+              >
+                Abone Ol
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
 
-      {/* Copyright */}
-      <FadeIn>
-        <div className="border-t border-white/10 mt-12 py-5 px-6 lg:px-12 text-center text-[13px] text-white/50">
-          <p>©2026. TSF IT DEPARTMENT. Design & Develop by Abdul Manan</p>
-        </div>
-      </FadeIn>
+      <div className="mt-12 border-t border-white/10 px-6 py-5 text-center text-[13px] text-white/50 lg:px-12">
+        <p>(c)2026. TSF IT DEPARTMENT. Design & Develop by Abdul Manan</p>
+      </div>
     </footer>
   );
 }

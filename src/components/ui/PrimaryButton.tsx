@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
 
 interface PrimaryButtonProps {
   href?: string;
@@ -20,32 +19,19 @@ export default function PrimaryButton({
   className = "",
 }: PrimaryButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center bg-turkish-red text-white px-8 py-3.5 rounded-pill text-sm font-semibold no-underline border-none cursor-pointer transition-all duration-normal hover:bg-turkish-red-dark hover:shadow-btn";
-
-  const motionProps = {
-    whileHover: { scale: 1.03, y: -2 },
-    whileTap: { scale: 0.98 },
-    transition: { duration: 0.2 },
-  };
+    "inline-flex items-center justify-center rounded-pill border-none bg-turkish-red px-8 py-3.5 text-sm font-semibold text-white no-underline transition-colors duration-normal hover:bg-turkish-red-dark hover:shadow-btn";
 
   if (href) {
     return (
-      <motion.div {...motionProps} className="inline-block">
-        <Link href={href} className={`${baseClasses} ${className}`}>
-          {children}
-        </Link>
-      </motion.div>
+      <Link href={href} className={`${baseClasses} ${className}`}>
+        {children}
+      </Link>
     );
   }
 
   return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      className={`${baseClasses} ${className}`}
-      {...motionProps}
-    >
+    <button type={type} onClick={onClick} className={`${baseClasses} ${className}`}>
       {children}
-    </motion.button>
+    </button>
   );
 }
