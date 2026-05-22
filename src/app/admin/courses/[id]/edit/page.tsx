@@ -59,7 +59,7 @@ export default function EditCoursePage() {
     <div>
       <PageHeader title="Kurs Duzenle" backHref="/admin/courses" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         <FormField label="Kapak Gorseli">
           <ImageUploadField
             value={thumbnailMediaId}

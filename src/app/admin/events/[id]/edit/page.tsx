@@ -60,7 +60,7 @@ export default function EditEventPage() {
     <div>
       <PageHeader title="Etkinlik Duzenle" backHref="/admin/events" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         <FormField label="Afis Gorseli">
           <ImageUploadField
             value={posterMediaId}
