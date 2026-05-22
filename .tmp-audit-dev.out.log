@@ -1,0 +1,69 @@
+
+> msl-pakistan-clone@0.1.0 dev
+> next dev --port 3021
+
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3021
+   - Network:      http://192.168.100.196:3021
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 5.1s
+ ✓ Compiled /middleware in 427ms (220 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 14s (2660 modules)
+ GET / 200 in 20349ms
+ GET / 200 in 2842ms
+ GET / 200 in 4209ms
+ ○ Compiling /news-blogs ...
+ ✓ Compiled /news-blogs in 2.6s (2676 modules)
+ GET / 200 in 242ms
+ GET /news-blogs 200 in 5590ms
+ ○ Compiling /events ...
+ ✓ Compiled /events in 1205ms (2670 modules)
+ GET /events 200 in 2636ms
+ ○ Compiling /pakistan-rehberi ...
+ ✓ Compiled /pakistan-rehberi in 3.2s (2690 modules)
+ GET /pakistan-rehberi 200 in 10514ms
+ GET /pakistan-rehberi 200 in 2634ms
+ GET / 200 in 2682ms
+ GET /news-blogs 200 in 707ms
+ GET /events 200 in 661ms
+ GET /pakistan-rehberi 200 in 1817ms
+ ○ Compiling /contact-us ...
+ ✓ Compiled /contact-us in 1698ms (2704 modules)
+ GET /contact-us 200 in 3774ms
+ ○ Compiling /join-tsf ...
+ ✓ Compiled /join-tsf in 4.3s (3022 modules)
+ GET /join-tsf 200 in 9530ms
+ GET / 200 in 4387ms
+ GET /news-blogs 200 in 1313ms
+ GET /events 200 in 733ms
+ GET /pakistan-rehberi 200 in 2728ms
+ GET /contact-us 200 in 732ms
+ GET /join-tsf 200 in 627ms
+ GET /contact-us 200 in 3088ms
+ GET /join-tsf 200 in 2062ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /api/contact in 5.9s (3022 modules)
+Contact form submission: {
+  name: 'Audit',
+  email: 'audit@example.com',
+  subject: 'test',
+  message: 'hello'
+}
+ POST /api/contact 200 in 6322ms
+ GET /admin 404 in 8430ms
+ GET /api/admin/blog-posts 404 in 8374ms
+ GET /contact-us 200 in 2021ms
+ GET /contact-us 200 in 1377ms
+ ○ Compiling /sign-in/[[...sign-in]] ...
+ ✓ Compiled /sign-in/[[...sign-in]] in 1696ms (2894 modules)
+ GET /sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3021%2Fadmin 200 in 3851ms
+ GET /sign-in/SignIn_clerk_catchall_check_1779444814446 200 in 186ms
+ ✓ Compiled /news-blogs in 492ms (1616 modules)
+ GET /news-blogs 200 in 2650ms
+ ○ Compiling /news-blogs/[slug] ...
+ ✓ Compiled /news-blogs/[slug] in 2.7s (3117 modules)
+ GET /news-blogs/rising-prices-burden-on-students 200 in 5987ms
+ GET /events 200 in 3796ms
