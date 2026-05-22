@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import Link from "next/link";
-import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
+import PageHeader from "@/components/admin/PageHeader";
 
 interface FormData {
   title: string;
@@ -17,7 +17,9 @@ interface FormData {
 
 export default function NewCoursePage() {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<FormData>({ defaultValues: { href: "#" } });
+  const { register, handleSubmit } = useForm<FormData>({
+    defaultValues: { href: "#" },
+  });
   const [thumbnailMediaId, setThumbnailMediaId] = useState<string | null>(null);
   const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
 
@@ -27,15 +29,18 @@ export default function NewCoursePage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, thumbnailMediaId }),
     });
-    if (res.ok) router.push("/admin/courses");
+
+    if (res.ok) {
+      router.push("/admin/courses");
+    }
   }
 
   return (
     <div>
       <PageHeader title="Yeni Kurs" backHref="/admin/courses" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Görsel">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+        <FormField label="Kapak Gorseli">
           <ImageUploadField
             value={thumbnailMediaId}
             previewUrl={thumbnailPreviewUrl}
@@ -50,41 +55,47 @@ export default function NewCoursePage() {
           />
         </FormField>
 
-        <FormField label="Başlık" required>
+        <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
-        <FormField label="Eğitmen">
+        <FormField label="Egitmen">
           <input
             {...register("instructor")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
-        <FormField label="Açıklama">
+        <FormField label="Aciklama">
           <textarea
             {...register("description")}
             rows={3}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
         <FormField label="Link">
           <input
             {...register("href")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button
+            type="submit"
+            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+          >
             Kaydet
           </button>
-          <Link href="/admin/courses" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
-            İptal
+          <Link
+            href="/admin/courses"
+            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+          >
+            Iptal
           </Link>
         </div>
       </form>

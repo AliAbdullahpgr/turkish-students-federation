@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
-import PageHeader from "@/components/admin/PageHeader";
+import { useParams, useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
+import PageHeader from "@/components/admin/PageHeader";
 
 interface EventForm {
   title: string;
@@ -27,12 +27,14 @@ export default function EditEventPage() {
 
   useEffect(() => {
     fetch(`/api/admin/events/${id}`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then((data) => {
         reset(data);
         if (data.posterMediaId) {
           setPosterMediaId(data.posterMediaId);
-          if (data.posterSecureUrl) setPosterPreviewUrl(data.posterSecureUrl);
+        }
+        if (data.posterImage) {
+          setPosterPreviewUrl(data.posterImage);
         }
         setLoading(false);
       });
@@ -44,22 +46,27 @@ export default function EditEventPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, posterMediaId }),
     });
-    if (res.ok) router.push("/admin/events");
+
+    if (res.ok) {
+      router.push("/admin/events");
+    }
   }
 
-  if (loading) return <p className="text-text-muted">Yükleniyor...</p>;
+  if (loading) {
+    return <p className="text-text-muted">Yukleniyor...</p>;
+  }
 
   return (
     <div>
-      <PageHeader title="Etkinlik Düzenle" backHref="/admin/events" />
+      <PageHeader title="Etkinlik Duzenle" backHref="/admin/events" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Poster">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+        <FormField label="Afis Gorseli">
           <ImageUploadField
             value={posterMediaId}
             previewUrl={posterPreviewUrl}
-            onChange={(mediaId, url) => {
-              setPosterMediaId(mediaId);
+            onChange={(newId, url) => {
+              setPosterMediaId(newId);
               setPosterPreviewUrl(url);
             }}
             onClear={() => {
@@ -69,52 +76,58 @@ export default function EditEventPage() {
           />
         </FormField>
 
-        <FormField label="Başlık" required>
+        <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField label="Kategori">
             <input
               {...register("category")}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
             />
           </FormField>
           <FormField label="Durum">
             <select
               {...register("status")}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
             >
-              <option value="upcoming">Yaklaşan</option>
-              <option value="recent">Geçmiş</option>
+              <option value="upcoming">Yaklasan</option>
+              <option value="recent">Gecmis</option>
             </select>
           </FormField>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <FormField label="Tarih">
             <input
               {...register("date")}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
             />
           </FormField>
           <FormField label="Konum">
             <input
               {...register("location")}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
             />
           </FormField>
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
-            Güncelle
+          <button
+            type="submit"
+            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+          >
+            Guncelle
           </button>
-          <Link href="/admin/events" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
-            İptal
+          <Link
+            href="/admin/events"
+            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+          >
+            Iptal
           </Link>
         </div>
       </form>

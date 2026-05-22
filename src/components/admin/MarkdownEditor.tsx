@@ -18,7 +18,7 @@ interface MarkdownEditorProps {
 export default function MarkdownEditor({
   value,
   onChange,
-  placeholder = "İçerik yazın...",
+  placeholder = "Icerik yazin...",
   minHeight = "320px",
   label,
   error,
@@ -29,27 +29,23 @@ export default function MarkdownEditor({
 
   return (
     <div data-color-mode="light">
-      {label && (
-        <label className="block text-sm font-medium text-text-secondary mb-1">
-          {label}
-        </label>
-      )}
+      {label && <label className="mb-1 block text-sm font-medium text-text-secondary">{label}</label>}
 
       <div
-        className={`border rounded-card overflow-hidden ${
+        className={`overflow-hidden rounded-card border ${
           error ? "border-turkish-red" : "border-border-custom"
         }`}
       >
-        <div className="flex items-center justify-end bg-surface border-b border-border-custom px-3 py-1.5">
-          <div className="flex items-center bg-white rounded-md border border-border-custom">
+        <div className="flex items-center justify-end border-b border-border-custom bg-surface px-3 py-1.5">
+          <div className="flex items-center rounded-md border border-border-custom bg-white">
             <button
               type="button"
               onClick={() => setMode("split")}
-              className={`px-2 py-1 text-xs rounded-l-md transition-colors ${
+              className={`rounded-l-md px-2 py-1 text-xs transition-colors ${
                 mode === "split" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Bölünmüş
+              Bolunmus
             </button>
             <button
               type="button"
@@ -58,23 +54,23 @@ export default function MarkdownEditor({
                 mode === "edit" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Düzenle
+              Duzenle
             </button>
             <button
               type="button"
               onClick={() => setMode("preview")}
-              className={`px-2 py-1 text-xs rounded-r-md transition-colors ${
+              className={`rounded-r-md px-2 py-1 text-xs transition-colors ${
                 mode === "preview" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Önizle
+              Onizle
             </button>
           </div>
         </div>
 
         <MDEditor
           value={value}
-          onChange={(v) => onChange(v || "")}
+          onChange={(nextValue) => onChange(nextValue || "")}
           preview={preview}
           height={minHeight}
           visibleDragbar={false}

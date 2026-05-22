@@ -1,15 +1,15 @@
 import { Metadata } from "next";
-export const revalidate = 60;
-
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
-import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
+import Navigation from "@/components/layout/NavigationRSC";
 import PageHero from "@/components/ui/PageHero";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import { getBlogPostBySlug } from "@/db/queries/blog-posts";
+
+export const revalidate = 60;
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -44,11 +44,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <main className="flex-grow">
         <PageHero title={post.title} accentWord={post.title.split(" ").pop() || "Post"} />
 
-        <section className="py-section bg-white">
-          <div className="max-w-[800px] mx-auto px-6 lg:px-12">
+        <section className="bg-white py-section">
+          <div className="mx-auto max-w-[800px] px-6 lg:px-12">
             <div className="mb-8">
               <SectionEyebrow text={post.category?.toUpperCase() || "BLOG"} />
-              <h1 className="text-[clamp(28px,4vw,42px)] font-extrabold text-text-primary leading-tight mb-4">
+              <h1 className="mb-4 text-[clamp(28px,4vw,42px)] font-extrabold leading-tight text-text-primary">
                 {post.title}
               </h1>
               <div className="flex items-center gap-4 text-sm text-text-muted">
@@ -62,22 +62,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             </div>
 
-            <div className="bg-surface rounded-[16px] p-8 lg:p-10">
-              <p className="text-body text-text-secondary leading-relaxed mb-6">
-                {post.excerpt}
-              </p>
+            <div className="rounded-[16px] bg-surface p-8 lg:p-10">
+              <p className="mb-6 text-body leading-relaxed text-text-secondary">{post.excerpt}</p>
               {post.body && (
                 <article className="prose prose-slate max-w-none">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                    {post.body}
-                  </ReactMarkdown>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
                 </article>
               )}
               {!post.body && (
-                <p className="text-body text-text-secondary leading-relaxed">
-                  Bu makale, Türk Öğrenci Federasyonu&apos;nun öğrenciler için yürüttüğü
-                  çalışmaları ve faaliyetleri ele almaktadır. Federasyonumuz, öğrencilerin
-                  sesi olmaya ve onların haklarını savunmaya devam edecektir.
+                <p className="text-body leading-relaxed text-text-secondary">
+                  Bu makale, Turk Ogrenci Federasyonu&apos;nun ogrenciler icin yuruttugu
+                  calismalari ve faaliyetleri ele almaktadir. Federasyonumuz, ogrencilerin sesi
+                  olmaya ve onlarin haklarini savunmaya devam edecektir.
                 </p>
               )}
             </div>

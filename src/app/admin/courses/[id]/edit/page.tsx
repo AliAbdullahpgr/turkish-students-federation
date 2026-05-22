@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
-import PageHeader from "@/components/admin/PageHeader";
+import { useParams, useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
+import PageHeader from "@/components/admin/PageHeader";
 
 interface FormData {
   title: string;
@@ -26,12 +26,14 @@ export default function EditCoursePage() {
 
   useEffect(() => {
     fetch(`/api/admin/courses/${id}`)
-      .then((r) => r.json())
+      .then((response) => response.json())
       .then((data) => {
         reset(data);
         if (data.thumbnailMediaId) {
           setThumbnailMediaId(data.thumbnailMediaId);
-          if (data.thumbnailSecureUrl) setThumbnailPreviewUrl(data.thumbnailSecureUrl);
+        }
+        if (data.thumbnail) {
+          setThumbnailPreviewUrl(data.thumbnail);
         }
         setLoading(false);
       });
@@ -43,22 +45,27 @@ export default function EditCoursePage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, thumbnailMediaId }),
     });
-    if (res.ok) router.push("/admin/courses");
+
+    if (res.ok) {
+      router.push("/admin/courses");
+    }
   }
 
-  if (loading) return <p className="text-text-muted">Yükleniyor...</p>;
+  if (loading) {
+    return <p className="text-text-muted">Yukleniyor...</p>;
+  }
 
   return (
     <div>
-      <PageHeader title="Kurs Düzenle" backHref="/admin/courses" />
+      <PageHeader title="Kurs Duzenle" backHref="/admin/courses" />
 
-      <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Görsel">
+      <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
+        <FormField label="Kapak Gorseli">
           <ImageUploadField
             value={thumbnailMediaId}
             previewUrl={thumbnailPreviewUrl}
-            onChange={(id, url) => {
-              setThumbnailMediaId(id);
+            onChange={(newId, url) => {
+              setThumbnailMediaId(newId);
               setThumbnailPreviewUrl(url);
             }}
             onClear={() => {
@@ -68,41 +75,47 @@ export default function EditCoursePage() {
           />
         </FormField>
 
-        <FormField label="Başlık" required>
+        <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
-        <FormField label="Eğitmen">
+        <FormField label="Egitmen">
           <input
             {...register("instructor")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
-        <FormField label="Açıklama">
+        <FormField label="Aciklama">
           <textarea
             {...register("description")}
             rows={3}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
         <FormField label="Link">
           <input
             {...register("href")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
-            Güncelle
+          <button
+            type="submit"
+            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+          >
+            Guncelle
           </button>
-          <Link href="/admin/courses" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
-            İptal
+          <Link
+            href="/admin/courses"
+            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+          >
+            Iptal
           </Link>
         </div>
       </form>

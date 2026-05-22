@@ -34,7 +34,7 @@ export default function EditTeamMemberPage() {
       .then((data) => {
         reset(data);
         if (data.photoMediaId) setPhotoMediaId(data.photoMediaId);
-        if (data.photoSecureUrl) setPhotoPreviewUrl(data.photoSecureUrl);
+        if (data.photo) setPhotoPreviewUrl(data.photo);
         setLoading(false);
       });
   }, [id, reset]);

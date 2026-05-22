@@ -8,6 +8,7 @@ interface EventItem {
   id: string;
   title: string;
   posterMediaId?: string | null;
+  posterImage?: string | null;
   category?: string | null;
   status: "upcoming" | "recent";
   date?: string | null;
@@ -61,27 +62,36 @@ export default function EventsPageClient({ events }: { events: EventItem[] }) {
                 className="relative rounded-md overflow-hidden shadow-card group"
               >
                 <div className="aspect-[3/4] bg-surface flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-primary">
-                        {event.title.charAt(0)}
+                  {event.posterImage ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img
+                      src={event.posterImage}
+                      alt={event.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="text-center p-8">
+                      <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span className="text-2xl font-bold text-primary">
+                          {event.title.charAt(0)}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-bold text-text-primary mb-2">
+                        {event.title}
+                      </h3>
+                      <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-bold uppercase rounded-full">
+                        {event.category}
                       </span>
+                      {event.date && (
+                        <p className="text-sm text-text-muted mt-3">{event.date}</p>
+                      )}
+                      {event.location && (
+                        <p className="text-sm text-text-secondary mt-1">
+                          {event.location}
+                        </p>
+                      )}
                     </div>
-                    <h3 className="text-xl font-bold text-text-primary mb-2">
-                      {event.title}
-                    </h3>
-                    <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-bold uppercase rounded-full">
-                      {event.category}
-                    </span>
-                    {event.date && (
-                      <p className="text-sm text-text-muted mt-3">{event.date}</p>
-                    )}
-                    {event.location && (
-                      <p className="text-sm text-text-secondary mt-1">
-                        {event.location}
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
                 <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-[10px] font-bold text-primary">
                   PTÖB

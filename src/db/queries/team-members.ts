@@ -1,30 +1,43 @@
+import { asc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { teamMembers } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
-import { resolveMediaUrls } from "./resolve-media";
+import { media, teamMembers } from "@/db/schema";
+
+const teamMemberSelection = {
+  id: teamMembers.id,
+  name: teamMembers.name,
+  role: teamMembers.role,
+  bio: teamMembers.bio,
+  photoMediaId: teamMembers.photoMediaId,
+  photo: media.secureUrl,
+  order: teamMembers.order,
+  isActive: teamMembers.isActive,
+  createdAt: teamMembers.createdAt,
+};
 
 export async function getAllTeamMembers() {
-  const rows = await db.select().from(teamMembers).orderBy(asc(teamMembers.order)).all();
-  return resolveMediaUrls(rows, "photoMediaId", "photo");
+  return db
+    .select(teamMemberSelection)
+    .from(teamMembers)
+    .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
+    .orderBy(asc(teamMembers.order))
+    .all();
 }
 
 export async function getActiveTeamMembers() {
-  const rows = await db
-    .select()
+  return db
+    .select(teamMemberSelection)
     .from(teamMembers)
+    .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .where(eq(teamMembers.isActive, true))
     .orderBy(asc(teamMembers.order))
     .all();
-  return resolveMediaUrls(rows, "photoMediaId", "photo");
 }
 
 export async function getTeamMemberById(id: string) {
-  const row = await db
-    .select()
+  return db
+    .select(teamMemberSelection)
     .from(teamMembers)
+    .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .where(eq(teamMembers.id, id))
     .get();
-  if (!row) return null;
-  const [resolved] = await resolveMediaUrls([row], "photoMediaId", "photo");
-  return resolved;
 }

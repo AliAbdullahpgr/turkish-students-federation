@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db/client";
 import { blogPosts } from "@/db/schema";
+import { requireAdminRequest } from "@/lib/admin-auth";
 import { desc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import slugify from "slugify";
 
 export async function GET() {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
 
   const posts = await db
     .select()
@@ -20,8 +20,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
 
   const body = await req.json();
   const id = nanoid();

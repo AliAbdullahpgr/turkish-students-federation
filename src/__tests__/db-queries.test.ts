@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import { siteSettings, blogPosts, events, teamMembers, courses, activities, guideSections, navigationItems, media } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { asc } from "drizzle-orm";
 
 const turso = createClient({
   url: process.env.TURSO_DATABASE_URL!,

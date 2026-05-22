@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef } from "react";
+import { cloneElement, isValidElement, useCallback, useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -58,6 +58,7 @@ export default function CloudinaryUploadWidget({
   }, []);
 
   const openWidget = useCallback(() => {
+    if (disabled) return;
     if (!window.cloudinary) return;
 
     widgetRef.current = window.cloudinary.createUploadWidget(
@@ -108,11 +109,14 @@ export default function CloudinaryUploadWidget({
     );
 
     widgetRef.current.open();
-  }, [onUpload]);
+  }, [disabled, onUpload]);
 
-  return (
-    <button type="button" onClick={openWidget} disabled={disabled} className="cursor-pointer">
-      {children}
-    </button>
-  );
+  if (isValidElement<{ onClick?: () => void; disabled?: boolean }>(children) && children.type === "button") {
+    return cloneElement(children, {
+      onClick: openWidget,
+      disabled,
+    });
+  }
+
+  return <button type="button" onClick={openWidget} disabled={disabled} className="cursor-pointer">{children}</button>;
 }

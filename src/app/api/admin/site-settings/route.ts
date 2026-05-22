@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db/client";
 import { siteSettings } from "@/db/schema";
+import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 
 export async function GET() {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   const rows = await db.select().from(siteSettings).all();
   const settings: Record<string, string> = {};
   for (const row of rows) {
@@ -16,8 +16,8 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   const body = await req.json();
 
   for (const [key, value] of Object.entries(body)) {

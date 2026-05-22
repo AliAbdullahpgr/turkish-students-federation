@@ -1,6 +1,6 @@
 import { db } from "@/db/client";
 import { media } from "@/db/schema";
-import { eq, inArray } from "drizzle-orm";
+import { inArray } from "drizzle-orm";
 
 const cache = new Map<string, string | null>();
 

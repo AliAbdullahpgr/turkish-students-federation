@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { db } from "@/db/client";
 import { guideSections } from "@/db/schema";
+import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 
 export async function PUT(req: NextRequest) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
 
   const body = await req.json();
   // body: { items: { id: string; parentId: string | null; sortOrder: number }[] }

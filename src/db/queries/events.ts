@@ -1,38 +1,50 @@
-import { db } from "@/db/client";
-import { events } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { resolveMediaUrls } from "./resolve-media";
+import { db } from "@/db/client";
+import { events, media } from "@/db/schema";
+
+const eventSelection = {
+  id: events.id,
+  title: events.title,
+  posterMediaId: events.posterMediaId,
+  posterImage: media.secureUrl,
+  category: events.category,
+  status: events.status,
+  date: events.date,
+  location: events.location,
+  createdAt: events.createdAt,
+};
 
 export async function getAllEvents() {
-  const rows = await db.select().from(events).all();
-  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
+  return db
+    .select(eventSelection)
+    .from(events)
+    .leftJoin(media, eq(events.posterMediaId, media.id))
+    .all();
 }
 
 export async function getUpcomingEvents() {
-  const rows = await db
-    .select()
+  return db
+    .select(eventSelection)
     .from(events)
+    .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "upcoming"))
     .all();
-  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
 }
 
 export async function getRecentEvents() {
-  const rows = await db
-    .select()
+  return db
+    .select(eventSelection)
     .from(events)
+    .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "recent"))
     .all();
-  return resolveMediaUrls(rows, "posterMediaId", "posterImage");
 }
 
 export async function getEventById(id: string) {
-  const row = await db
-    .select()
+  return db
+    .select(eventSelection)
     .from(events)
+    .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.id, id))
     .get();
-  if (!row) return null;
-  const [resolved] = await resolveMediaUrls([row], "posterMediaId", "posterImage");
-  return resolved;
 }

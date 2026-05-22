@@ -1,20 +1,31 @@
-import { db } from "@/db/client";
-import { courses } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { resolveMediaUrls } from "./resolve-media";
+import { db } from "@/db/client";
+import { courses, media } from "@/db/schema";
+
+const courseSelection = {
+  id: courses.id,
+  title: courses.title,
+  instructor: courses.instructor,
+  description: courses.description,
+  thumbnailMediaId: courses.thumbnailMediaId,
+  thumbnail: media.secureUrl,
+  href: courses.href,
+  createdAt: courses.createdAt,
+};
 
 export async function getAllCourses() {
-  const rows = await db.select().from(courses).all();
-  return resolveMediaUrls(rows, "thumbnailMediaId", "thumbnail");
+  return db
+    .select(courseSelection)
+    .from(courses)
+    .leftJoin(media, eq(courses.thumbnailMediaId, media.id))
+    .all();
 }
 
 export async function getCourseById(id: string) {
-  const row = await db
-    .select()
+  return db
+    .select(courseSelection)
     .from(courses)
+    .leftJoin(media, eq(courses.thumbnailMediaId, media.id))
     .where(eq(courses.id, id))
     .get();
-  if (!row) return null;
-  const [resolved] = await resolveMediaUrls([row], "thumbnailMediaId", "thumbnail");
-  return resolved;
 }

@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { requireAdminRequest } from "@/lib/admin-auth";
 
 // Contact submissions are stored via the public /api/contact route
 // For now, this just returns an empty array placeholder
 export async function GET() {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   return NextResponse.json([]);
 }

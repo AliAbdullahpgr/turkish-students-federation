@@ -1,17 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getCourseById } from "@/db/queries/courses";
 import { db } from "@/db/client";
 import { courses } from "@/db/schema";
+import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
-  const course = await db.select().from(courses).where(eq(courses.id, id)).get();
+  const course = await getCourseById(id);
   if (!course) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(course);
 }
@@ -20,8 +21,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
   const body = await req.json();
 
@@ -33,7 +34,7 @@ export async function PUT(
     href: body.href,
   }).where(eq(courses.id, id)).run();
 
-  const course = await db.select().from(courses).where(eq(courses.id, id)).get();
+  const course = await getCourseById(id);
   return NextResponse.json(course);
 }
 
@@ -41,8 +42,8 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { userId } = await auth();
-  if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const unauthorizedResponse = await requireAdminRequest();
+  if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
   await db.delete(courses).where(eq(courses.id, id)).run();
   return NextResponse.json({ success: true });

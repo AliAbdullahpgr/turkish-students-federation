@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
-import { blogPosts, events, teamMembers, courses, activities, guideSections, navigationItems, media, siteSettings } from "@/db/schema";
+import { blogPosts, events, teamMembers, guideSections, navigationItems, media, siteSettings } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import slugify from "slugify";
