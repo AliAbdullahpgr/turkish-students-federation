@@ -24,18 +24,18 @@ export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
   const latestPosts = posts.slice(0, 6);
 
   return (
-    <section className="bg-surface py-section" aria-labelledby="home-blog-title">
-      <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="mb-10 flex items-end justify-between gap-6">
+    <section className="overflow-x-clip bg-surface py-section" aria-labelledby="home-blog-title">
+      <div className="mx-auto w-full max-w-[1280px] min-w-0 px-6 lg:px-12">
+        <FadeIn className="mb-10 grid grid-cols-1 items-end gap-4 sm:grid-cols-[1fr_auto] sm:gap-10">
           <h2 id="home-blog-title" className="text-section-title font-heading font-bold text-primary">
             Blog
           </h2>
-          <p className="hidden max-w-md text-right text-sm text-text-secondary sm:block">Pakistan&apos;da öğrenci hayatı için hikâyeler, bilgiler ve pratik öneriler.</p>
+          <p className="hidden w-[420px] max-w-full text-right text-sm leading-6 text-text-secondary sm:block">Pakistan&apos;da öğrenci hayatı için hikâyeler, bilgiler ve pratik öneriler.</p>
         </FadeIn>
 
-        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5" role="list">
+        <div className="flex w-full min-w-0 snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-5" role="list">
           {latestPosts.map((post) => (
-            <div key={post.id} className="w-[82vw] max-w-[360px] shrink-0 snap-start" role="listitem">
+            <div key={post.id} className="w-[min(82vw,360px)] shrink-0 snap-start" role="listitem">
               <BlogCard
                 date={post.publishedAt ?? ""}
                 title={post.title}

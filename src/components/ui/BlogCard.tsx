@@ -23,7 +23,7 @@ export default function BlogCard({
   author,
 }: BlogCardProps) {
   return (
-    <article className="group cursor-pointer overflow-hidden rounded-md bg-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-hover">
+    <article className="group h-full cursor-pointer overflow-hidden rounded-md bg-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-hover">
       <div className="relative aspect-video overflow-hidden bg-primary/10">
         <Image
           src={thumbnail || "/image/group.png"}
