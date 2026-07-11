@@ -34,6 +34,7 @@ export async function PUT(
   }).where(eq(navigationItems.id, id)).run();
 
   const item = await db.select().from(navigationItems).where(eq(navigationItems.id, id)).get();
+  if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(item);
 }
 
@@ -44,6 +45,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await db.select({ id: navigationItems.id }).from(navigationItems).where(eq(navigationItems.id, id)).get();
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(navigationItems).where(eq(navigationItems.parentId, id)).run();
   await db.delete(navigationItems).where(eq(navigationItems.id, id)).run();
   return NextResponse.json({ success: true });

@@ -36,6 +36,7 @@ export async function PUT(
   }).where(eq(guideSections.id, id)).run();
 
   const section = await db.select().from(guideSections).where(eq(guideSections.id, id)).get();
+  if (!section) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(section);
 }
 
@@ -46,6 +47,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await db.select({ id: guideSections.id }).from(guideSections).where(eq(guideSections.id, id)).get();
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   // Also delete children
   await db.delete(guideSections).where(eq(guideSections.parentId, id)).run();
   await db.delete(guideSections).where(eq(guideSections.id, id)).run();

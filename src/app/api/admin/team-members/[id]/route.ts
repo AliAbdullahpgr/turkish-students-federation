@@ -36,6 +36,7 @@ export async function PUT(
   }).where(eq(teamMembers.id, id)).run();
 
   const member = await getTeamMemberById(id);
+  if (!member) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(member);
 }
 
@@ -46,6 +47,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await getTeamMemberById(id);
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(teamMembers).where(eq(teamMembers.id, id)).run();
   return NextResponse.json({ success: true });
 }

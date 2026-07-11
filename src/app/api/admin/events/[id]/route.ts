@@ -36,6 +36,7 @@ export async function PUT(
   }).where(eq(events.id, id)).run();
 
   const event = await getEventById(id);
+  if (!event) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(event);
 }
 
@@ -46,6 +47,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await getEventById(id);
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(events).where(eq(events.id, id)).run();
   return NextResponse.json({ success: true });
 }

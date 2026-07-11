@@ -5,6 +5,7 @@ import { requireAdminRequest } from "@/lib/admin-auth";
 import { desc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import slugify from "slugify";
+import { apiErrorResponse, boolean, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -23,26 +24,28 @@ export async function POST(req: NextRequest) {
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
 
-  const body = await req.json();
-  const id = nanoid();
-  const slug =
-    body.slug ||
-    slugify(body.title, { lower: true, strict: true }) + "-" + nanoid(6);
-
-  await db.insert(blogPosts).values({
-    id,
-    title: body.title,
-    excerpt: body.excerpt || "",
-    body: body.body || "",
-    slug,
-    thumbnailMediaId: body.thumbnailMediaId || null,
-    category: body.category || "Blog",
-    author: body.author || null,
-    publishedAt: body.publishedAt || new Date().toISOString(),
-    isFeatured: body.isFeatured || false,
-    updatedAt: new Date().toISOString(),
-  });
-
-  const post = await db.select().from(blogPosts).where(eq(blogPosts.id, id)).get();
-  return NextResponse.json(post, { status: 201 });
+  try {
+    const body = await readJsonObject(req, 250_000);
+    const id = nanoid();
+    const title = requiredText(body, "title", 220);
+    const requestedSlug = optionalText(body, "slug", 220);
+    const slug = slugify(requestedSlug || title, { lower: true, strict: true }) || `post-${nanoid(6)}`;
+    await db.insert(blogPosts).values({
+      id,
+      title,
+      excerpt: optionalText(body, "excerpt", 1_000) || "",
+      body: optionalText(body, "body", 150_000) || "",
+      slug,
+      thumbnailMediaId: optionalText(body, "thumbnailMediaId", 100),
+      category: optionalText(body, "category", 100) || "Blog",
+      author: optionalText(body, "author", 160),
+      publishedAt: optionalText(body, "publishedAt", 40) || new Date().toISOString(),
+      isFeatured: boolean(body, "isFeatured", false),
+      updatedAt: new Date().toISOString(),
+    });
+    const post = await db.select().from(blogPosts).where(eq(blogPosts.id, id)).get();
+    return NextResponse.json(post, { status: 201 });
+  } catch (error) {
+    return apiErrorResponse(error);
+  }
 }

@@ -35,6 +35,7 @@ export async function PUT(
   }).where(eq(courses.id, id)).run();
 
   const course = await getCourseById(id);
+  if (!course) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(course);
 }
 
@@ -45,6 +46,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await getCourseById(id);
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(courses).where(eq(courses.id, id)).run();
   return NextResponse.json({ success: true });
 }

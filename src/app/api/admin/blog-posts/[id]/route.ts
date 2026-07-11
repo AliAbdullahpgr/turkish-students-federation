@@ -46,6 +46,7 @@ export async function PUT(
     .run();
 
   const post = await getBlogPostById(id);
+  if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(post);
 }
 
@@ -57,6 +58,8 @@ export async function DELETE(
   if (unauthorizedResponse) return unauthorizedResponse;
 
   const { id } = await params;
+  const existing = await getBlogPostById(id);
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(blogPosts).where(eq(blogPosts.id, id)).run();
   return NextResponse.json({ success: true });
 }

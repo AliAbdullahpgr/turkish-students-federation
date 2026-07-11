@@ -33,6 +33,7 @@ export async function PUT(
   }).where(eq(activities.id, id)).run();
 
   const activity = await db.select().from(activities).where(eq(activities.id, id)).get();
+  if (!activity) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(activity);
 }
 
@@ -43,6 +44,8 @@ export async function DELETE(
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const { id } = await params;
+  const existing = await db.select({ id: activities.id }).from(activities).where(eq(activities.id, id)).get();
+  if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(activities).where(eq(activities.id, id)).run();
   return NextResponse.json({ success: true });
 }
