@@ -27,7 +27,7 @@ export default function FacebookFeedSection() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center justify-center bg-[#1877F2] text-white px-6 py-3 rounded-pill text-sm font-semibold no-underline transition-colors hover:bg-[#166fe5]"
+              className="inline-flex items-center justify-center bg-action text-white px-6 py-3 rounded-pill text-sm font-semibold no-underline transition-colors hover:bg-action-dark"
             >
               facebook.com/tsfturkey
             </motion.a>
