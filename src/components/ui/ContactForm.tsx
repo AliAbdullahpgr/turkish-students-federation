@@ -56,7 +56,7 @@ export default function ContactForm() {
                   <input
                     {...register("name", { required: "Ad soyad gereklidir" })}
                     placeholder="Adınızı ve soyadınızı girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                   />
                   {errors.name && (
                     <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>
@@ -72,7 +72,7 @@ export default function ContactForm() {
                       type="email"
                       {...register("email", { required: "E-posta gereklidir" })}
                       placeholder="E-posta adresinizi girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                     />
                     {errors.email && (
                       <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>
@@ -86,7 +86,7 @@ export default function ContactForm() {
                       type="tel"
                       {...register("whatsapp")}
                       placeholder="WhatsApp numaranızı girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                     />
                   </div>
                 </div>
@@ -99,7 +99,7 @@ export default function ContactForm() {
                     <input
                       {...register("membership")}
                       placeholder="Üyelik numaranızı girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                     />
                   </div>
                   <div>
@@ -108,7 +108,7 @@ export default function ContactForm() {
                     </label>
                     <select
                       {...register("department")}
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                     >
                       <option value="">Birim Seçin</option>
                       <option value="general">Genel Soru</option>
@@ -126,7 +126,7 @@ export default function ContactForm() {
                   <input
                     {...register("subject", { required: "Konu gereklidir" })}
                     placeholder="Konuyu girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
                   />
                   {errors.subject && (
                     <span className="text-red-500 text-xs mt-1">{errors.subject.message}</span>
@@ -141,7 +141,7 @@ export default function ContactForm() {
                     {...register("message", { required: "Mesaj gereklidir" })}
                     rows={5}
                     placeholder="Mesajınızı buraya yazın..."
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-accent focus:bg-white focus:shadow-sm resize-none"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm resize-none"
                   />
                   {errors.message && (
                     <span className="text-red-500 text-xs mt-1">{errors.message.message}</span>

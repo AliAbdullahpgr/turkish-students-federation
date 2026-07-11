@@ -59,7 +59,7 @@ export default function NewsBlogsPageClient({
               </label>
               <button
                 type="submit"
-                className="cursor-pointer rounded-pill bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                className="cursor-pointer rounded-pill bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
               >
                 ARA
               </button>
@@ -67,11 +67,11 @@ export default function NewsBlogsPageClient({
                 type="month"
                 name="month"
                 defaultValue={filterMonth}
-                className="rounded-lg border border-border-custom bg-surface px-4 py-2.5 text-sm text-text-primary outline-none transition-all focus:border-accent focus:shadow-sm"
+                className="rounded-lg border border-border-custom bg-surface px-4 py-2.5 text-sm text-text-primary outline-none transition-all focus:border-action focus:shadow-sm"
               />
               <button
                 type="submit"
-                className="flex cursor-pointer items-center gap-2 rounded-pill bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                className="flex cursor-pointer items-center gap-2 rounded-pill bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
               >
                 <Filter className="h-4 w-4" />
                 FILTRELE

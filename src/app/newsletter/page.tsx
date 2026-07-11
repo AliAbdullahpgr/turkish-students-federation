@@ -65,7 +65,7 @@ export default function NewsletterPage() {
                   <input
                     type="email"
                     placeholder="E-posta adresinizi girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                   />
                   <PrimaryButton type="submit" className="w-full">
                     Hemen Abone Ol

@@ -145,11 +145,11 @@ export default function Footer({ description }: FooterProps) {
               <input
                 type="email"
                 placeholder="E-posta adresinizi girin"
-                className="rounded-lg border border-white/20 bg-white/[0.08] px-4 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/50 focus:border-accent focus:bg-white/10"
+                className="rounded-lg border border-white/20 bg-white/[0.08] px-4 py-2.5 text-sm text-white outline-none transition-all placeholder:text-white/50 focus:border-action focus:bg-white/10"
               />
               <button
                 type="submit"
-                className="rounded-pill bg-primary-light px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                className="rounded-pill bg-action px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
               >
                 Abone Ol
               </button>

@@ -60,7 +60,7 @@ export default function JoinTSFPage() {
                 <input
                   {...register("fullName", { required: "Ad soyad gereklidir" })}
                   placeholder="Adınızı ve soyadınızı girin"
-                  className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                  className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                 />
                 {errors.fullName && (
                   <span className="text-red-500 text-xs mt-1">
@@ -78,7 +78,7 @@ export default function JoinTSFPage() {
                     type="email"
                     {...register("email", { required: "E-posta gereklidir" })}
                     placeholder="E-posta adresinizi girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                   />
                   {errors.email && (
                     <span className="text-red-500 text-xs mt-1">
@@ -94,7 +94,7 @@ export default function JoinTSFPage() {
                     type="tel"
                     {...register("phone", { required: "Telefon gereklidir" })}
                     placeholder="Telefon numaranızı girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                   />
                   {errors.phone && (
                     <span className="text-red-500 text-xs mt-1">
@@ -112,7 +112,7 @@ export default function JoinTSFPage() {
                   <input
                     {...register("institution", { required: "Kurum gereklidir" })}
                     placeholder="Okul / Üniversiteniz"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                   />
                   {errors.institution && (
                     <span className="text-red-500 text-xs mt-1">
@@ -127,7 +127,7 @@ export default function JoinTSFPage() {
                   <input
                     {...register("city", { required: "Şehir gereklidir" })}
                     placeholder="Bulunduğunuz şehir"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action"
                   />
                   {errors.city && (
                     <span className="text-red-500 text-xs mt-1">
@@ -145,7 +145,7 @@ export default function JoinTSFPage() {
                   {...register("motivation", { required: "Bu alan gereklidir" })}
                   rows={5}
                   placeholder="Motivasyonunuzu bizimle paylaşın..."
-                  className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-accent resize-none"
+                  className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-white transition-colors focus:border-action resize-none"
                 />
                 {errors.motivation && (
                   <span className="text-red-500 text-xs mt-1">
