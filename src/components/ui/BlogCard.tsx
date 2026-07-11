@@ -10,6 +10,7 @@ interface BlogCardProps {
   href: string;
   isTurkish?: boolean;
   thumbnail?: string;
+  author?: string;
 }
 
 export default function BlogCard({
@@ -19,20 +20,19 @@ export default function BlogCard({
   href,
   isTurkish = false,
   thumbnail,
+  author,
 }: BlogCardProps) {
   return (
     <article className="group cursor-pointer overflow-hidden rounded-md bg-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-      {thumbnail ? (
-        <div className="relative aspect-video overflow-hidden">
-          <Image
-            src={thumbnail}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-      ) : null}
+      <div className="relative aspect-video overflow-hidden bg-primary/10">
+        <Image
+          src={thumbnail || "/image/group.png"}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
 
       <div className="p-5 px-6">
         <span className="mb-2.5 block text-[11px] font-bold uppercase tracking-[1.5px] text-accent">
@@ -45,6 +45,7 @@ export default function BlogCard({
         >
           {title}
         </h3>
+        {author ? <p className="mb-3 text-xs font-semibold text-primary/75">{author}</p> : null}
         <p
           className={`mb-4 text-sm leading-relaxed text-text-secondary ${
             isTurkish ? "turkish-text" : ""

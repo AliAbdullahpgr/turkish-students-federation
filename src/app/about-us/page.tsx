@@ -10,7 +10,6 @@ import MissionVisionSection from "@/components/sections/about/MissionVisionSecti
 import CoreValuesSection from "@/components/sections/about/CoreValuesSection";
 import KeyActivitiesSection from "@/components/sections/about/KeyActivitiesSection";
 import LeadershipTeamSection from "@/components/sections/about/LeadershipTeamSection";
-import ImpactNumbersSection from "@/components/sections/about/ImpactNumbersSection";
 import CTABannerSection from "@/components/sections/about/CTABannerSection";
 import { getSiteIdentity, getHomeMessaging } from "@/db/queries/site-settings";
 import { getAllActivities } from "@/db/queries/activities";
@@ -41,7 +40,6 @@ export default async function AboutUsPage() {
         <CoreValuesSection />
         <KeyActivitiesSection activities={activities} />
         <LeadershipTeamSection members={team} />
-        <ImpactNumbersSection />
         <CTABannerSection />
       </main>
       <Footer />

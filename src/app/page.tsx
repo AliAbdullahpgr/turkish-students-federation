@@ -5,10 +5,9 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import HeroSection from "@/components/sections/home/HeroSection";
-import AboutIntroCard from "@/components/sections/home/AboutIntroCard";
+import WhoWeAreSection from "@/components/sections/about/WhoWeAreSection";
 import EventsPreviewSection from "@/components/sections/home/EventsPreviewSection";
 import ActivitiesSection from "@/components/sections/home/ActivitiesSection";
-import ImpactHighlightsSection from "@/components/sections/home/ImpactHighlightsSection";
 import PresidentSection from "@/components/sections/home/PresidentSection";
 import CoursesCarouselSection from "@/components/sections/home/CoursesCarouselSection";
 import LatestReleaseSection from "@/components/sections/home/LatestReleaseSection";
@@ -44,14 +43,13 @@ export default async function HomePage() {
       <Navigation />
       <main className="flex-grow">
         <HeroSection messaging={messaging} identity={identity} />
-        <AboutIntroCard messaging={messaging} identity={identity} />
+        <WhoWeAreSection messaging={messaging} identity={identity} />
+        <MediaNewsSection posts={posts} />
         <EventsPreviewSection events={allEvents} />
         <ActivitiesSection activities={activities} />
-        <ImpactHighlightsSection />
         <PresidentSection />
         <CoursesCarouselSection courses={courses} />
         <LatestReleaseSection />
-        <MediaNewsSection posts={posts} />
         <FacebookFeedSection />
       </main>
       <Footer />

@@ -1,10 +1,8 @@
 "use client";
 
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import BlogCard from "@/components/ui/BlogCard";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import FadeIn from "@/components/animation/FadeIn";
-import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
 interface BlogPostItem {
   id: string;
@@ -26,21 +24,18 @@ export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
   const latestPosts = posts.slice(0, 6);
 
   return (
-    <section className="py-section bg-white">
+    <section className="bg-surface py-section" aria-labelledby="home-blog-title">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="MEDYA & HABERLER" />
-          <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Son <span className="text-accent">Güncellemeler</span>
+        <FadeIn className="mb-10 flex items-end justify-between gap-6">
+          <h2 id="home-blog-title" className="text-section-title font-heading font-bold text-primary">
+            Blog
           </h2>
+          <p className="hidden max-w-md text-right text-sm text-text-secondary sm:block">Pakistan&apos;da öğrenci hayatı için hikâyeler, bilgiler ve pratik öneriler.</p>
         </FadeIn>
 
-        <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          staggerDelay={0.1}
-        >
+        <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto pb-5" role="list">
           {latestPosts.map((post) => (
-            <StaggerItem key={post.id}>
+            <div key={post.id} className="w-[82vw] max-w-[360px] shrink-0 snap-start" role="listitem">
               <BlogCard
                 date={post.publishedAt ?? ""}
                 title={post.title}
@@ -48,13 +43,14 @@ export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
                 href={`/news-blogs/${post.slug}/`}
                 isTurkish={true}
                 thumbnail={post.thumbnail ?? undefined}
+                author={post.author ?? "Pakistan Türk Öğrenci Birliği"}
               />
-            </StaggerItem>
+            </div>
           ))}
-        </StaggerContainer>
+        </div>
 
         <FadeIn delay={0.4} className="text-center mt-12">
-          <PrimaryButton href="/news-blogs/">DAHA FAZLA BLOG</PrimaryButton>
+          <PrimaryButton href="/news-blogs/?type=blog">TÜM BLOGLAR</PrimaryButton>
         </FadeIn>
       </div>
     </section>

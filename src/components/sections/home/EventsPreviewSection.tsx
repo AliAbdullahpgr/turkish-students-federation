@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
@@ -20,8 +19,7 @@ interface EventsPreviewSectionProps {
 }
 
 export default function EventsPreviewSection({ events }: EventsPreviewSectionProps) {
-  const [activeTab, setActiveTab] = useState<"upcoming" | "recent">("upcoming");
-  const filteredEvents = events.filter((event) => event.status === activeTab);
+  const visibleEvents = events.slice(0, 4);
 
   return (
     <section className="bg-white py-section">
@@ -32,35 +30,8 @@ export default function EventsPreviewSection({ events }: EventsPreviewSectionPro
           </h2>
         </FadeIn>
 
-        <FadeIn delay={0.1} className="mb-10 flex justify-center">
-          <div className="inline-flex overflow-hidden rounded-lg shadow-sm">
-            <button
-              type="button"
-              onClick={() => setActiveTab("upcoming")}
-              className={`cursor-pointer px-8 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
-                activeTab === "upcoming"
-                  ? "bg-primary text-white"
-                  : "bg-surface text-text-secondary hover:text-primary"
-              }`}
-            >
-              YAKLASAN
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("recent")}
-              className={`cursor-pointer px-8 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
-                activeTab === "recent"
-                  ? "bg-primary text-white"
-                  : "bg-surface text-text-secondary hover:text-primary"
-              }`}
-            >
-              GECMIS
-            </button>
-          </div>
-        </FadeIn>
-
         <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-2" staggerDelay={0.12}>
-          {filteredEvents.map((event) => (
+          {visibleEvents.map((event) => (
             <StaggerItem key={event.id}>
               <article className="group relative cursor-pointer overflow-hidden rounded-md shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-hover">
                 <div className="flex aspect-[3/4] items-center justify-center bg-surface">
