@@ -12,7 +12,7 @@ export default function CTABannerSection() {
         <FadeIn>
           <SectionEyebrow text="HAREKETE KATIL" />
           <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
-            Pakistan Türk Öğrenci Birliği&apos;ne Katılın — <span className="text-turkish-red">Geleceği</span> Şekillendirin
+            Pakistan Türk Öğrenci Birliği&apos;ne Katılın — <span className="text-accent">Geleceği</span> Şekillendirin
           </h2>
         </FadeIn>
         <FadeIn delay={0.15}>

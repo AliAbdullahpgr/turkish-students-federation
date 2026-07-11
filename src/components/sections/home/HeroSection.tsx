@@ -66,7 +66,7 @@ export default function HeroSection({ messaging, identity }: HeroSectionProps) {
           >
             <Link
               href={identity.guideHref}
-              className="inline-flex items-center gap-2 bg-white px-7 py-3.5 rounded-pill text-sm font-bold text-primary no-underline transition-all hover:bg-accent-light"
+              className="inline-flex items-center gap-2 rounded-pill bg-action px-7 py-3.5 text-sm font-bold text-white no-underline transition-colors hover:bg-action-dark"
             >
               {messaging.primaryCta}
               <ArrowRight className="w-4 h-4" />
