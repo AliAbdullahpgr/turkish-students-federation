@@ -1,13 +1,14 @@
 import { db } from "@/db/client";
 import { activities } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
+import { activities as fallbackActivities } from "@/data/activities";
 
 export async function getAllActivities() {
-  return db
+  try { return await db
     .select()
     .from(activities)
     .orderBy(asc(activities.sortOrder))
-    .all();
+    .all(); } catch { return fallbackActivities.map((activity, sortOrder) => ({ ...activity, sortOrder })); }
 }
 
 export async function getActivityById(id: string) {

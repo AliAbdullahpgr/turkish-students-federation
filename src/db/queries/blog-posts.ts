@@ -2,6 +2,25 @@ import { and, desc, eq, like, or } from "drizzle-orm";
 import { db } from "@/db/client";
 import { blogPosts, media } from "@/db/schema";
 import { guideBlogPosts } from "@/data/guideBlogPosts";
+import { blogPosts as fallbackBlogPosts } from "@/data/blogs";
+
+const blogFallbacks = fallbackBlogPosts.map((post) => ({
+  id: post.id,
+  title: post.title,
+  excerpt: post.excerpt,
+  body: "",
+  slug: post.slug,
+  thumbnailMediaId: null,
+  thumbnail: post.thumbnail || null,
+  category: post.category || "Blog",
+  author: post.author || null,
+  publishedAt: post.dateISO,
+  isFeatured: false,
+  createdAt: post.dateISO,
+  updatedAt: null,
+}));
+
+const allFallbackPosts = [...blogFallbacks, ...guideBlogPosts];
 
 const blogPostSelection = {
   id: blogPosts.id,
@@ -20,46 +39,45 @@ const blogPostSelection = {
 };
 
 export async function getAllBlogPosts() {
-  const posts = await db
-    .select(blogPostSelection)
-    .from(blogPosts)
-    .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
-    .orderBy(desc(blogPosts.publishedAt))
-    .all();
+  let posts;
+  try {
+    posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).all();
+  } catch {
+    return allFallbackPosts;
+  }
   return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))];
 }
 
 export async function getFeaturedBlogPosts(limit = 6) {
-  return db
+  try { return await db
     .select(blogPostSelection)
     .from(blogPosts)
     .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
     .where(eq(blogPosts.isFeatured, true))
     .orderBy(desc(blogPosts.publishedAt))
     .limit(limit)
-    .all();
+    .all(); } catch { return allFallbackPosts.filter((post) => post.isFeatured).slice(0, limit); }
 }
 
 export async function getLatestBlogPosts(limit = 6) {
-  const posts = await db
-    .select(blogPostSelection)
-    .from(blogPosts)
-    .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
-    .orderBy(desc(blogPosts.publishedAt))
-    .all();
+  let posts;
+  try {
+    posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).all();
+  } catch {
+    posts = blogFallbacks;
+  }
   return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))]
     .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
     .slice(0, limit);
 }
 
 export async function getBlogPostBySlug(slug: string) {
-  const post = await db
-    .select(blogPostSelection)
-    .from(blogPosts)
-    .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
-    .where(eq(blogPosts.slug, slug))
-    .get();
-  return post ?? guideBlogPosts.find((guide) => guide.slug === slug);
+  try {
+    const post = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).where(eq(blogPosts.slug, slug)).get();
+    return post ?? allFallbackPosts.find((fallback) => fallback.slug === slug);
+  } catch {
+    return allFallbackPosts.find((fallback) => fallback.slug === slug);
+  }
 }
 
 export async function getBlogPostById(id: string) {
@@ -82,13 +100,15 @@ export async function searchBlogPosts(query: string, filterMonth?: string) {
     conditions.push(like(blogPosts.publishedAt, `${filterMonth}%`));
   }
 
-  const posts = await db
-    .select(blogPostSelection)
-    .from(blogPosts)
-    .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
-    .where(conditions.length > 0 ? and(...conditions) : undefined)
-    .orderBy(desc(blogPosts.publishedAt))
-    .all();
+  let posts;
+  try {
+    posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).where(conditions.length > 0 ? and(...conditions) : undefined).orderBy(desc(blogPosts.publishedAt)).all();
+  } catch {
+    posts = blogFallbacks.filter((post) => {
+      const normalized = query.toLocaleLowerCase("tr");
+      return (!normalized || `${post.title} ${post.excerpt}`.toLocaleLowerCase("tr").includes(normalized)) && (!filterMonth || filterMonth === "all" || post.publishedAt.startsWith(filterMonth));
+    });
+  }
   const normalizedQuery = query.toLocaleLowerCase("tr");
   const matchingGuidePosts = guideBlogPosts.filter((post) => {
     const matchesQuery = !normalizedQuery || `${post.title} ${post.excerpt}`.toLocaleLowerCase("tr").includes(normalizedQuery);

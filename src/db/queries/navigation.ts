@@ -1,6 +1,8 @@
 import { db } from "@/db/client";
 import { navigationItems } from "@/db/schema";
 import { asc, eq } from "drizzle-orm";
+import { normalizePublicHref } from "@/lib/public-routes";
+import { navItems as fallbackNavItems } from "@/data/navigation";
 
 export interface NavItem {
   label: string;
@@ -9,12 +11,16 @@ export interface NavItem {
 }
 
 export async function getNavigationTree(): Promise<NavItem[]> {
-  const all = await db
-    .select()
-    .from(navigationItems)
-    .where(eq(navigationItems.isVisible, true))
-    .orderBy(asc(navigationItems.sortOrder))
-    .all();
+  let all;
+  try {
+    all = await db.select().from(navigationItems).where(eq(navigationItems.isVisible, true)).orderBy(asc(navigationItems.sortOrder)).all();
+  } catch {
+    return fallbackNavItems.map((item) => ({
+      label: item.label,
+      href: normalizePublicHref(item.href),
+      children: item.children?.map((child) => ({ label: child.label, href: normalizePublicHref(child.href) })),
+    }));
+  }
 
   const topLevel = all.filter((item) => item.parentId === null);
 
@@ -22,12 +28,12 @@ export async function getNavigationTree(): Promise<NavItem[]> {
     const children = all.filter((child) => child.parentId === item.id);
     return {
       label: item.label,
-      href: item.href,
+      href: normalizePublicHref(item.href),
       children:
         children.length > 0
           ? children.map((child) => ({
               label: child.label,
-              href: child.href,
+              href: normalizePublicHref(child.href),
             }))
           : undefined,
     };

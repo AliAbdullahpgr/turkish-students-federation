@@ -1,6 +1,16 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { courses, media } from "@/db/schema";
+import { courses as fallbackCourses } from "@/data/courses";
+
+const courseFallbacks = fallbackCourses.map((course) => ({
+  ...course,
+  instructor: course.instructor || null,
+  description: course.description || null,
+  thumbnail: course.thumbnail || null,
+  thumbnailMediaId: null,
+  createdAt: null,
+}));
 
 const courseSelection = {
   id: courses.id,
@@ -14,11 +24,11 @@ const courseSelection = {
 };
 
 export async function getAllCourses() {
-  return db
+  try { return await db
     .select(courseSelection)
     .from(courses)
     .leftJoin(media, eq(courses.thumbnailMediaId, media.id))
-    .all();
+    .all(); } catch { return courseFallbacks; }
 }
 
 export async function getCourseById(id: string) {

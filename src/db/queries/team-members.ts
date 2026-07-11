@@ -1,6 +1,16 @@
 import { asc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { media, teamMembers } from "@/db/schema";
+import { teamMembers as fallbackTeamMembers } from "@/data/team";
+
+const teamFallbacks = fallbackTeamMembers.map((member) => ({
+  ...member,
+  bio: member.bio || null,
+  photo: member.photo || null,
+  photoMediaId: null,
+  isActive: true,
+  createdAt: null,
+}));
 
 const teamMemberSelection = {
   id: teamMembers.id,
@@ -15,22 +25,22 @@ const teamMemberSelection = {
 };
 
 export async function getAllTeamMembers() {
-  return db
+  try { return await db
     .select(teamMemberSelection)
     .from(teamMembers)
     .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .orderBy(asc(teamMembers.order))
-    .all();
+    .all(); } catch { return teamFallbacks; }
 }
 
 export async function getActiveTeamMembers() {
-  return db
+  try { return await db
     .select(teamMemberSelection)
     .from(teamMembers)
     .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .where(eq(teamMembers.isActive, true))
     .orderBy(asc(teamMembers.order))
-    .all();
+    .all(); } catch { return teamFallbacks; }
 }
 
 export async function getTeamMemberById(id: string) {

@@ -1,6 +1,13 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { events, media } from "@/db/schema";
+import { events as fallbackEvents } from "@/data/events";
+
+const eventFallbacks = fallbackEvents.map((event) => ({
+  ...event,
+  posterMediaId: null,
+  createdAt: null,
+}));
 
 const eventSelection = {
   id: events.id,
@@ -15,29 +22,29 @@ const eventSelection = {
 };
 
 export async function getAllEvents() {
-  return db
+  try { return await db
     .select(eventSelection)
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
-    .all();
+    .all(); } catch { return eventFallbacks; }
 }
 
 export async function getUpcomingEvents() {
-  return db
+  try { return await db
     .select(eventSelection)
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "upcoming"))
-    .all();
+    .all(); } catch { return eventFallbacks.filter((event) => event.status === "upcoming"); }
 }
 
 export async function getRecentEvents() {
-  return db
+  try { return await db
     .select(eventSelection)
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "recent"))
-    .all();
+    .all(); } catch { return eventFallbacks.filter((event) => event.status === "recent"); }
 }
 
 export async function getEventById(id: string) {
