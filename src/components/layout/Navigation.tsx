@@ -17,7 +17,7 @@ export default function Navigation({ navItems }: NavigationProps) {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-[40px] z-[999] bg-[#0A0A0A] shadow-header">
+    <header className="sticky top-[36px] z-[999] border-b border-primary/10 bg-white shadow-sm">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-1 lg:px-12">
         <Link href="/" className="flex items-center">
           <Image
@@ -43,7 +43,7 @@ export default function Navigation({ navItems }: NavigationProps) {
                   <>
                     <button
                       type="button"
-                      className="flex cursor-pointer items-center gap-1 rounded px-3 py-2 text-sm font-medium text-white transition-colors hover:text-accent"
+                      className="flex cursor-pointer items-center gap-1 rounded px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/5 hover:text-primary-light"
                     >
                       {item.label}
                       <ChevronDown
@@ -54,13 +54,13 @@ export default function Navigation({ navItems }: NavigationProps) {
                     </button>
 
                     {openDropdown === item.label ? (
-                      <ul className="absolute left-0 top-full z-50 min-w-[180px] list-none rounded-lg bg-[#1a1a1a] py-2 shadow-dropdown">
+                      <ul className="absolute left-0 top-full z-50 min-w-[180px] list-none rounded-lg bg-white py-2 shadow-dropdown">
                         {item.children.map((child) => (
                           <li key={child.label}>
                             <Link
                               href={child.href}
                               prefetch={false}
-                              className="block px-5 py-2.5 text-sm text-white no-underline transition-colors hover:bg-white/5 hover:text-accent"
+                              className="block px-5 py-2.5 text-sm text-primary no-underline transition-colors hover:bg-primary/5 hover:text-primary-light"
                             >
                               {child.label}
                             </Link>
@@ -73,7 +73,7 @@ export default function Navigation({ navItems }: NavigationProps) {
                   <Link
                     href={item.href}
                     prefetch={false}
-                    className={`rounded px-3 py-2 text-sm font-medium text-white no-underline transition-colors hover:text-accent ${
+                    className={`rounded px-3 py-2 text-sm font-semibold text-primary no-underline transition-colors hover:bg-primary/5 hover:text-primary-light ${
                       pathname === item.href ? "border-b-2 border-accent text-accent" : ""
                     }`}
                   >
@@ -87,7 +87,7 @@ export default function Navigation({ navItems }: NavigationProps) {
 
         <button
           type="button"
-          className="p-2 text-white lg:hidden"
+          className="rounded-md p-2 text-primary transition-colors hover:bg-primary/5 lg:hidden"
           onClick={() => setMobileOpen((current) => !current)}
           aria-label="Toggle menu"
         >
@@ -96,7 +96,7 @@ export default function Navigation({ navItems }: NavigationProps) {
       </div>
 
       {mobileOpen ? (
-        <div className="overflow-hidden bg-[#0A0A0A] px-6 pb-6 lg:hidden">
+        <div className="overflow-hidden border-t border-primary/10 bg-white px-6 pb-6 lg:hidden">
           <ul className="m-0 flex list-none flex-col gap-2 p-0">
             {navItems.map((item) => (
               <li key={item.label}>
@@ -104,7 +104,7 @@ export default function Navigation({ navItems }: NavigationProps) {
                   <div>
                     <button
                       type="button"
-                      className="flex w-full items-center gap-1 py-2 text-sm font-medium text-white"
+                      className="flex w-full items-center justify-between gap-1 py-3 text-sm font-semibold text-primary"
                       onClick={() =>
                         setOpenDropdown((current) => (current === item.label ? null : item.label))
                       }
@@ -124,7 +124,7 @@ export default function Navigation({ navItems }: NavigationProps) {
                             <Link
                               href={child.href}
                               prefetch={false}
-                              className="block py-1 text-sm text-white/80 no-underline hover:text-accent"
+                              className="block py-2 text-sm text-primary/80 no-underline hover:text-primary"
                               onClick={() => setMobileOpen(false)}
                             >
                               {child.label}
@@ -138,7 +138,7 @@ export default function Navigation({ navItems }: NavigationProps) {
                   <Link
                     href={item.href}
                     prefetch={false}
-                    className={`block py-2 text-sm font-medium text-white no-underline hover:text-accent ${
+                    className={`block py-3 text-sm font-semibold text-primary no-underline hover:text-primary-light ${
                       pathname === item.href ? "text-accent" : ""
                     }`}
                     onClick={() => setMobileOpen(false)}

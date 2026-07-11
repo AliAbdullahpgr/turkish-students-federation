@@ -18,7 +18,7 @@ export async function getNavigationTree(): Promise<NavItem[]> {
 
   const topLevel = all.filter((item) => item.parentId === null);
 
-  return topLevel.map((item) => {
+  const tree = topLevel.map((item) => {
     const children = all.filter((child) => child.parentId === item.id);
     return {
       label: item.label,
@@ -32,6 +32,26 @@ export async function getNavigationTree(): Promise<NavItem[]> {
           : undefined,
     };
   });
+
+  const cleaned = tree
+    .filter((item) => !/Pakistan (Rehberi|Öğrenci Rehberi)/i.test(item.label))
+    .filter((item) => !/Haberler\s*&\s*Blog/i.test(item.label))
+    .map((item) =>
+      /Yayınlar/i.test(item.label)
+        ? { ...item, children: item.children?.filter((child) => /Kitaplar|Bülten/i.test(child.label)) }
+        : item
+    );
+
+  const combinedIndex = tree.findIndex((item) => /Haberler\s*&\s*Blog/i.test(item.label));
+  const insertAt = combinedIndex >= 0 ? Math.min(combinedIndex, cleaned.length) : cleaned.length;
+  cleaned.splice(
+    insertAt,
+    0,
+    { label: "Haberler", href: "/news-blogs/?type=news" },
+    { label: "Blog", href: "/news-blogs/?type=blog" }
+  );
+
+  return cleaned;
 }
 
 export async function getAllNavigationItems() {
