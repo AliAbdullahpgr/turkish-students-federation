@@ -9,8 +9,9 @@ import { courses } from "./courses";
 import { activities } from "./activities";
 import { guideSections } from "./guide-sections";
 import { navigationItems } from "./navigation-items";
+import { contactSubmissions } from "./contact-submissions";
 
-export { media, siteSettings, blogPosts, events, teamMembers, courses, activities, guideSections, navigationItems };
+export { media, siteSettings, blogPosts, events, teamMembers, courses, activities, guideSections, navigationItems, contactSubmissions };
 
 export const mediaRelations = relations(media, ({ many }) => ({
   blogPosts: many(blogPosts),
@@ -75,4 +76,5 @@ export const schema = {
   activities,
   guideSections,
   navigationItems,
+  contactSubmissions,
 };

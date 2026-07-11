@@ -7,6 +7,7 @@ import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import { useState } from "react";
 
 interface JoinFormData {
   fullName: string;
@@ -18,15 +19,36 @@ interface JoinFormData {
 }
 
 export default function JoinTSFPage() {
+  const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<JoinFormData>();
 
-  const onSubmit = (data: JoinFormData) => {
-    console.log(data);
-    alert("İlginiz için teşekkürler! Sizinle yakında iletişime geçeceğiz.");
+  const onSubmit = async (data: JoinFormData) => {
+    setSubmitState("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "membership",
+          name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          institution: data.institution,
+          city: data.city,
+          message: data.motivation,
+        }),
+      });
+      if (!response.ok) throw new Error("Submission failed");
+      reset();
+      setSubmitState("success");
+    } catch {
+      setSubmitState("error");
+    }
   };
 
   return (
@@ -154,9 +176,13 @@ export default function JoinTSFPage() {
                 )}
               </div>
 
-              <PrimaryButton type="submit" className="w-full">
-                Başvuruyu Gönder
+              <PrimaryButton type="submit" className="w-full" disabled={submitState === "sending"}>
+                {submitState === "sending" ? "Gönderiliyor..." : "Başvuruyu Gönder"}
               </PrimaryButton>
+              <p aria-live="polite" className={submitState === "error" ? "text-sm text-red-600" : "text-sm text-accent"}>
+                {submitState === "success" ? "Başvurunuz güvenle kaydedildi. Ekibimiz sizinle iletişime geçecektir." : null}
+                {submitState === "error" ? "Başvuru gönderilemedi. Lütfen tekrar deneyin." : null}
+              </p>
             </form>
           </div>
         </section>

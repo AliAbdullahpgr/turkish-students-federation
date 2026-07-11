@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import PrimaryButton from "./PrimaryButton";
 import SectionEyebrow from "./SectionEyebrow";
 import FadeIn from "@/components/animation/FadeIn";
+import { useState } from "react";
 
 interface FormData {
   name: string;
@@ -18,15 +19,28 @@ interface FormData {
 }
 
 export default function ContactForm() {
+  const [submitState, setSubmitState] = useState<"idle" | "sending" | "success" | "error">("idle");
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    alert("Mesajınız gönderildi! 24 saat içinde size dönüş yapacağız.");
+  const onSubmit = async (data: FormData) => {
+    setSubmitState("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...data, kind: "contact" }),
+      });
+      if (!response.ok) throw new Error("Submission failed");
+      reset();
+      setSubmitState("success");
+    } catch {
+      setSubmitState("error");
+    }
   };
 
   return (
@@ -149,8 +163,14 @@ export default function ContactForm() {
                 </div>
 
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                  <PrimaryButton type="submit">Mesaj Gönder</PrimaryButton>
+                  <PrimaryButton type="submit" disabled={submitState === "sending"}>
+                    {submitState === "sending" ? "Gönderiliyor..." : "Mesaj Gönder"}
+                  </PrimaryButton>
                 </motion.div>
+                <p aria-live="polite" className={submitState === "error" ? "text-sm text-red-600" : "text-sm text-accent"}>
+                  {submitState === "success" ? "Mesajınız güvenle kaydedildi. Ekibimiz sizinle iletişime geçecektir." : null}
+                  {submitState === "error" ? "Mesaj gönderilemedi. Lütfen tekrar deneyin veya doğrudan e-posta gönderin." : null}
+                </p>
               </form>
             </motion.div>
           </FadeIn>
