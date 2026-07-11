@@ -27,8 +27,8 @@ export default function CTABannerSection() {
               <PrimaryButton href="/join-tsf/">Bugün Üye Olun</PrimaryButton>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-              <PrimaryButton href="/pakistan-rehberi/" className="bg-transparent text-turkish-red border-2 border-turkish-red hover:bg-turkish-red hover:text-white">
-                Pakistan Rehberini İncele
+              <PrimaryButton href="/news-blogs/?type=blog" className="bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-white">
+                Öğrenci Bloglarını İncele
               </PrimaryButton>
             </motion.div>
           </div>

@@ -1,6 +1,7 @@
 import { and, desc, eq, like, or } from "drizzle-orm";
 import { db } from "@/db/client";
 import { blogPosts, media } from "@/db/schema";
+import { guideBlogPosts } from "@/data/guideBlogPosts";
 
 const blogPostSelection = {
   id: blogPosts.id,
@@ -19,12 +20,13 @@ const blogPostSelection = {
 };
 
 export async function getAllBlogPosts() {
-  return db
+  const posts = await db
     .select(blogPostSelection)
     .from(blogPosts)
     .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
     .orderBy(desc(blogPosts.publishedAt))
     .all();
+  return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))];
 }
 
 export async function getFeaturedBlogPosts(limit = 6) {
@@ -39,22 +41,25 @@ export async function getFeaturedBlogPosts(limit = 6) {
 }
 
 export async function getLatestBlogPosts(limit = 6) {
-  return db
+  const posts = await db
     .select(blogPostSelection)
     .from(blogPosts)
     .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
     .orderBy(desc(blogPosts.publishedAt))
-    .limit(limit)
     .all();
+  return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))]
+    .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
+    .slice(0, limit);
 }
 
 export async function getBlogPostBySlug(slug: string) {
-  return db
+  const post = await db
     .select(blogPostSelection)
     .from(blogPosts)
     .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
     .where(eq(blogPosts.slug, slug))
     .get();
+  return post ?? guideBlogPosts.find((guide) => guide.slug === slug);
 }
 
 export async function getBlogPostById(id: string) {
@@ -77,11 +82,18 @@ export async function searchBlogPosts(query: string, filterMonth?: string) {
     conditions.push(like(blogPosts.publishedAt, `${filterMonth}%`));
   }
 
-  return db
+  const posts = await db
     .select(blogPostSelection)
     .from(blogPosts)
     .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
     .where(conditions.length > 0 ? and(...conditions) : undefined)
     .orderBy(desc(blogPosts.publishedAt))
     .all();
+  const normalizedQuery = query.toLocaleLowerCase("tr");
+  const matchingGuidePosts = guideBlogPosts.filter((post) => {
+    const matchesQuery = !normalizedQuery || `${post.title} ${post.excerpt}`.toLocaleLowerCase("tr").includes(normalizedQuery);
+    const matchesMonth = !filterMonth || filterMonth === "all" || post.publishedAt.startsWith(filterMonth);
+    return matchesQuery && matchesMonth && !posts.some((item) => item.slug === post.slug);
+  });
+  return [...posts, ...matchingGuidePosts];
 }

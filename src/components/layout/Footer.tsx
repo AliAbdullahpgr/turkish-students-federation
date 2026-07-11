@@ -3,7 +3,6 @@ import Link from "next/link";
 
 interface FooterProps {
   description: string;
-  guideHref: string;
 }
 
 function YoutubeIcon({ className }: { className?: string }) {
@@ -50,16 +49,12 @@ const quickLinks = [
   { label: "Ana Sayfa", href: "/" },
   { label: "Hakkimizda", href: "/about-us/" },
   { label: "Etkinlikler", href: "/events/" },
-  { label: "Basin Aciklamalari", href: "/press-releases/" },
   { label: "Birimlerimiz", href: "/departments/" },
   { label: "Kullanim Kosullari", href: "/terms/" },
   { label: "Gizlilik Politikasi", href: "/privacy/" },
 ];
 
 const literatureLinks = [
-  { label: "Edebiyat", href: "/literature/" },
-  { label: "Bloglar", href: "/news-blogs/" },
-  { label: "The Students Times", href: "/students-times/" },
   { label: "Kitaplar", href: "/books/" },
   { label: "Bulten", href: "/newsletter/" },
 ];
@@ -72,7 +67,7 @@ const socialLinks = [
   { href: "#", label: "YouTube", Icon: YoutubeIcon },
 ];
 
-export default function Footer({ description, guideHref }: FooterProps) {
+export default function Footer({ description }: FooterProps) {
   return (
     <footer className="bg-primary pt-16 text-white/80">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
@@ -106,7 +101,7 @@ export default function Footer({ description, guideHref }: FooterProps) {
               Hizli Baglantilar
             </h4>
             <ul className="m-0 list-none p-0">
-              {[{ label: "Pakistan Ogrenci Rehberi", href: guideHref }, ...quickLinks].map((link) => (
+              {quickLinks.map((link) => (
                 <li key={link.label} className="mb-2.5">
                   <Link
                     href={link.href}

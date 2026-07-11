@@ -19,23 +19,25 @@ interface NewsBlogsPageClientProps {
   posts: BlogPostItem[];
   searchQuery: string;
   filterMonth: string;
+  type: string;
 }
 
 export default function NewsBlogsPageClient({
   posts,
   searchQuery,
   filterMonth,
+  type,
 }: NewsBlogsPageClientProps) {
   return (
     <>
-      <PageHero title="Haberler & Blog" accentWord="Blog" />
+      <PageHero title={type === "news" ? "Haberler" : "Blog"} accentWord={type === "news" ? "Haberler" : "Blog"} />
 
       <section className="bg-white py-section">
         <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
           <FadeIn className="mb-12 text-center">
-            <SectionEyebrow text="HABERLER & GUNCELLEMELER" />
+            <SectionEyebrow text={type === "news" ? "GÜNCEL GELİŞMELER" : "ÖĞRENCİ YAŞAMI"} />
             <h2 className="text-section-title font-heading font-bold text-text-primary">
-              Son <span className="text-accent">Bloglarimiz</span>
+              {type === "news" ? "Son Haberler" : <>Son <span className="text-accent">Bloglarımız</span></>}
             </h2>
             <p className="mx-auto mt-4 max-w-[600px] text-body text-text-secondary">
               Makaleleri arayin, aya gore filtreleyin ve daha fazla hikaye icin kaydirmaya devam edin.
@@ -44,6 +46,7 @@ export default function NewsBlogsPageClient({
 
           <FadeIn delay={0.15}>
             <form action="/news-blogs" method="get" className="mb-10 flex flex-wrap justify-center gap-4">
+              <input type="hidden" name="type" value={type} />
               <label className="flex items-center gap-2 rounded-lg bg-surface px-4 py-2 transition-shadow focus-within:shadow-sm">
                 <Search className="h-4 w-4 text-text-muted" />
                 <input
@@ -93,7 +96,7 @@ export default function NewsBlogsPageClient({
             </StaggerContainer>
           ) : (
             <div className="py-16 text-center">
-              <p className="text-text-muted">Kriterlerinize uygun blog bulunamadi.</p>
+              <p className="text-text-muted">Kriterlerinize uygun içerik bulunamadı.</p>
             </div>
           )}
 

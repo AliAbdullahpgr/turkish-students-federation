@@ -46,7 +46,7 @@ export default function HeroSection({ messaging, identity }: HeroSectionProps) {
             className="text-[clamp(40px,7vw,84px)] font-black text-white leading-[1.05] uppercase tracking-tight"
           >
             {messaging.titleTop}{" "}
-            <span className="text-turkish-red">{messaging.titleBottom}</span>
+            <span className="text-accent-light">{messaging.titleBottom}</span>
           </motion.h1>
 
           <motion.p
@@ -66,7 +66,7 @@ export default function HeroSection({ messaging, identity }: HeroSectionProps) {
           >
             <Link
               href={identity.guideHref}
-              className="inline-flex items-center gap-2 bg-turkish-red text-white px-7 py-3.5 rounded-pill text-sm font-bold no-underline transition-all hover:bg-turkish-red-dark"
+              className="inline-flex items-center gap-2 bg-white px-7 py-3.5 rounded-pill text-sm font-bold text-primary no-underline transition-all hover:bg-accent-light"
             >
               {messaging.primaryCta}
               <ArrowRight className="w-4 h-4" />

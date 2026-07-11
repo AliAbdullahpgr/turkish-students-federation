@@ -47,8 +47,8 @@ export async function getNavigationTree(): Promise<NavItem[]> {
   cleaned.splice(
     insertAt,
     0,
-    { label: "Haberler", href: "/news-blogs/?type=news" },
-    { label: "Blog", href: "/news-blogs/?type=blog" }
+    { label: "Haberler", href: "/news-blogs/?type=news", children: undefined },
+    { label: "Blog", href: "/news-blogs/?type=blog", children: undefined }
   );
 
   return cleaned;

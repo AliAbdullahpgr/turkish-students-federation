@@ -25,8 +25,8 @@ export async function getSiteIdentity() {
   return {
     name: settings.site_name ?? "Pakistan Türk Öğrenci Birliği",
     shortName: settings.site_short_name ?? "PTÖB",
-    guideName: settings.guide_name ?? "Pakistan Öğrenci Rehberi",
-    guideHref: settings.guide_href ?? "/pakistan-rehberi/",
+    guideName: settings.site_name ?? "Pakistan Türk Öğrenci Birliği",
+    guideHref: "/news-blogs/?type=blog",
     joinHref: settings.join_href ?? "/join-tsf/",
     description: settings.site_description ?? "",
     guideDescription: settings.guide_description ?? "",
@@ -36,11 +36,11 @@ export async function getSiteIdentity() {
 export async function getHomeMessaging() {
   const settings = await getAllSiteSettings();
   return {
-    eyebrow: settings.home_eyebrow ?? "Pakistan Öğrenci Rehberi",
+    eyebrow: settings.home_eyebrow ?? "Pakistan Türk Öğrenci Birliği",
     titleTop: settings.home_title_top ?? "Pakistan'da",
     titleBottom: settings.home_title_bottom ?? "Öğrenci Hayatı",
     summary: settings.home_summary ?? "",
-    primaryCta: settings.home_primary_cta ?? "Rehberi Aç",
+    primaryCta: settings.home_primary_cta ?? "Blogları Keşfet",
     secondaryCta: settings.home_secondary_cta ?? "Bize Katıl",
     aboutIntro: settings.home_about_intro ?? "",
   };

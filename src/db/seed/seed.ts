@@ -19,6 +19,7 @@ import { sql } from "drizzle-orm";
 // Import static data
 import { siteIdentity, homeMessaging } from "@/data/siteContent";
 import { blogPosts as staticBlogPosts } from "@/data/blogs";
+import { guideBlogPosts } from "@/data/guideBlogPosts";
 import { events as staticEvents } from "@/data/events";
 import { teamMembers as staticTeam } from "@/data/team";
 import { courses as staticCourses } from "@/data/courses";
@@ -63,7 +64,13 @@ async function seedBlogPosts() {
       publishedAt: post.dateISO,
     });
   }
-  console.log(`  ✅ blog_posts: ${staticBlogPosts.length} records`);
+  for (const post of guideBlogPosts) {
+    await db.insert(blogPosts).values({
+      id: post.id, title: post.title, excerpt: post.excerpt, body: post.body,
+      slug: post.slug, category: post.category, author: post.author, publishedAt: post.publishedAt,
+    });
+  }
+  console.log(`  ✅ blog_posts: ${staticBlogPosts.length + guideBlogPosts.length} records`);
 }
 
 async function seedEvents() {
