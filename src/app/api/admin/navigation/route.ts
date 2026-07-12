@@ -6,6 +6,7 @@ import { asc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { apiErrorResponse, boolean, integer, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
 import { isKnownPublicHref } from "@/lib/public-routes";
+import { revalidateNavigationContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest) {
       sortOrder: integer(body, "sortOrder"),
       isVisible: boolean(body, "isVisible", true),
     });
+    revalidateNavigationContent();
     const item = await db.select().from(navigationItems).where(eq(navigationItems.id, id)).get();
     return NextResponse.json(item, { status: 201 });
   } catch (error) {

@@ -5,6 +5,7 @@ import { requireAdminRequest } from "@/lib/admin-auth";
 import { asc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { apiErrorResponse, boolean, integer, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { revalidateGuideContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
       sortOrder: integer(body, "sortOrder"),
       isPublished: boolean(body, "isPublished", true),
     });
+    revalidateGuideContent();
     const section = await db.select().from(guideSections).where(eq(guideSections.id, id)).get();
     return NextResponse.json(section, { status: 201 });
   } catch (error) {

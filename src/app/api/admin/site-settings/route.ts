@@ -4,6 +4,7 @@ import { siteSettings } from "@/db/schema";
 import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 import { apiErrorResponse, readJsonObject } from "@/lib/api-validation";
+import { revalidateSiteContent } from "@/lib/content-revalidation";
 
 const editableKeys = new Set([
   "site_name", "site_short_name", "join_href", "site_description",
@@ -37,6 +38,7 @@ export async function PUT(req: NextRequest) {
         await db.insert(siteSettings).values({ key, value: safeValue });
       }
     }
+    revalidateSiteContent();
     return NextResponse.json({ success: true });
   } catch (error) {
     return apiErrorResponse(error);

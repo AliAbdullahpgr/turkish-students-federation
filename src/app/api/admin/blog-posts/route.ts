@@ -6,6 +6,7 @@ import { desc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import slugify from "slugify";
 import { apiErrorResponse, boolean, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { revalidateBlogContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -43,6 +44,7 @@ export async function POST(req: NextRequest) {
       isFeatured: boolean(body, "isFeatured", false),
       updatedAt: new Date().toISOString(),
     });
+    revalidateBlogContent(slug);
     const post = await db.select().from(blogPosts).where(eq(blogPosts.id, id)).get();
     return NextResponse.json(post, { status: 201 });
   } catch (error) {

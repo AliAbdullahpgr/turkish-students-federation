@@ -4,6 +4,7 @@ import { navigationItems } from "@/db/schema";
 import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 import { apiErrorResponse, readJsonObject } from "@/lib/api-validation";
+import { revalidateNavigationContent } from "@/lib/content-revalidation";
 
 export async function PUT(req: NextRequest) {
   const unauthorizedResponse = await requireAdminRequest();
@@ -22,6 +23,7 @@ export async function PUT(req: NextRequest) {
         sortOrder: item.sortOrder,
       }).where(eq(navigationItems.id, item.id)).run();
     }
+    revalidateNavigationContent();
     return NextResponse.json({ success: true });
   } catch (error) {
     return apiErrorResponse(error);

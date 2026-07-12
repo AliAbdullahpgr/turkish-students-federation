@@ -4,6 +4,9 @@ import { db } from "@/db/client";
 import { courses } from "@/db/schema";
 import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
+import { apiErrorResponse, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { isKnownPublicHref } from "@/lib/public-routes";
+import { revalidateCourseContent } from "@/lib/content-revalidation";
 
 export async function GET(
   req: NextRequest,
@@ -23,20 +26,27 @@ export async function PUT(
 ) {
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
-  const { id } = await params;
-  const body = await req.json();
-
-  await db.update(courses).set({
-    title: body.title,
-    instructor: body.instructor,
-    description: body.description,
-    thumbnailMediaId: body.thumbnailMediaId ?? null,
-    href: body.href,
-  }).where(eq(courses.id, id)).run();
-
-  const course = await getCourseById(id);
-  if (!course) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(course);
+  try {
+    const { id } = await params;
+    const existing = await getCourseById(id);
+    if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const body = await readJsonObject(req);
+    const href = optionalText(body, "href", 500) || "#";
+    if (!isKnownPublicHref(href) && !href.startsWith("https://")) {
+      return NextResponse.json({ error: "href must be a known site route or HTTPS URL" }, { status: 400 });
+    }
+    await db.update(courses).set({
+      title: requiredText(body, "title", 160),
+      instructor: optionalText(body, "instructor", 160),
+      description: optionalText(body, "description") || "",
+      thumbnailMediaId: optionalText(body, "thumbnailMediaId", 100),
+      href,
+    }).where(eq(courses.id, id)).run();
+    revalidateCourseContent();
+    return NextResponse.json(await getCourseById(id));
+  } catch (error) {
+    return apiErrorResponse(error);
+  }
 }
 
 export async function DELETE(
@@ -49,5 +59,6 @@ export async function DELETE(
   const existing = await getCourseById(id);
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(courses).where(eq(courses.id, id)).run();
+  revalidateCourseContent();
   return NextResponse.json({ success: true });
 }

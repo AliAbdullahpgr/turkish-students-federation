@@ -5,6 +5,7 @@ import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { apiErrorResponse, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { revalidateEventContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
       date: optionalText(body, "date", 40),
       location: optionalText(body, "location", 180),
     });
+    revalidateEventContent();
     const event = await db.select().from(events).where(eq(events.id, id)).get();
     return NextResponse.json(event, { status: 201 });
   } catch (error) {

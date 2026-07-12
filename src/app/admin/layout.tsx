@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import AdminLayoutClient from "@/components/admin/AdminLayout";
+import { isAdminUser } from "@/lib/admin-auth";
 
 export default async function AdminRootLayout({
   children,
@@ -8,9 +9,12 @@ export default async function AdminRootLayout({
   children: React.ReactNode;
 }) {
   const user = await currentUser();
-  const isAdmin = user?.publicMetadata?.isAdmin as boolean | undefined;
 
-  if (!isAdmin) {
+  if (!user) {
+    redirect("/sign-in?redirect_url=/admin");
+  }
+
+  if (!isAdminUser(user)) {
     redirect("/");
   }
 

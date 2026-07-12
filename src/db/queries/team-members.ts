@@ -2,6 +2,7 @@ import { asc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { media, teamMembers } from "@/db/schema";
 import { teamMembers as fallbackTeamMembers } from "@/data/team";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 const teamFallbacks = fallbackTeamMembers.map((member) => ({
   ...member,
@@ -30,7 +31,7 @@ export async function getAllTeamMembers() {
     .from(teamMembers)
     .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .orderBy(asc(teamMembers.order))
-    .all(); } catch { return teamFallbacks; }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, teamFallbacks); }
 }
 
 export async function getActiveTeamMembers() {
@@ -40,7 +41,7 @@ export async function getActiveTeamMembers() {
     .leftJoin(media, eq(teamMembers.photoMediaId, media.id))
     .where(eq(teamMembers.isActive, true))
     .orderBy(asc(teamMembers.order))
-    .all(); } catch { return teamFallbacks; }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, teamFallbacks); }
 }
 
 export async function getTeamMemberById(id: string) {

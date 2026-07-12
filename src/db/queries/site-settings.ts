@@ -2,26 +2,31 @@ import { db } from "@/db/client";
 import { siteSettings } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { homeMessaging, siteIdentity } from "@/data/siteContent";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
+
+const staticSettings: Record<string, string> = {
+  site_name: siteIdentity.name,
+  site_short_name: siteIdentity.shortName,
+  guide_name: siteIdentity.guideName,
+  guide_href: siteIdentity.guideHref,
+  join_href: siteIdentity.joinHref,
+  site_description: siteIdentity.description,
+  guide_description: siteIdentity.guideDescription,
+  home_eyebrow: homeMessaging.eyebrow,
+  home_title_top: homeMessaging.titleTop,
+  home_title_bottom: homeMessaging.titleBottom,
+  home_summary: homeMessaging.summary,
+  home_primary_cta: homeMessaging.primaryCta,
+  home_secondary_cta: homeMessaging.secondaryCta,
+  home_about_intro: homeMessaging.aboutIntro,
+};
 
 export async function getSiteSetting(key: string): Promise<string | null> {
   try {
     const result = await db.select({ value: siteSettings.value }).from(siteSettings).where(eq(siteSettings.key, key)).get();
     return result?.value ?? null;
-  } catch {
-    const fallbacks: Record<string, string> = {
-      site_name: siteIdentity.name,
-      site_short_name: siteIdentity.shortName,
-      join_href: siteIdentity.joinHref,
-      site_description: siteIdentity.description,
-      home_eyebrow: homeMessaging.eyebrow,
-      home_title_top: homeMessaging.titleTop,
-      home_title_bottom: homeMessaging.titleBottom,
-      home_summary: homeMessaging.summary,
-      home_primary_cta: homeMessaging.primaryCta,
-      home_secondary_cta: homeMessaging.secondaryCta,
-      home_about_intro: homeMessaging.aboutIntro,
-    };
-    return fallbacks[key] ?? null;
+  } catch (error) {
+    return staticFallbackOrThrow(error, staticSettings[key] ?? null);
   }
 }
 
@@ -29,20 +34,8 @@ export async function getAllSiteSettings(): Promise<Record<string, string>> {
   let rows;
   try {
     rows = await db.select().from(siteSettings).all();
-  } catch {
-    return {
-      site_name: siteIdentity.name,
-      site_short_name: siteIdentity.shortName,
-      join_href: siteIdentity.joinHref,
-      site_description: siteIdentity.description,
-      home_eyebrow: homeMessaging.eyebrow,
-      home_title_top: homeMessaging.titleTop,
-      home_title_bottom: homeMessaging.titleBottom,
-      home_summary: homeMessaging.summary,
-      home_primary_cta: homeMessaging.primaryCta,
-      home_secondary_cta: homeMessaging.secondaryCta,
-      home_about_intro: homeMessaging.aboutIntro,
-    };
+  } catch (error) {
+    return staticFallbackOrThrow(error, staticSettings);
   }
   const settings: Record<string, string> = {};
   for (const row of rows) {

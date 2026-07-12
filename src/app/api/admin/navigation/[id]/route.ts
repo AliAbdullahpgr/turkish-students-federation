@@ -3,6 +3,9 @@ import { db } from "@/db/client";
 import { navigationItems } from "@/db/schema";
 import { requireAdminRequest } from "@/lib/admin-auth";
 import { eq } from "drizzle-orm";
+import { apiErrorResponse, boolean, integer, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { revalidateNavigationContent } from "@/lib/content-revalidation";
+import { isKnownPublicHref } from "@/lib/public-routes";
 
 export async function GET(
   _req: NextRequest,
@@ -22,20 +25,27 @@ export async function PUT(
 ) {
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
-  const { id } = await params;
-  const body = await req.json();
-
-  await db.update(navigationItems).set({
-    parentId: body.parentId ?? null,
-    label: body.label,
-    href: body.href,
-    sortOrder: body.sortOrder,
-    isVisible: body.isVisible,
-  }).where(eq(navigationItems.id, id)).run();
-
-  const item = await db.select().from(navigationItems).where(eq(navigationItems.id, id)).get();
-  if (!item) return NextResponse.json({ error: "Not found" }, { status: 404 });
-  return NextResponse.json(item);
+  try {
+    const { id } = await params;
+    const existing = await db.select().from(navigationItems).where(eq(navigationItems.id, id)).get();
+    if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const body = await readJsonObject(req);
+    const href = requiredText(body, "href", 500);
+    if (!isKnownPublicHref(href)) {
+      return NextResponse.json({ error: "href must point to an existing public site route" }, { status: 400 });
+    }
+    await db.update(navigationItems).set({
+      parentId: optionalText(body, "parentId", 100),
+      label: requiredText(body, "label", 100),
+      href,
+      sortOrder: integer(body, "sortOrder", existing.sortOrder ?? 0),
+      isVisible: boolean(body, "isVisible", existing.isVisible ?? true),
+    }).where(eq(navigationItems.id, id)).run();
+    revalidateNavigationContent();
+    return NextResponse.json(await db.select().from(navigationItems).where(eq(navigationItems.id, id)).get());
+  } catch (error) {
+    return apiErrorResponse(error);
+  }
 }
 
 export async function DELETE(
@@ -49,5 +59,6 @@ export async function DELETE(
   if (!existing) return NextResponse.json({ error: "Not found" }, { status: 404 });
   await db.delete(navigationItems).where(eq(navigationItems.parentId, id)).run();
   await db.delete(navigationItems).where(eq(navigationItems.id, id)).run();
+  revalidateNavigationContent();
   return NextResponse.json({ success: true });
 }

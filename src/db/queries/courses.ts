@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { courses, media } from "@/db/schema";
 import { courses as fallbackCourses } from "@/data/courses";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 const courseFallbacks = fallbackCourses.map((course) => ({
   ...course,
@@ -28,7 +29,7 @@ export async function getAllCourses() {
     .select(courseSelection)
     .from(courses)
     .leftJoin(media, eq(courses.thumbnailMediaId, media.id))
-    .all(); } catch { return courseFallbacks; }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, courseFallbacks); }
 }
 
 export async function getCourseById(id: string) {

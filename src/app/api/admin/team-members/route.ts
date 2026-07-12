@@ -5,6 +5,7 @@ import { requireAdminRequest } from "@/lib/admin-auth";
 import { asc, eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { apiErrorResponse, boolean, integer, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
+import { revalidateTeamContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -28,6 +29,7 @@ export async function POST(req: NextRequest) {
       order: integer(body, "order"),
       isActive: boolean(body, "isActive", true),
     });
+    revalidateTeamContent();
     const member = await db.select().from(teamMembers).where(eq(teamMembers.id, id)).get();
     return NextResponse.json(member, { status: 201 });
   } catch (error) {

@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { nanoid } from "nanoid";
 import { apiErrorResponse, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
 import { isKnownPublicHref } from "@/lib/public-routes";
+import { revalidateCourseContent } from "@/lib/content-revalidation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
@@ -32,6 +33,7 @@ export async function POST(req: NextRequest) {
       thumbnailMediaId: optionalText(body, "thumbnailMediaId", 100),
       href,
     });
+    revalidateCourseContent();
     const course = await db.select().from(courses).where(eq(courses.id, id)).get();
     return NextResponse.json(course, { status: 201 });
   } catch (error) {

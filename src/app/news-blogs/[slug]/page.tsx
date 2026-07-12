@@ -69,13 +69,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
                 </article>
               )}
-              {!post.body && (
-                <p className="text-body leading-relaxed text-text-secondary">
-                  Bu makale, Turk Ogrenci Federasyonu&apos;nun ogrenciler icin yuruttugu
-                  calismalari ve faaliyetleri ele almaktadir. Federasyonumuz, ogrencilerin sesi
-                  olmaya ve onlarin haklarini savunmaya devam edecektir.
-                </p>
-              )}
             </div>
           </div>
         </section>

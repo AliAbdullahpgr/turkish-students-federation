@@ -3,6 +3,7 @@ import { db } from "@/db/client";
 import { blogPosts, media } from "@/db/schema";
 import { guideBlogPosts } from "@/data/guideBlogPosts";
 import { blogPosts as fallbackBlogPosts } from "@/data/blogs";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 const blogFallbacks = fallbackBlogPosts.map((post) => ({
   id: post.id,
@@ -39,13 +40,11 @@ const blogPostSelection = {
 };
 
 export async function getAllBlogPosts() {
-  let posts;
   try {
-    posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).all();
-  } catch {
-    return allFallbackPosts;
+    return await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).all();
+  } catch (error) {
+    return staticFallbackOrThrow(error, allFallbackPosts);
   }
-  return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))];
 }
 
 export async function getFeaturedBlogPosts(limit = 6) {
@@ -56,27 +55,28 @@ export async function getFeaturedBlogPosts(limit = 6) {
     .where(eq(blogPosts.isFeatured, true))
     .orderBy(desc(blogPosts.publishedAt))
     .limit(limit)
-    .all(); } catch { return allFallbackPosts.filter((post) => post.isFeatured).slice(0, limit); }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, allFallbackPosts.filter((post) => post.isFeatured).slice(0, limit)); }
 }
 
 export async function getLatestBlogPosts(limit = 6) {
-  let posts;
   try {
-    posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).all();
-  } catch {
-    posts = blogFallbacks;
+    return await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).orderBy(desc(blogPosts.publishedAt)).limit(limit).all();
+  } catch (error) {
+    return staticFallbackOrThrow(
+      error,
+      allFallbackPosts
+        .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
+        .slice(0, limit),
+    );
   }
-  return [...posts, ...guideBlogPosts.filter((guide) => !posts.some((post) => post.slug === guide.slug))]
-    .sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""))
-    .slice(0, limit);
 }
 
 export async function getBlogPostBySlug(slug: string) {
   try {
     const post = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).where(eq(blogPosts.slug, slug)).get();
-    return post ?? allFallbackPosts.find((fallback) => fallback.slug === slug);
-  } catch {
-    return allFallbackPosts.find((fallback) => fallback.slug === slug);
+    return post;
+  } catch (error) {
+    return staticFallbackOrThrow(error, allFallbackPosts.find((fallback) => fallback.slug === slug));
   }
 }
 
@@ -103,17 +103,11 @@ export async function searchBlogPosts(query: string, filterMonth?: string) {
   let posts;
   try {
     posts = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).where(conditions.length > 0 ? and(...conditions) : undefined).orderBy(desc(blogPosts.publishedAt)).all();
-  } catch {
-    posts = blogFallbacks.filter((post) => {
+  } catch (error) {
+    return staticFallbackOrThrow(error, allFallbackPosts.filter((post) => {
       const normalized = query.toLocaleLowerCase("tr");
       return (!normalized || `${post.title} ${post.excerpt}`.toLocaleLowerCase("tr").includes(normalized)) && (!filterMonth || filterMonth === "all" || post.publishedAt.startsWith(filterMonth));
-    });
+    }));
   }
-  const normalizedQuery = query.toLocaleLowerCase("tr");
-  const matchingGuidePosts = guideBlogPosts.filter((post) => {
-    const matchesQuery = !normalizedQuery || `${post.title} ${post.excerpt}`.toLocaleLowerCase("tr").includes(normalizedQuery);
-    const matchesMonth = !filterMonth || filterMonth === "all" || post.publishedAt.startsWith(filterMonth);
-    return matchesQuery && matchesMonth && !posts.some((item) => item.slug === post.slug);
-  });
-  return [...posts, ...matchingGuidePosts];
+  return posts;
 }

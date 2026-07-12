@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { events, media } from "@/db/schema";
 import { events as fallbackEvents } from "@/data/events";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 const eventFallbacks = fallbackEvents.map((event) => ({
   ...event,
@@ -26,7 +27,7 @@ export async function getAllEvents() {
     .select(eventSelection)
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
-    .all(); } catch { return eventFallbacks; }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, eventFallbacks); }
 }
 
 export async function getUpcomingEvents() {
@@ -35,7 +36,7 @@ export async function getUpcomingEvents() {
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "upcoming"))
-    .all(); } catch { return eventFallbacks.filter((event) => event.status === "upcoming"); }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, eventFallbacks.filter((event) => event.status === "upcoming")); }
 }
 
 export async function getRecentEvents() {
@@ -44,7 +45,7 @@ export async function getRecentEvents() {
     .from(events)
     .leftJoin(media, eq(events.posterMediaId, media.id))
     .where(eq(events.status, "recent"))
-    .all(); } catch { return eventFallbacks.filter((event) => event.status === "recent"); }
+    .all(); } catch (error) { return staticFallbackOrThrow(error, eventFallbacks.filter((event) => event.status === "recent")); }
 }
 
 export async function getEventById(id: string) {

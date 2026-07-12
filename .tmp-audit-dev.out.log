@@ -67,3 +67,10 @@ Contact form submission: {
  ✓ Compiled /news-blogs/[slug] in 2.7s (3117 modules)
  GET /news-blogs/rising-prices-burden-on-students 200 in 5987ms
  GET /events 200 in 3796ms
+ ✓ Compiled in 14.6s (1294 modules)
+ ✓ Compiled in 1507ms (1294 modules)
+ ✓ Compiled in 10.2s (2845 modules)
+ ✓ Compiled in 1250ms (2859 modules)
+ ✓ Compiled in 9.4s (2855 modules)
+ ✓ Compiled in 3.6s (1278 modules)
+ ✓ Compiled in 1049ms (1278 modules)

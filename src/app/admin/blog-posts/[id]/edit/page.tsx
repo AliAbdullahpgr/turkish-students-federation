@@ -16,6 +16,8 @@ interface BlogPostForm {
   slug: string;
   category: string;
   author: string;
+  publishedAt: string;
+  isFeatured: boolean;
 }
 
 export default function EditBlogPostPage() {
@@ -32,7 +34,11 @@ export default function EditBlogPostPage() {
     fetch(`/api/admin/blog-posts/${id}`)
       .then((response) => response.json())
       .then((data) => {
-        reset(data);
+        reset({
+          ...data,
+          publishedAt: data.publishedAt?.split("T")[0] || "",
+          isFeatured: Boolean(data.isFeatured),
+        });
         if (data.thumbnailMediaId) {
           setThumbnailMediaId(data.thumbnailMediaId);
         }
@@ -124,6 +130,20 @@ export default function EditBlogPostPage() {
             className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <FormField label="Yayin Tarihi">
+            <input
+              type="date"
+              {...register("publishedAt")}
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            />
+          </FormField>
+          <label className="flex items-center gap-3 self-end rounded-md border border-border-custom bg-white px-4 py-2.5 text-sm">
+            <input type="checkbox" {...register("isFeatured")} />
+            Ana sayfada one cikar
+          </label>
+        </div>
 
         <div className="flex flex-wrap gap-3">
           <button

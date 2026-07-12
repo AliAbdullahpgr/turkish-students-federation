@@ -9,6 +9,7 @@ const publicRoutePrefixes = [
   "/literature/",
   "/news-blogs/",
   "/newsletter/",
+  "/pakistan-rehberi/",
   "/press-releases/",
   "/privacy/",
   "/students-times/",

@@ -53,5 +53,8 @@ export function apiErrorResponse(error: unknown) {
   if (error instanceof ApiInputError) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
+  if (error instanceof Error && /unique constraint|UNIQUE constraint/i.test(error.message)) {
+    return NextResponse.json({ error: "A record with that unique value already exists" }, { status: 409 });
+  }
   return NextResponse.json({ error: "Request could not be completed" }, { status: 503 });
 }

@@ -16,11 +16,19 @@ interface BlogPostForm {
   slug: string;
   category: string;
   author: string;
+  publishedAt: string;
+  isFeatured: boolean;
 }
 
 export default function NewBlogPostPage() {
   const router = useRouter();
-  const { register, handleSubmit, watch, setValue } = useForm<BlogPostForm>();
+  const { register, handleSubmit, watch, setValue } = useForm<BlogPostForm>({
+    defaultValues: {
+      category: "Blog",
+      publishedAt: new Date().toISOString().slice(0, 10),
+      isFeatured: false,
+    },
+  });
   const bodyValue = watch("body") || "";
   const [thumbnailMediaId, setThumbnailMediaId] = useState<string | null>(null);
   const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
@@ -104,6 +112,20 @@ export default function NewBlogPostPage() {
             className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
           />
         </FormField>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <FormField label="Yayin Tarihi">
+            <input
+              type="date"
+              {...register("publishedAt")}
+              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            />
+          </FormField>
+          <label className="flex items-center gap-3 self-end rounded-md border border-border-custom bg-white px-4 py-2.5 text-sm">
+            <input type="checkbox" {...register("isFeatured")} />
+            Ana sayfada one cikar
+          </label>
+        </div>
 
         <div className="flex flex-wrap gap-3">
           <button

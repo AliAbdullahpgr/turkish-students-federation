@@ -1,9 +1,7 @@
 import { Filter, Search } from "lucide-react";
 import BlogCard from "@/components/ui/BlogCard";
-import FadeIn from "@/components/animation/FadeIn";
 import PageHero from "@/components/ui/PageHero";
 import SectionEyebrow from "@/components/ui/SectionEyebrow";
-import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
 interface BlogPostItem {
   id: string;
@@ -34,7 +32,7 @@ export default function NewsBlogsPageClient({
 
       <section className="bg-white py-section">
         <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
-          <FadeIn className="mb-12 text-center">
+          <div className="mb-12 text-center">
             <SectionEyebrow text={type === "news" ? "GÜNCEL GELİŞMELER" : "ÖĞRENCİ YAŞAMI"} />
             <h2 className="text-section-title font-heading font-bold text-text-primary">
               {type === "news" ? "Son Haberler" : <>Son <span className="text-accent">Bloglarımız</span></>}
@@ -42,9 +40,9 @@ export default function NewsBlogsPageClient({
             <p className="mx-auto mt-4 max-w-[600px] text-body text-text-secondary">
               Makaleleri arayin, aya gore filtreleyin ve daha fazla hikaye icin kaydirmaya devam edin.
             </p>
-          </FadeIn>
+          </div>
 
-          <FadeIn delay={0.15}>
+          <div>
             <form action="/news-blogs" method="get" className="mb-10 flex flex-wrap justify-center gap-4">
               <input type="hidden" name="type" value={type} />
               <label className="flex items-center gap-2 rounded-lg bg-surface px-4 py-2 transition-shadow focus-within:shadow-sm">
@@ -77,12 +75,12 @@ export default function NewsBlogsPageClient({
                 FILTRELE
               </button>
             </form>
-          </FadeIn>
+          </div>
 
           {posts.length > 0 ? (
-            <StaggerContainer className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3" staggerDelay={0.1}>
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post) => (
-                <StaggerItem key={post.id}>
+                <div key={post.id}>
                   <BlogCard
                     date={post.publishedAt ?? ""}
                     title={post.title}
@@ -91,18 +89,18 @@ export default function NewsBlogsPageClient({
                     isTurkish={true}
                     thumbnail={post.thumbnail ?? undefined}
                   />
-                </StaggerItem>
+                </div>
               ))}
-            </StaggerContainer>
+            </div>
           ) : (
             <div className="py-16 text-center">
               <p className="text-text-muted">Kriterlerinize uygun içerik bulunamadı.</p>
             </div>
           )}
 
-          <FadeIn delay={0.3}>
+          <div>
             <div className="mt-12 text-center text-sm text-text-muted">Akisin sonuna ulastiniz.</div>
-          </FadeIn>
+          </div>
         </div>
       </section>
     </>
