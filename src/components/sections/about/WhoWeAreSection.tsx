@@ -3,6 +3,7 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import FadeIn from "@/components/animation/FadeIn";
 
@@ -18,9 +19,10 @@ interface SiteIdentity {
 interface WhoWeAreSectionProps {
   messaging: HomeMessaging;
   identity: SiteIdentity;
+  showPhotos?: boolean;
 }
 
-export default function WhoWeAreSection({ messaging, identity }: WhoWeAreSectionProps) {
+export default function WhoWeAreSection({ messaging, identity, showPhotos = false }: WhoWeAreSectionProps) {
   return (
     <section id="biz-kimiz" className="bg-white py-section">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-12">
@@ -46,6 +48,34 @@ export default function WhoWeAreSection({ messaging, identity }: WhoWeAreSection
           </Link>
         </FadeIn>
       </div>
+      {showPhotos && <div className="mx-auto mt-12 grid max-w-[1280px] gap-8 px-6 md:grid-cols-2 lg:px-12">
+        <figure className="min-w-0">
+          <Image
+            src="/image/association-group-visit.png"
+            alt="Öğrenciler ve bir takım elbiseli katılımcının bina önündeki toplu fotoğrafı"
+            width={1071}
+            height={796}
+            sizes="(min-width: 1280px) 576px, (min-width: 768px) 46vw, calc(100vw - 48px)"
+            className="h-auto w-full rounded-2xl"
+          />
+          <figcaption className="mt-4 text-sm leading-6 text-text-secondary">
+            Öğrencilerimizle bir arada.
+          </figcaption>
+        </figure>
+        <figure className="min-w-0">
+          <Image
+            src="/image/association-community-evening.png"
+            alt="Öğrenciler, aileler ve çocukların akşam buluşmasındaki toplu fotoğrafı"
+            width={1600}
+            height={1200}
+            sizes="(min-width: 1280px) 576px, (min-width: 768px) 46vw, calc(100vw - 48px)"
+            className="h-auto w-full rounded-2xl"
+          />
+          <figcaption className="mt-4 text-sm leading-6 text-text-secondary">
+            Öğrencilerimiz ve ailelerimizle paylaştığımız anlar.
+          </figcaption>
+        </figure>
+      </div>}
     </section>
   );
 }

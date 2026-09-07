@@ -35,7 +35,7 @@ export default async function AboutUsPage() {
       <Navigation />
       <main className="flex-grow">
         <PageHero title={`${identity.guideName} Hakkında`} accentWord="Öğrenci" />
-        <WhoWeAreSection messaging={messaging} identity={identity} />
+        <WhoWeAreSection messaging={messaging} identity={identity} showPhotos />
         <MissionVisionSection />
         <CoreValuesSection />
         <KeyActivitiesSection activities={activities} />

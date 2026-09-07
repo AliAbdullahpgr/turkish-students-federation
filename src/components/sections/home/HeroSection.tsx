@@ -33,7 +33,7 @@ export default function HeroSection({ messaging, identity }: HeroSectionProps) {
   return (
     <section
       className="relative w-full min-h-[85vh] flex items-center overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: "url('/image/group.png')" }}
+      style={{ backgroundImage: "url('/image/association-community-evening.png')" }}
     >
       <div className="absolute inset-0 bg-[rgba(7,42,31,0.75)]" />
 
