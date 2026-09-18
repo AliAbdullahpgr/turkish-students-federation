@@ -74,13 +74,13 @@ export default function EditTeamMemberPage() {
           <FormField label="İsim" required>
             <input
               {...register("name", { required: true })}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="admin-input"
             />
           </FormField>
           <FormField label="Rol" required>
             <input
               {...register("role", { required: true })}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="admin-input"
             />
           </FormField>
         </div>
@@ -99,7 +99,7 @@ export default function EditTeamMemberPage() {
             <input
               type="number"
               {...register("order", { valueAsNumber: true })}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="admin-input"
             />
           </FormField>
           <div className="flex items-center gap-2 pt-6">
@@ -109,10 +109,10 @@ export default function EditTeamMemberPage() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button type="submit" className="admin-button admin-button-primary">
             Güncelle
           </button>
-          <Link href="/admin/team-members" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
+          <Link href="/admin/team-members" className="admin-button admin-button-secondary">
             İptal
           </Link>
         </div>

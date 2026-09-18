@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import React from "react";
+import { AdminPageHeader } from "@/components/admin/AdminUi";
 
 interface PageHeaderProps {
   title: string;
@@ -8,18 +7,12 @@ interface PageHeaderProps {
   action?: React.ReactNode;
 }
 
+/**
+ * Kept as a thin re-export so the existing edit pages keep their default
+ * import and pick up the ported header styling, including the back link.
+ * New pages use `AdminPageHeader` directly, which also takes an eyebrow and
+ * a description.
+ */
 export default function PageHeader({ title, backHref, action }: PageHeaderProps) {
-  return (
-    <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-      <div className="flex items-center gap-4">
-        <Link href={backHref} className="text-text-secondary hover:text-primary">
-          <ArrowLeft className="w-5 h-5" />
-        </Link>
-        <h1 className="text-xl sm:text-2xl font-heading font-bold text-text-primary truncate">
-          {title}
-        </h1>
-      </div>
-      {action}
-    </div>
-  );
+  return <AdminPageHeader title={title} backHref={backHref} action={action} />;
 }

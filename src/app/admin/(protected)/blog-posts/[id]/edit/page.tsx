@@ -88,7 +88,7 @@ export default function EditBlogPostPage() {
         <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
@@ -96,7 +96,7 @@ export default function EditBlogPostPage() {
           <textarea
             {...register("excerpt")}
             rows={3}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
@@ -113,13 +113,13 @@ export default function EditBlogPostPage() {
           <FormField label="Slug">
             <input
               {...register("slug")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
           <FormField label="Kategori">
             <input
               {...register("category")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
         </div>
@@ -127,7 +127,7 @@ export default function EditBlogPostPage() {
         <FormField label="Yazar">
           <input
             {...register("author")}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
@@ -136,7 +136,7 @@ export default function EditBlogPostPage() {
             <input
               type="date"
               {...register("publishedAt")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
           <label className="flex items-center gap-3 self-end rounded-md border border-border-custom bg-white px-4 py-2.5 text-sm">
@@ -148,13 +148,13 @@ export default function EditBlogPostPage() {
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
-            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+            className="admin-button admin-button-primary"
           >
             Guncelle
           </button>
           <Link
             href="/admin/blog-posts"
-            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+            className="admin-button admin-button-secondary"
           >
             Iptal
           </Link>

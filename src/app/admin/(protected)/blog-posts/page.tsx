@@ -36,7 +36,7 @@ export default function BlogPostsListPage() {
         <h1 className="text-xl sm:text-2xl font-heading font-bold text-text-primary">Blog Yazıları</h1>
         <Link
           href="/admin/blog-posts/new"
-          className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark"
+          className="admin-button admin-button-primary"
         >
           <Plus className="w-4 h-4" /> Yeni Yazı
         </Link>

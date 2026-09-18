@@ -1,4 +1,5 @@
 import React from "react";
+import { FormField as AdminFormField } from "@/components/admin/AdminUi";
 
 interface FormFieldProps {
   label: string;
@@ -8,20 +9,15 @@ interface FormFieldProps {
   children: React.ReactNode;
 }
 
+/**
+ * Kept as a thin re-export so the existing edit pages keep their default
+ * import and pick up the ported field styling. New pages import
+ * `FormField` from `AdminUi` directly.
+ */
 export default function FormField({ label, error, hint, required, children }: FormFieldProps) {
   return (
-    <div>
-      <label className="block text-sm font-medium text-text-secondary mb-1">
-        {label}
-        {required && <span className="text-turkish-red ml-0.5">*</span>}
-      </label>
+    <AdminFormField label={label} error={error} hint={hint} required={required}>
       {children}
-      {hint && !error && (
-        <p className="mt-1 text-xs text-text-muted">{hint}</p>
-      )}
-      {error && (
-        <p className="mt-1 text-xs text-turkish-red">{error}</p>
-      )}
-    </div>
+    </AdminFormField>
   );
 }

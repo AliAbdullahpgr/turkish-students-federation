@@ -79,7 +79,7 @@ export default function EditEventPage() {
         <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
@@ -87,13 +87,13 @@ export default function EditEventPage() {
           <FormField label="Kategori">
             <input
               {...register("category")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
           <FormField label="Durum">
             <select
               {...register("status")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             >
               <option value="upcoming">Yaklasan</option>
               <option value="recent">Gecmis</option>
@@ -105,13 +105,13 @@ export default function EditEventPage() {
           <FormField label="Tarih">
             <input
               {...register("date")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
           <FormField label="Konum">
             <input
               {...register("location")}
-              className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+              className="admin-input"
             />
           </FormField>
         </div>
@@ -119,13 +119,13 @@ export default function EditEventPage() {
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
-            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+            className="admin-button admin-button-primary"
           >
             Guncelle
           </button>
           <Link
             href="/admin/events"
-            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+            className="admin-button admin-button-secondary"
           >
             Iptal
           </Link>

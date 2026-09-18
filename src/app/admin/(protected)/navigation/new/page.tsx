@@ -42,21 +42,21 @@ export default function NewNavigationItemPage() {
         <FormField label="Etiket" required>
           <input
             {...register("label", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
         <FormField label="Link" required>
           <input
             {...register("href", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
         <FormField label="Üst Link" hint="Dropdown menü oluşturmak için seçin">
           <select
             {...register("parentId")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           >
             <option value="">Yok (ana link)</option>
             {items
@@ -73,15 +73,15 @@ export default function NewNavigationItemPage() {
           <input
             type="number"
             {...register("sortOrder", { valueAsNumber: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button type="submit" className="admin-button admin-button-primary">
             Kaydet
           </button>
-          <Link href="/admin/navigation" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
+          <Link href="/admin/navigation" className="admin-button admin-button-secondary">
             İptal
           </Link>
         </div>

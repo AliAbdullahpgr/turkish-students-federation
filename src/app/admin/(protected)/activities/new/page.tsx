@@ -41,7 +41,7 @@ export default function NewActivityPage() {
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
@@ -49,14 +49,14 @@ export default function NewActivityPage() {
           <textarea
             {...register("description")}
             rows={3}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
         <FormField label="İkon">
           <select
             {...register("icon")}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           >
             {ICON_OPTIONS.map((icon) => (
               <option key={icon} value={icon}>
@@ -70,15 +70,15 @@ export default function NewActivityPage() {
           <input
             type="number"
             {...register("sortOrder", { valueAsNumber: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button type="submit" className="admin-button admin-button-primary">
             Kaydet
           </button>
-          <Link href="/admin/activities" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
+          <Link href="/admin/activities" className="admin-button admin-button-secondary">
             İptal
           </Link>
         </div>

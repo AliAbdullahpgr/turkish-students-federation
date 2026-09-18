@@ -91,7 +91,7 @@ export default function EditGuideSectionPage() {
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
-            className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+            className="admin-input"
           />
         </FormField>
 
@@ -109,7 +109,7 @@ export default function EditGuideSectionPage() {
             <input
               type="number"
               {...register("level", { valueAsNumber: true })}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="admin-input"
             />
           </FormField>
 
@@ -117,7 +117,7 @@ export default function EditGuideSectionPage() {
             <input
               type="number"
               {...register("sortOrder", { valueAsNumber: true })}
-              className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+              className="admin-input"
             />
           </FormField>
 
@@ -128,10 +128,10 @@ export default function EditGuideSectionPage() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button type="submit" className="admin-button admin-button-primary">
             Güncelle
           </button>
-          <Link href="/admin/guide-sections" className="px-6 py-2.5 border border-border-custom rounded-md text-sm font-medium text-text-secondary hover:bg-surface">
+          <Link href="/admin/guide-sections" className="admin-button admin-button-secondary">
             İptal
           </Link>
         </div>

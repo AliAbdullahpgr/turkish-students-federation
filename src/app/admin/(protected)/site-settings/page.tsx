@@ -59,7 +59,7 @@ export default function SiteSettingsPage() {
             <FormField key={field.key} label={field.label}>
               <input
                 {...register(field.key)}
-                className="w-full px-4 py-2 border border-border-custom rounded-md text-sm bg-white focus:outline-none focus:border-accent"
+                className="admin-input"
               />
             </FormField>
           ) : (
@@ -74,7 +74,7 @@ export default function SiteSettingsPage() {
           )
         )}
         <div className="flex items-center gap-3">
-          <button type="submit" className="bg-primary text-white px-6 py-2.5 rounded-md text-sm font-medium hover:bg-primary-dark">
+          <button type="submit" className="admin-button admin-button-primary">
             Kaydet
           </button>
           {saved && <span className="text-accent text-sm font-medium animate-fade-in">✅ Kaydedildi!</span>}

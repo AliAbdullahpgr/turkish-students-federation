@@ -78,14 +78,14 @@ export default function EditCoursePage() {
         <FormField label="Baslik" required>
           <input
             {...register("title", { required: true })}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
         <FormField label="Egitmen">
           <input
             {...register("instructor")}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
@@ -93,27 +93,27 @@ export default function EditCoursePage() {
           <textarea
             {...register("description")}
             rows={3}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
         <FormField label="Link">
           <input
             {...register("href")}
-            className="w-full rounded-md border border-border-custom bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
+            className="admin-input"
           />
         </FormField>
 
         <div className="flex gap-3">
           <button
             type="submit"
-            className="rounded-md bg-primary px-6 py-2.5 text-sm font-medium text-white hover:bg-primary-dark"
+            className="admin-button admin-button-primary"
           >
             Guncelle
           </button>
           <Link
             href="/admin/courses"
-            className="rounded-md border border-border-custom px-6 py-2.5 text-sm font-medium text-text-secondary hover:bg-surface"
+            className="admin-button admin-button-secondary"
           >
             Iptal
           </Link>
