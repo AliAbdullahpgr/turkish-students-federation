@@ -6,8 +6,19 @@ import { eq } from "drizzle-orm";
 import { apiErrorResponse, readJsonObject } from "@/lib/api-validation";
 import { revalidateSiteContent } from "@/lib/content-revalidation";
 
+/**
+ * `guide_name`, `guide_href` and `guide_description` are listed here because
+ * the settings form has always rendered them while this set omitted them —
+ * saving those three fields silently discarded the value and the form then
+ * re-displayed the stale one, with no error anywhere.
+ *
+ * The president_* and youtube_* keys are deliberately absent: they are written
+ * by their own server actions in `src/app/admin/actions.ts`, which validate
+ * the image path and the YouTube address before the write.
+ */
 const editableKeys = new Set([
   "site_name", "site_short_name", "join_href", "site_description",
+  "guide_name", "guide_href", "guide_description",
   "home_eyebrow", "home_title_top", "home_title_bottom", "home_summary",
   "home_primary_cta", "home_secondary_cta", "home_about_intro",
 ]);

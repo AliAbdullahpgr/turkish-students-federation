@@ -69,3 +69,61 @@ export async function getHomeMessaging() {
     aboutIntro: settings.home_about_intro ?? "",
   };
 }
+
+/**
+ * The copy that was previously hardcoded in `PresidentSection.tsx`. Kept as
+ * the default so the homepage reads the same before anyone opens the new
+ * admin page — moving the field into the database must not blank the site.
+ */
+const defaultPresidentBio =
+  "Ömer Abbas, 3 Şubat 1999 doğumlu olup 1 Aralık 2025'ten bu yana Pakistan Türk " +
+  "Öğrenci Birliği Başkanlığı görevini yürütmektedir. Afet Yönetimi alanında yüksek " +
+  "lisans öğrencisi olan Ömer Abbas, öğrenci liderliği, toplum hizmetleri ve gençlik " +
+  "çalışmalarında aktif rol almaktadır.";
+
+/**
+ * The homepage president card.
+ *
+ * These fields were literals inside `PresidentSection.tsx`, which is why the
+ * panel offered no way to change the president — there was nothing to change.
+ * They are plain settings keys rather than a table because there is exactly
+ * one president at a time.
+ */
+export async function getPresidentSection() {
+  const settings = await getAllSiteSettings();
+  return {
+    eyebrow: settings.president_eyebrow ?? "BAŞKAN",
+    name: settings.president_name ?? "Ömer Abbas",
+    role: settings.president_role ?? "Pakistan Türk Öğrenci Birliği Başkanı",
+    bio: settings.president_bio ?? defaultPresidentBio,
+    imageUrl: settings.president_image_url ?? "/image/leader.png",
+    imageAlt: settings.president_image_alt ?? "Pakistan Türk Öğrenci Birliği Başkanı",
+    /** Lets an editor take the whole section off the homepage without deleting the copy. */
+    visible: settings.president_visible !== "0",
+  };
+}
+
+/**
+ * The homepage YouTube block: channel button plus one featured video.
+ *
+ * `video` holds whatever address the editor pasted; the embed and thumbnail
+ * are derived from it at render time by `src/lib/youtube.ts`.
+ */
+export async function getYoutubeSection() {
+  const settings = await getAllSiteSettings();
+  const tags = (settings.youtube_tags ?? "")
+    .split(",")
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
+  return {
+    eyebrow: settings.youtube_eyebrow ?? "SON YAYIN",
+    title: settings.youtube_title ?? "",
+    description: settings.youtube_description ?? "",
+    videoUrl: settings.youtube_video_url ?? "",
+    channelUrl: settings.youtube_channel_url ?? "",
+    ctaLabel: settings.youtube_cta_label ?? "Youtube Kanalını Takip Et",
+    tags,
+    visible: settings.youtube_visible !== "0",
+  };
+}

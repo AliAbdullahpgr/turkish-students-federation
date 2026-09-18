@@ -12,10 +12,15 @@ const db = drizzle(turso);
 
 describe("Seed Data Integrity", () => {
   describe("site_settings", () => {
-    it("has all 14 expected keys", async () => {
+    /*
+      Asserted by presence, not by an exact row count. The count was pinned at
+      14, which made adding any new setting a test failure — the president and
+      YouTube sections added twelve more. What matters is that the keys the
+      site reads are all present.
+    */
+    it("has the expected settings keys", async () => {
       const { siteSettings } = await import("@/db/schema/site-settings");
       const rows = await db.select().from(siteSettings).all();
-      expect(rows.length).toBe(14);
 
       const keys = rows.map((r) => r.key).sort();
       expect(keys).toContain("site_name");
@@ -32,6 +37,14 @@ describe("Seed Data Integrity", () => {
       expect(keys).toContain("home_primary_cta");
       expect(keys).toContain("home_secondary_cta");
       expect(keys).toContain("home_about_intro");
+
+      // Homepage president card and YouTube block.
+      expect(keys).toContain("president_name");
+      expect(keys).toContain("president_role");
+      expect(keys).toContain("president_bio");
+      expect(keys).toContain("president_image_url");
+      expect(keys).toContain("youtube_video_url");
+      expect(keys).toContain("youtube_title");
     });
   });
 

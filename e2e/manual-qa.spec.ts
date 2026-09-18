@@ -69,8 +69,8 @@ test("mobile navigation and blog card flow", async ({ page }, testInfo) => {
 test("unauthenticated admin access is protected", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop-chrome", "single auth check");
   await page.goto("/admin", { waitUntil: "domcontentloaded" });
-  await expect(page).toHaveURL(/\/sign-in/);
-  await expect(page.locator("body")).toContainText(/sign in|continue|email/i);
+  await expect(page).toHaveURL(/\/admin\/login/);
+  await expect(page.getByRole("button", { name: "Giriş yap" })).toBeVisible();
 });
 
 test("authenticated admin blog CRUD reaches the public site", async ({ page }, testInfo) => {
@@ -85,17 +85,11 @@ test("authenticated admin blog CRUD reaches the public site", async ({ page }, t
   const updatedTitle = `${createdTitle} Updated`;
   let postId: string | undefined;
 
-  await page.goto("/sign-in", { waitUntil: "domcontentloaded" });
-  const emailInput = page.locator('input[name="identifier"], input[type="email"]').first();
-  await emailInput.fill(identifier!);
-  const passwordInput = page.locator('input[name="password"], input[type="password"]').first();
-  if (!(await passwordInput.isVisible())) {
-    await page.getByRole("button", { name: "Continue", exact: true }).click();
-    await passwordInput.waitFor({ state: "visible" });
-  }
-  await passwordInput.fill(password!);
-  await page.getByRole("button", { name: "Continue", exact: true }).click();
-  await expect(page).toHaveURL(/\/admin/);
+  await page.goto("/admin/login", { waitUntil: "domcontentloaded" });
+  await page.locator('input[name="email"]').fill(identifier!);
+  await page.locator('input[name="password"]').fill(password!);
+  await page.getByRole("button", { name: "Giriş yap" }).click();
+  await expect(page).toHaveURL(/\/admin$/);
 
   try {
     const created = await page.evaluate(async (payload) => {

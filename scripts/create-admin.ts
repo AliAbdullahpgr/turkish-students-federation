@@ -1,82 +1,92 @@
-import { config } from "dotenv";
-import { resolve } from "path";
+/**
+ * Creates or promotes the administrator account.
+ *
+ *   npm run admin:create -- admin@tsfturkey.org "Ad Soyad" "a-long-password"
+ *
+ * Public sign-up is disabled in `src/lib/auth.ts`, so this script is the only
+ * way an account comes into existence. It goes through better-auth's own API
+ * rather than inserting rows directly, so the password is hashed with the same
+ * scrypt parameters sign-in will verify against — a hand-written INSERT
+ * produces a row that can never log in.
+ *
+ * Re-running it for an existing address promotes that account to `admin` and
+ * leaves the password alone.
+ */
+import { eq } from "drizzle-orm";
+import { auth } from "../src/lib/auth";
+import { db } from "../src/db/client";
+import { user } from "../src/db/schema";
 
-config({ path: resolve(__dirname, "../.env.local") });
+const MIN_PASSWORD_LENGTH = 12;
 
-const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
-const CLERK_API = "https://api.clerk.com/v1";
+async function main() {
+  const [email, name, password] = process.argv.slice(2);
 
-async function createAdmin() {
-  // First check if user already exists
-  const listRes = await fetch(
-    `${CLERK_API}/users?email_address=${encodeURIComponent("admin@tfs.pk")}`,
-    {
-      headers: {
-        Authorization: `Bearer ${CLERK_SECRET_KEY}`,
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  if (!listRes.ok) {
-    const err = await listRes.json();
-    console.error("Failed to check existing users:", JSON.stringify(err, null, 2));
+  if (!email || !name) {
+    console.error(
+      'Usage: npm run admin:create -- <email> "<name>" [password]\n' +
+        "The password may be omitted only for an account that already exists.",
+    );
     process.exit(1);
   }
 
-  const existing = await listRes.json();
-  if (existing.data && existing.data.length > 0) {
-    const user = existing.data[0];
-    console.log("User already exists:", user.id, user.email_addresses?.[0]?.email_address);
+  const existing = await db
+    .select({ id: user.id, role: user.role })
+    .from(user)
+    .where(eq(user.email, email.toLowerCase()))
+    .get();
 
-    // Update metadata to make admin
-    const updateRes = await fetch(`${CLERK_API}/users/${user.id}/metadata`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${CLERK_SECRET_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        public_metadata: { isAdmin: true },
-      }),
-    });
-
-    if (!updateRes.ok) {
-      const err = await updateRes.json();
-      console.error("Failed to update metadata:", JSON.stringify(err, null, 2));
-      process.exit(1);
+  if (existing) {
+    if (existing.role === "admin") {
+      console.log(`${email} is already an administrator. Nothing to do.`);
+      return;
     }
-
-    const updated = await updateRes.json();
-    console.log("Admin metadata set:", JSON.stringify(updated.public_metadata, null, 2));
-    console.log("Password remains unchanged. Reset via Clerk Dashboard if needed.");
-  } else {
-    // Create new user
-    const createRes = await fetch(`${CLERK_API}/users`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${CLERK_SECRET_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email_address: ["admin@tfs.pk"],
-        password: "tsf789admin",
-        public_metadata: { isAdmin: true },
-      }),
-    });
-
-    if (!createRes.ok) {
-      const err = await createRes.json();
-      console.error("Failed to create user:", JSON.stringify(err, null, 2));
-      process.exit(1);
-    }
-
-    const user = await createRes.json();
-    console.log("Admin user created!");
-    console.log("ID:", user.id);
-    console.log("Email:", user.email_addresses?.[0]?.email_address);
-    console.log("Admin:", user.public_metadata?.isAdmin);
+    await db.update(user).set({ role: "admin" }).where(eq(user.id, existing.id)).run();
+    console.log(`Promoted ${email} to administrator.`);
+    return;
   }
+
+  if (!password || password.length < MIN_PASSWORD_LENGTH) {
+    console.error(
+      `A password of at least ${MIN_PASSWORD_LENGTH} characters is required to create a new account.`,
+    );
+    process.exit(1);
+  }
+
+  /*
+    `auth.api.signUpEmail` is refused here — `disableSignUp: true` closes the
+    server-side API as well as the HTTP endpoint, which is the behaviour we
+    want everywhere except this script. Going through the internal adapter
+    keeps the one thing that actually matters: `ctx.password.hash` is the same
+    hasher sign-in verifies with, so the row it writes can log in. A
+    hand-written INSERT with some other hash cannot.
+  */
+  const ctx = await auth.$context;
+
+  const created = await ctx.internalAdapter.createUser(
+    {
+      email: email.toLowerCase(),
+      name,
+      emailVerified: true,
+      // Granted at creation so a failure below cannot leave a half-made account.
+      role: "admin",
+    },
+    // Provisioning origin. "admin" is the out-of-band case: an operator
+    // creating the account directly, not a visitor signing themselves up.
+    { method: "admin" },
+  );
+
+  await ctx.internalAdapter.createAccount({
+    userId: created.id,
+    providerId: "credential",
+    accountId: created.id,
+    password: await ctx.password.hash(password),
+  });
+
+  console.log(`Created administrator ${email}.`);
 }
 
-createAdmin();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

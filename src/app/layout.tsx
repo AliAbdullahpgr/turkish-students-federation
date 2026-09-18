@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Poppins, Inter, Lora, Noto_Nastaliq_Urdu } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import { siteIdentity } from "@/data/siteContent";
 import "./globals.css";
 
@@ -47,13 +46,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up" afterSignOutUrl="/">
-      <html
-        lang="tr"
-        className={`${poppins.variable} ${inter.variable} ${lora.variable} ${notoNastaliqUrdu.variable} antialiased`}
-      >
-        <body className="min-h-full flex flex-col">{children}</body>
-      </html>
-    </ClerkProvider>
+    <html
+      lang="tr"
+      className={`${poppins.variable} ${inter.variable} ${lora.variable} ${notoNastaliqUrdu.variable} antialiased`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
   );
 }
