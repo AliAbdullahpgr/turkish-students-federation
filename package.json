@@ -11,13 +11,18 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "content:sync": "tsx --env-file=.env scripts/sync-static-content.ts",
-    "test:e2e": "playwright test"
+    "test": "vitest run src/__tests__/static-fallback.test.ts src/__tests__/admin-wiring.test.ts",
+    "test:db": "vitest run src/__tests__/db-crud.test.ts src/__tests__/db-queries.test.ts src/__tests__/seed.test.ts",
+    "test:e2e": "playwright test",
+    "admin:create": "tsx --env-file=.env scripts/create-admin.ts",
+    "db:auth-tables": "tsx --env-file=.env scripts/create-auth-tables.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^7.3.7",
+    "@better-fetch/fetch": "^1.3.2",
     "@libsql/client": "^0.17.3",
     "@tailwindcss/typography": "^0.5.19",
     "@uiw/react-md-editor": "^4.1.1",
+    "better-auth": "^1.7.5",
     "cloudinary": "^2.10.0",
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.38.0",
