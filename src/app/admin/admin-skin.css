@@ -1,0 +1,817 @@
+/*
+ * IYADDER-style admin skin.
+ *
+ * Modelled on E:/ngo's Payload admin: a white sidebar against a softly tinted
+ * work area, uppercase group labels, pill rows with a 3px gradient rail on the
+ * active one, and a dashboard of stat cards plus action tiles.
+ *
+ * The palette is this site's own, lightened. The public green (#0B3D2E) is
+ * near-black and reads as heavy across a whole workspace, so the admin runs on
+ * a lighter green with a blue companion, the way the reference pairs its leaf
+ * with its sky.
+ *
+ * Imported after admin.css so it wins over the earlier ported `.pl-*` rules
+ * without having to unpick 4000 lines of them.
+ */
+
+.pl-shell {
+  --ad-green: #2e9b6b;
+  --ad-green-hover: #26855b;
+  --ad-green-deep: #1d744f;
+  --ad-green-ink: #12513a;
+  --ad-blue: #4a9be8;
+  --ad-blue-hover: #3688da;
+  --ad-blue-deep: #1c6fbe;
+  --ad-blue-ink: #14568f;
+  --ad-mist: #f1f7f4;
+  --ad-mist-deep: #dceae3;
+  --ad-body: #47605a;
+  --ad-muted: #7c948c;
+  --ad-radius-card: 18px;
+  --ad-radius-control: 10px;
+  --ad-border: 1px solid var(--ad-mist-deep);
+  --ad-shadow-card: 0 6px 24px rgba(12, 52, 38, 0.05);
+  --ad-shadow-raised: 0 12px 30px rgba(12, 52, 38, 0.1);
+  --ad-gradient: linear-gradient(135deg, var(--ad-green), var(--ad-blue));
+
+  background: linear-gradient(160deg, #f7fbf9 0%, #eef5f9 100%);
+}
+
+/* --- Work area --- */
+
+.pl-wrap {
+  background: transparent;
+}
+
+.pl-main {
+  padding: 26px 30px 56px;
+  background: transparent;
+}
+
+@media (max-width: 720px) {
+  .pl-main {
+    padding: 18px 16px 40px;
+  }
+}
+
+.pl-app-header {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--ad-border);
+}
+
+.pl-step-nav,
+.pl-step-nav a,
+.pl-step-nav span {
+  color: var(--ad-muted);
+  font-size: 13px;
+}
+
+.pl-step-nav a:hover {
+  color: var(--ad-green-deep);
+}
+
+.pl-step-nav__current {
+  color: var(--ad-green-ink);
+  font-weight: 700;
+}
+
+.pl-btn--subtle {
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-control);
+  background: #ffffff;
+  color: var(--ad-green-deep);
+  font-weight: 600;
+}
+
+.pl-btn--subtle:hover {
+  background: var(--ad-mist);
+  border-color: var(--ad-green);
+}
+
+/* --- Sidebar --- */
+
+.pl-nav {
+  background: #ffffff;
+  border-right: var(--ad-border);
+}
+
+.pl-nav__brand-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+  padding: 20px 16px 18px;
+  border-bottom: var(--ad-border);
+  text-decoration: none;
+}
+
+.pl-nav__brand-mark {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border: var(--ad-border);
+  border-radius: 12px;
+  background: var(--ad-mist);
+}
+
+.pl-nav__brand-name {
+  display: block;
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 20px;
+}
+
+.pl-nav__brand-sub {
+  display: block;
+  margin-top: 3px;
+  color: var(--ad-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.pl-nav-group__toggle {
+  padding: 18px 10px 6px;
+  color: var(--ad-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.pl-nav-group__toggle:hover {
+  color: var(--ad-green-deep);
+}
+
+.pl-nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 46px;
+  margin: 1px 0;
+  padding: 11px 14px;
+  border-radius: var(--ad-radius-control);
+  color: var(--ad-body);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.pl-nav__link:hover,
+.pl-nav__link:focus-visible {
+  background: var(--ad-mist);
+  color: var(--ad-green-deep);
+  text-decoration: none;
+}
+
+.pl-nav__link.active {
+  background: var(--ad-mist);
+  color: var(--ad-green-ink);
+  font-weight: 700;
+}
+
+/* The active rail: 3px gradient pinned to the row's own leading edge. */
+.pl-nav__link-indicator {
+  position: absolute;
+  inset-inline-start: 0;
+  width: 3px;
+  height: 24px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(180deg, var(--ad-green), var(--ad-blue));
+}
+
+.pl-nav__link-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  opacity: 0.85;
+}
+
+.pl-nav__search input {
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-control);
+  background: var(--ad-mist);
+}
+
+.pl-nav__search input:focus {
+  border-color: var(--ad-green);
+  background: #ffffff;
+}
+
+/* --- Dashboard: layout --- */
+
+.ad-view {
+  display: grid;
+  gap: 22px;
+}
+
+/* --- Dashboard: hero --- */
+
+.ad-hero {
+  padding: 30px 32px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: linear-gradient(120deg, #ffffff, rgba(255, 255, 255, 0.82));
+  box-shadow: var(--ad-shadow-card);
+}
+
+.ad-hero__eyebrow {
+  margin: 0 0 6px;
+  color: var(--ad-green-deep);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.ad-hero__title {
+  margin: 0;
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 38px;
+}
+
+.ad-hero__lede {
+  margin: 10px 0 0;
+  max-width: 68ch;
+  color: var(--ad-body);
+  font-size: 16px;
+  line-height: 26px;
+}
+
+@media (max-width: 720px) {
+  .ad-hero {
+    padding: 22px 20px;
+  }
+
+  .ad-hero__title {
+    font-size: 25px;
+    line-height: 31px;
+  }
+}
+
+/* --- Dashboard: stat cards --- */
+
+.ad-stats {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.ad-stat {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 20px 22px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: #ffffff;
+  box-shadow: var(--ad-shadow-card);
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+a.ad-stat:hover {
+  transform: translateY(-2px);
+  border-color: var(--ad-green);
+  box-shadow: var(--ad-shadow-raised);
+  text-decoration: none;
+}
+
+/* The 3px accent rule across the top of every card. */
+.ad-stat::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--ad-gradient);
+}
+
+.ad-stat--green::before {
+  background: linear-gradient(90deg, var(--ad-green), var(--ad-green-hover));
+}
+
+.ad-stat--blue::before {
+  background: linear-gradient(90deg, var(--ad-blue), var(--ad-blue-hover));
+}
+
+.ad-stat--alert::before {
+  background: linear-gradient(90deg, #b63636, #ea5a56);
+}
+
+.ad-stat__label {
+  margin: 0;
+  color: var(--ad-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ad-stat__value {
+  margin: 10px 0 0;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.ad-stat--green .ad-stat__value {
+  color: var(--ad-green-deep);
+}
+
+.ad-stat--blue .ad-stat__value {
+  color: var(--ad-blue-deep);
+}
+
+.ad-stat--alert .ad-stat__value {
+  color: #902c2b;
+}
+
+.ad-stat__note {
+  margin: 8px 0 0;
+  color: var(--ad-muted);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+/* --- Dashboard: panels --- */
+
+.ad-panel {
+  padding: 24px 26px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: #ffffff;
+  box-shadow: var(--ad-shadow-card);
+}
+
+.ad-panel__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.ad-panel__title {
+  margin: 0;
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.ad-panel__copy {
+  margin: 6px 0 0;
+  color: var(--ad-muted);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/* --- Dashboard: action tiles --- */
+
+.ad-actions {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.ad-action {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: linear-gradient(160deg, #ffffff, var(--ad-mist));
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ad-action:hover {
+  transform: translateY(-2px);
+  border-color: var(--ad-green);
+  box-shadow: var(--ad-shadow-raised);
+  text-decoration: none;
+}
+
+.ad-action__icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: var(--ad-border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--ad-green-deep);
+}
+
+.ad-action__title {
+  display: block;
+  margin: 0;
+  color: var(--ad-green-ink);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.ad-action__copy {
+  display: block;
+  margin: 4px 0 0;
+  color: var(--ad-muted);
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/* --- Dashboard: attention list --- */
+
+.ad-attention {
+  display: grid;
+  gap: 10px;
+}
+
+.ad-attention__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #f0dcc4;
+  border-radius: var(--ad-radius-control);
+  background: #fdf8f0;
+  color: #7a5518;
+  font-size: 14px;
+  line-height: 21px;
+  text-decoration: none;
+}
+
+.ad-attention__item:hover {
+  border-color: #e0bf8c;
+  text-decoration: none;
+}
+
+.ad-empty {
+  padding: 26px;
+  border: 1px dashed var(--ad-mist-deep);
+  border-radius: var(--ad-radius-control);
+  background: var(--ad-mist);
+  text-align: center;
+}
+
+.ad-empty__title {
+  margin: 0;
+  color: var(--ad-green-ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ad-empty__copy {
+  margin: 4px 0 0;
+  color: var(--ad-muted);
+  font-size: 13.5px;
+}
+
+/*
+ * The site logo is a wordmark and is illegible at 34px, so the brand tile
+ * carries a monogram on the brand gradient instead — the reference uses a
+ * distinct mark here for the same reason.
+ */
+.pl-nav__brand-mark {
+  background: var(--ad-gradient);
+  border-color: transparent;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+/*
+ * The sidebar header repeated the brand as plain text directly above the brand
+ * block. On desktop the block is the brand; the header survives only on mobile,
+ * where it carries the close button.
+ */
+@media (min-width: 1025px) {
+  .pl-nav__header {
+    display: none;
+  }
+
+  .pl-nav__scroll {
+    padding-block-start: 0;
+  }
+}
+
+/* ===================================================================
+   List, form and table surfaces
+   -------------------------------------------------------------------
+   Every section page renders through the same handful of primitives —
+   `.admin-card`, `.admin-data-table`, `.admin-input`, `.admin-button`
+   and the `AdminUi` header/field/empty pieces — so restyling them here
+   carries the reference look across all of them at once rather than
+   page by page.
+   =================================================================== */
+
+/* --- Page headers --- */
+
+.pl-shell .admin-page-header {
+  margin-bottom: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.pl-shell .admin-page-heading h1,
+.pl-shell .admin-page-header h1 {
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 34px;
+}
+
+.pl-shell .admin-page-heading p,
+.pl-shell .admin-page-header p {
+  margin-top: 6px;
+  color: var(--ad-muted);
+  font-size: 14.5px;
+  line-height: 22px;
+}
+
+.pl-shell .admin-eyebrow {
+  color: var(--ad-green-deep);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.pl-shell .admin-back-link {
+  color: var(--ad-muted);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.pl-shell .admin-back-link:hover {
+  color: var(--ad-green-deep);
+}
+
+/* --- Cards --- */
+
+.pl-shell .admin-card {
+  padding: 24px 26px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: #ffffff;
+  box-shadow: var(--ad-shadow-card);
+}
+
+.pl-shell .admin-card-header {
+  margin-bottom: 18px;
+  padding: 0;
+  border: 0;
+}
+
+.pl-shell .admin-card-heading h2 {
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.pl-shell .admin-card-heading p {
+  margin-top: 5px;
+  color: var(--ad-muted);
+  font-size: 14px;
+}
+
+/* --- Tables --- */
+
+.pl-shell .admin-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.pl-shell .admin-data-table th {
+  padding: 14px 20px;
+  border-bottom: var(--ad-border);
+  background: var(--ad-mist);
+  color: var(--ad-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.pl-shell .admin-data-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ad-mist-deep);
+  color: var(--ad-body);
+  font-size: 14.5px;
+}
+
+.pl-shell .admin-data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pl-shell .admin-data-table tbody tr {
+  transition: background-color 0.12s ease;
+}
+
+.pl-shell .admin-data-table tbody tr:hover {
+  background: var(--ad-mist);
+}
+
+/* The first column is the record's name and should read as the row's subject. */
+.pl-shell .admin-data-table td:first-child {
+  color: var(--ad-green-ink);
+  font-weight: 600;
+}
+
+/* --- Fields --- */
+
+.pl-shell .admin-field-label {
+  color: var(--ad-green-ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pl-shell .admin-field-hint {
+  color: var(--ad-muted);
+  font-size: 12.5px;
+}
+
+.pl-shell .admin-input {
+  min-height: 44px;
+  padding: 11px 14px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-control);
+  background: #ffffff;
+  color: var(--ad-body);
+  font-size: 14.5px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.pl-shell .admin-input:focus,
+.pl-shell .admin-input:focus-visible {
+  border-color: var(--ad-green);
+  box-shadow: 0 0 0 3px rgba(46, 155, 107, 0.16);
+  outline: none;
+}
+
+.pl-shell .admin-input::placeholder {
+  color: #a8bcb4;
+}
+
+/* --- Buttons --- */
+
+.pl-shell .admin-button {
+  min-height: 42px;
+  padding: 10px 18px;
+  border-radius: var(--ad-radius-control);
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.pl-shell .admin-button-primary {
+  border: 0;
+  background: linear-gradient(135deg, var(--ad-green), var(--ad-green-hover));
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(29, 116, 79, 0.24);
+}
+
+.pl-shell .admin-button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(29, 116, 79, 0.28);
+}
+
+.pl-shell .admin-button-secondary {
+  border: var(--ad-border);
+  background: #ffffff;
+  color: var(--ad-green-deep);
+}
+
+.pl-shell .admin-button-secondary:hover {
+  border-color: var(--ad-green);
+  background: var(--ad-mist);
+}
+
+/* --- Empty state --- */
+
+.pl-shell .admin-empty-state {
+  padding: 44px 26px;
+  border: 1px dashed var(--ad-mist-deep);
+  border-radius: var(--ad-radius-card);
+  background: #ffffff;
+  text-align: center;
+}
+
+.pl-shell .admin-empty-state h2,
+.pl-shell .admin-empty-state h3 {
+  color: var(--ad-green-ink);
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.pl-shell .admin-empty-state p {
+  color: var(--ad-muted);
+  font-size: 14px;
+}
+
+.pl-shell .admin-empty-icon {
+  color: var(--ad-green);
+  opacity: 0.6;
+}
+
+/* --- Row action buttons --- */
+
+.pl-shell .admin-table-actions a,
+.pl-shell .admin-table-actions button {
+  border-radius: 8px;
+  color: var(--ad-muted);
+  transition:
+    background-color 0.12s ease,
+    color 0.12s ease;
+}
+
+.pl-shell .admin-table-actions a:hover {
+  background: var(--ad-mist);
+  color: var(--ad-green-deep);
+}
+
+.pl-shell .admin-table-actions button:hover {
+  background: #fdf0ef;
+  color: #b63636;
+}
+
+/*
+ * Edit and create forms sat directly on the tinted work area, so the fields
+ * had no surface under them. Any form that contains admin fields becomes a
+ * panel; `:has()` avoids having to wrap fifteen page files by hand, and the
+ * nav search form is excluded because it is not a content form.
+ */
+.pl-main form:has(> .admin-field),
+.pl-main form:has(> div > .admin-field) {
+  padding: 26px 28px;
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-card);
+  background: #ffffff;
+  box-shadow: var(--ad-shadow-card);
+}
+
+@media (max-width: 720px) {
+  .pl-main form:has(> .admin-field),
+  .pl-main form:has(> div > .admin-field) {
+    padding: 20px 18px;
+  }
+}
+
+/* The markdown editor's chrome should match the fields around it. */
+.pl-shell .w-md-editor {
+  border: var(--ad-border);
+  border-radius: var(--ad-radius-control);
+  box-shadow: none;
+}
+
+/* Image upload dropzone. */
+.pl-shell .admin-upload-field,
+.pl-shell .admin-image-dropzone {
+  border-radius: var(--ad-radius-control);
+  border-color: var(--ad-mist-deep);
+  background: var(--ad-mist);
+}
