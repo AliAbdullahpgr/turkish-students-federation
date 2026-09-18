@@ -26,6 +26,10 @@ export function revalidateActivityContent() {
   revalidate(["/", "/about-us"]);
 }
 
+export function revalidateActivityPostContent(slug?: string) {
+  revalidate(["/", "/faaliyetler", ...(slug ? [`/faaliyetler/${slug}`] : [])]);
+}
+
 export function revalidateGuideContent() {
   revalidate(["/pakistan-rehberi"]);
 }

@@ -7,14 +7,19 @@ import { events } from "./events";
 import { teamMembers } from "./team-members";
 import { courses } from "./courses";
 import { activities } from "./activities";
+import { activityPosts } from "./activity-posts";
 import { guideSections } from "./guide-sections";
 import { navigationItems } from "./navigation-items";
 import { contactSubmissions } from "./contact-submissions";
+import { socialAccounts } from "./social-accounts";
+import { user, session, account, verification } from "./auth";
 
-export { media, siteSettings, blogPosts, events, teamMembers, courses, activities, guideSections, navigationItems, contactSubmissions };
+export { media, siteSettings, blogPosts, events, teamMembers, courses, activities, activityPosts, guideSections, navigationItems, contactSubmissions, socialAccounts };
+export { user, session, account, verification };
 
 export const mediaRelations = relations(media, ({ many }) => ({
   blogPosts: many(blogPosts),
+  activityPosts: many(activityPosts),
   events: many(events),
   teamMembers: many(teamMembers),
   courses: many(courses),
@@ -23,6 +28,13 @@ export const mediaRelations = relations(media, ({ many }) => ({
 export const blogPostsRelations = relations(blogPosts, ({ one }) => ({
   thumbnailMedia: one(media, {
     fields: [blogPosts.thumbnailMediaId],
+    references: [media.id],
+  }),
+}));
+
+export const activityPostsRelations = relations(activityPosts, ({ one }) => ({
+  thumbnailMedia: one(media, {
+    fields: [activityPosts.thumbnailMediaId],
     references: [media.id],
   }),
 }));
@@ -74,7 +86,13 @@ export const schema = {
   teamMembers,
   courses,
   activities,
+  activityPosts,
   guideSections,
   navigationItems,
   contactSubmissions,
+  socialAccounts,
+  user,
+  session,
+  account,
+  verification,
 };
