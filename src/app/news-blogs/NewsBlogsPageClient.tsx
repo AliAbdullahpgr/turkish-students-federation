@@ -1,7 +1,5 @@
 import { Filter, Search } from "lucide-react";
-import BlogCard from "@/components/ui/BlogCard";
-import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import ArticleRow from "@/components/ui/ArticleRow";
 
 interface BlogPostItem {
   id: string;
@@ -11,6 +9,7 @@ interface BlogPostItem {
   thumbnail?: string | null;
   publishedAt?: string | null;
   category?: string | null;
+  author?: string | null;
 }
 
 interface NewsBlogsPageClientProps {
@@ -28,24 +27,23 @@ export default function NewsBlogsPageClient({
 }: NewsBlogsPageClientProps) {
   return (
     <>
-      <PageHero title={type === "news" ? "Haberler" : "Blog"} accentWord={type === "news" ? "Haberler" : "Blog"} />
-
-      <section className="bg-white py-section">
-        <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
-          <div className="mb-12 text-center">
-            <SectionEyebrow text={type === "news" ? "GÜNCEL GELİŞMELER" : "ÖĞRENCİ YAŞAMI"} />
-            <h2 className="text-section-title font-heading font-bold text-text-primary">
-              {type === "news" ? "Son Haberler" : <>Son <span className="text-accent">Bloglarımız</span></>}
-            </h2>
-            <p className="mx-auto mt-4 max-w-[600px] text-body text-text-secondary">
-              Makaleleri arayin, aya gore filtreleyin ve daha fazla hikaye icin kaydirmaya devam edin.
+      <section className="bg-white pb-section pt-12 lg:pt-16">
+        <div className="max-w-[760px] mx-auto px-6">
+          <header className="mb-10 border-b border-border-custom pb-6">
+            <h1 className="text-[clamp(30px,4.5vw,42px)] font-extrabold tracking-[-0.02em] text-text-primary">
+              {type === "news" ? "Haberler" : "Blog"}
+            </h1>
+            <p className="mt-3 text-[17px] leading-relaxed text-text-secondary">
+              {type === "news"
+                ? "Birliğimizden son haberler ve duyurular."
+                : "Pakistan'da öğrenci hayatı için hikâyeler, bilgiler ve pratik öneriler."}
             </p>
-          </div>
+          </header>
 
           <div>
-            <form action="/news-blogs" method="get" className="mb-10 flex flex-wrap justify-center gap-4">
+            <form action="/news-blogs" method="get" className="mb-10 flex flex-wrap gap-3">
               <input type="hidden" name="type" value={type} />
-              <label className="flex items-center gap-2 rounded-lg bg-surface px-4 py-2 transition-shadow focus-within:shadow-sm">
+              <label className="flex items-center gap-2 rounded-lg bg-surface px-4 py-2 transition-colors focus-within:ring-2 focus-within:ring-action/40">
                 <Search className="h-4 w-4 text-text-muted" />
                 <input
                   type="text"
@@ -57,19 +55,20 @@ export default function NewsBlogsPageClient({
               </label>
               <button
                 type="submit"
-                className="cursor-pointer rounded-pill bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
+                className="cursor-pointer rounded-xl bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
               >
                 ARA
               </button>
               <input
                 type="month"
                 name="month"
+                aria-label="Aya göre filtrele"
                 defaultValue={filterMonth}
-                className="rounded-lg border border-border-custom bg-surface px-4 py-2.5 text-sm text-text-primary outline-none transition-all focus:border-action focus:shadow-sm"
+                className="rounded-lg border border-border-custom bg-surface px-4 py-2.5 text-sm text-text-primary outline-none transition-all focus:border-action"
               />
               <button
                 type="submit"
-                className="flex cursor-pointer items-center gap-2 rounded-pill bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
+                className="flex cursor-pointer items-center gap-2 rounded-xl bg-action px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
               >
                 <Filter className="h-4 w-4" />
                 FILTRELE
@@ -78,18 +77,18 @@ export default function NewsBlogsPageClient({
           </div>
 
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div>
               {posts.map((post) => (
-                <div key={post.id}>
-                  <BlogCard
-                    date={post.publishedAt ?? ""}
-                    title={post.title}
-                    excerpt={post.excerpt}
-                    href={`/news-blogs/${post.slug}/`}
-                    isTurkish={true}
-                    thumbnail={post.thumbnail ?? undefined}
-                  />
-                </div>
+                <ArticleRow
+                  key={post.id}
+                  title={post.title}
+                  excerpt={post.excerpt}
+                  href={`/news-blogs/${post.slug}/`}
+                  date={post.publishedAt ?? undefined}
+                  author={post.author ?? undefined}
+                  category={post.category ?? undefined}
+                  thumbnail={post.thumbnail ?? undefined}
+                />
               ))}
             </div>
           ) : (
@@ -99,7 +98,7 @@ export default function NewsBlogsPageClient({
           )}
 
           <div>
-            <div className="mt-12 text-center text-sm text-text-muted">Akisin sonuna ulastiniz.</div>
+            <div className="mt-10 text-sm text-text-muted">Akışın sonuna ulaştınız.</div>
           </div>
         </div>
       </section>
