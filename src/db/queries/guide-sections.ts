@@ -1,6 +1,7 @@
 import { db } from "@/db/client";
 import { guideSections } from "@/db/schema";
 import { asc, eq, and, isNull } from "drizzle-orm";
+import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 export interface GuideSectionTree {
   id: string;
@@ -29,42 +30,53 @@ function buildTree(
 }
 
 export async function getGuideSectionTree(): Promise<GuideSectionTree[]> {
-  const sections = await db
-    .select()
-    .from(guideSections)
-    .where(eq(guideSections.isPublished, true))
-    .orderBy(asc(guideSections.sortOrder))
-    .all();
+  try {
+    const sections = await db
+      .select()
+      .from(guideSections)
+      .where(eq(guideSections.isPublished, true))
+      .orderBy(asc(guideSections.sortOrder))
+      .all();
 
-  return buildTree(sections);
+    return buildTree(sections);
+  } catch (error) {
+    return staticFallbackOrThrow(error, [] as GuideSectionTree[]);
+  }
 }
 
 export async function getAllGuideSections() {
-  return db
-    .select()
-    .from(guideSections)
-    .orderBy(asc(guideSections.sortOrder))
-    .all();
+  try {
+    return await db
+      .select()
+      .from(guideSections)
+      .orderBy(asc(guideSections.sortOrder))
+      .all();
+  } catch (error) {
+    return staticFallbackOrThrow(error, [] as typeof guideSections.$inferSelect[]);
+  }
 }
 
 export async function getGuideSectionById(id: string) {
-  return db
-    .select()
-    .from(guideSections)
-    .where(eq(guideSections.id, id))
-    .get();
+  try {
+    return await db
+      .select()
+      .from(guideSections)
+      .where(eq(guideSections.id, id))
+      .get();
+  } catch (error) {
+    return staticFallbackOrThrow(error, undefined);
+  }
 }
 
 export async function getTopLevelGuideSections() {
-  return db
-    .select()
-    .from(guideSections)
-    .where(
-      and(
-        isNull(guideSections.parentId),
-        eq(guideSections.isPublished, true)
-      )
-    )
-    .orderBy(asc(guideSections.sortOrder))
-    .all();
+  try {
+    return await db
+      .select()
+      .from(guideSections)
+      .where(and(isNull(guideSections.parentId), eq(guideSections.isPublished, true)))
+      .orderBy(asc(guideSections.sortOrder))
+      .all();
+  } catch (error) {
+    return staticFallbackOrThrow(error, [] as typeof guideSections.$inferSelect[]);
+  }
 }
