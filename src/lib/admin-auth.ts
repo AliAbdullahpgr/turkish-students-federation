@@ -1,38 +1,24 @@
-import { currentUser, type User } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+import { getAdminSession } from "@/lib/auth-guard";
 
-const ADMIN_EMAILS = new Set(["admin@tfs.pk"]);
-const ADMIN_USERNAMES = new Set(["tsf789admin"]);
-
-export function isAdminUser(user: User | null) {
-  if (!user) return false;
-
-  if (user.publicMetadata?.isAdmin === true) {
-    return true;
-  }
-
-  const primaryEmail = user.emailAddresses[0]?.emailAddress?.toLowerCase();
-  if (primaryEmail && ADMIN_EMAILS.has(primaryEmail)) {
-    return true;
-  }
-
-  const username = user.username?.toLowerCase();
-  if (username && ADMIN_USERNAMES.has(username)) {
-    return true;
-  }
-
-  return false;
-}
-
+/**
+ * Gate for `/api/admin/*` route handlers.
+ *
+ * Returns a response to send when the caller is not an administrator, and null
+ * when the request may proceed — so every handler starts with:
+ *
+ *     const unauthorized = await requireAdminRequest();
+ *     if (unauthorized) return unauthorized;
+ *
+ * Route protection is enforced here and in the admin layout rather than in
+ * middleware: the session lookup needs the database, which the edge runtime
+ * middleware cannot reach.
+ */
 export async function requireAdminRequest() {
-  const user = await currentUser();
+  const session = await getAdminSession();
 
-  if (!user) {
+  if (!session) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  if (!isAdminUser(user)) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
   return null;
