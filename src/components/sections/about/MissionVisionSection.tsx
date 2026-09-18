@@ -1,27 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import SectionHeader from "@/components/ui/SectionHeader";
 import FadeIn from "@/components/animation/FadeIn";
 
 export default function MissionVisionSection() {
   return (
-    <section className="py-section bg-surface">
+    <section className="py-section bg-white border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="AMACIMIZ" />
-          <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Misyonumuz ve <span className="text-accent">Vizyonumuz</span>
-          </h2>
+        <FadeIn>
+          <SectionHeader
+            title={<>Misyonumuz ve <span className="text-accent">Vizyonumuz</span></>}
+          />
         </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Mission Card */}
           <FadeIn direction="left" delay={0.1}>
             <motion.div
-              whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
+              whileHover={{ y: -6 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-[16px] p-8 lg:p-10 shadow-card h-full"
+              className="bg-white rounded-[16px] p-8 lg:p-10 h-full border border-border-custom"
             >
               <span className="text-xs font-bold text-accent uppercase tracking-wider block mb-3">
                 Misyonumuz
@@ -42,9 +41,9 @@ export default function MissionVisionSection() {
           {/* Vision Card */}
           <FadeIn direction="right" delay={0.2}>
             <motion.div
-              whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
+              whileHover={{ y: -6 }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-[16px] p-8 lg:p-10 shadow-card h-full"
+              className="bg-white rounded-[16px] p-8 lg:p-10 h-full border border-border-custom"
             >
               <span className="text-xs font-bold text-accent uppercase tracking-wider block mb-3">
                 Vizyonumuz

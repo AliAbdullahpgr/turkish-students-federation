@@ -3,7 +3,6 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 const literatureItems = [
   {
@@ -58,22 +57,16 @@ export default function LiteraturePage() {
       <main className="flex-grow">
         <PageHero title="Edebiyat" accentWord="Edebiyat" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="KÜTÜPHANE" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Edebiyat <span className="text-accent">Koleksiyonu</span>
-              </h2>
-            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {literatureItems.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 hover:shadow-card-hover"
+                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 border border-border-custom"
                 >
-                  <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-bold uppercase rounded-full mb-4">
+                  <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-bold uppercase rounded-lg mb-4">
                     {item.type}
                   </span>
                   <h3 className="text-lg font-bold text-text-primary mb-3">

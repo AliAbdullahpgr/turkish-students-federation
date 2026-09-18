@@ -2,7 +2,7 @@
 
 import { Crown, Shield, Users, TrendingUp, Heart, Lightbulb } from "lucide-react";
 import { motion } from "framer-motion";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import SectionHeader from "@/components/ui/SectionHeader";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
 
@@ -47,17 +47,13 @@ const values = [
 
 export default function CoreValuesSection() {
   return (
-    <section className="py-section bg-white">
+    <section className="py-section bg-white border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="TEMEL DEĞERLERİMİZ" />
-          <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Temel <span className="text-accent">Değerlerimiz</span>
-          </h2>
-          <p className="text-body text-text-secondary mt-4 max-w-[700px] mx-auto">
-            Pakistan Türk Öğrenci Birliği&apos;nde değerlerimiz, her eylemimizi, her programımızı
-            ve desteklediğimiz her öğrenciyi şekillendirir.
-          </p>
+        <FadeIn>
+          <SectionHeader
+            title={<>Temel <span className="text-accent">Değerlerimiz</span></>}
+            lede="Pakistan Türk Öğrenci Birliği&apos;nde değerlerimiz, her eylemimizi, her programımızı ve desteklediğimiz her öğrenciyi şekillendirir."
+          />
         </FadeIn>
 
         <StaggerContainer
@@ -67,7 +63,7 @@ export default function CoreValuesSection() {
           {values.map((value) => (
             <StaggerItem key={value.title}>
               <motion.div
-                whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
+                whileHover={{ y: -6 }}
                 transition={{ duration: 0.3 }}
                 className="bg-surface rounded-[16px] p-8 text-center h-full"
               >

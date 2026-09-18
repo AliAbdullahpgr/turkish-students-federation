@@ -21,7 +21,7 @@ export default function PrimaryButton({
   disabled = false,
 }: PrimaryButtonProps) {
   const baseClasses =
-    "inline-flex items-center justify-center rounded-pill border-none bg-action px-8 py-3.5 text-sm font-semibold text-white no-underline transition-colors duration-normal hover:bg-action-dark hover:shadow-btn";
+    "inline-flex items-center justify-center rounded-xl bg-action px-8 py-3.5 text-sm font-semibold text-white no-underline transition-colors duration-normal hover:bg-action-dark";
 
   if (href) {
     return (

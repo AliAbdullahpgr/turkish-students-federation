@@ -3,7 +3,7 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Gizlilik Politikası - Pakistan Türk Öğrenci Birliği",
@@ -19,14 +19,11 @@ export default function PrivacyPage() {
       <main className="flex-grow">
         <PageHero title="Gizlilik Politikası" accentWord="Politikası" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[800px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="VERİ KORUMA" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Gizlilik <span className="text-accent">Politikası</span>
-              </h2>
-            </div>
+            <SectionHeader
+              title={<>Gizlilik <span className="text-accent">Politikası</span></>}
+            />
 
             <div className="space-y-6">
               <div className="bg-surface rounded-[16px] p-8">

@@ -3,7 +3,6 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 const departments = [
   {
@@ -64,23 +63,17 @@ export default function DepartmentsPage() {
       <main className="flex-grow">
         <PageHero title="Birimlerimiz" accentWord="Birimler" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="ORGANİZASYON YAPISI" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                <span className="text-accent">Birimlerimiz</span>
-              </h2>
-              <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Öğrenci topluluğuna hizmet etmek ve misyonumuzu ilerletmek için birlikte çalışan özel birimlerimiz.
-              </p>
-            </div>
+            <p className="mb-10 max-w-[60ch] text-body text-text-secondary">
+              Öğrenci topluluğuna hizmet etmek ve misyonumuzu ilerletmek için birlikte çalışan özel birimlerimiz.
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {departments.map((dept) => (
                 <div
                   key={dept.id}
-                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 hover:shadow-card-hover text-center"
+                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 text-center border border-border-custom"
                 >
                   <div className="text-4xl mb-4">{dept.icon}</div>
                   <h3 className="text-lg font-bold text-text-primary mb-3">

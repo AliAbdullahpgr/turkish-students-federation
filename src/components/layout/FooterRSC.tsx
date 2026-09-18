@@ -1,7 +1,12 @@
 import { getSiteSetting } from "@/db/queries/site-settings";
+import { getVisibleSocialAccounts } from "@/db/queries/social-accounts";
 import FooterClient from "./Footer";
 
 export default async function Footer() {
-  const description = (await getSiteSetting("site_description")) ?? "";
-  return <FooterClient description={description} />;
+  const [description, socialAccounts] = await Promise.all([
+    getSiteSetting("site_description"),
+    getVisibleSocialAccounts(),
+  ]);
+
+  return <FooterClient description={description ?? ""} socialAccounts={socialAccounts} />;
 }

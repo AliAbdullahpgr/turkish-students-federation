@@ -3,7 +3,7 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "Kullanım Koşulları - Pakistan Türk Öğrenci Birliği",
@@ -19,14 +19,11 @@ export default function TermsPage() {
       <main className="flex-grow">
         <PageHero title="Kullanım Koşulları" accentWord="Koşulları" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[800px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="YASAL" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Kullanım <span className="text-accent">Koşulları</span>
-              </h2>
-            </div>
+            <SectionHeader
+              title={<>Kullanım <span className="text-accent">Koşulları</span></>}
+            />
 
             <div className="prose prose-lg max-w-none text-text-secondary space-y-6">
               <div className="bg-surface rounded-[16px] p-8">

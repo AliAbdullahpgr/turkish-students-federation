@@ -11,7 +11,7 @@ interface TeamCardProps {
 
 export default function TeamCard({ photo, name, role, bio }: TeamCardProps) {
   return (
-    <div className="overflow-hidden rounded-[16px] bg-white p-8 px-6 text-center shadow-[0_6px_24px_rgba(0,0,0,0.09)] transition-transform duration-300 hover:-translate-y-1">
+    <div className="overflow-hidden rounded-[16px] bg-white p-8 px-6 text-center border border-border-custom transition-transform duration-300 hover:-translate-y-1">
       <div className="relative mx-auto mb-5 h-[100px] w-[100px] overflow-hidden rounded-full border-[3px] border-accent">
         {photo ? (
           <Image src={photo} alt={name} fill sizes="100px" className="object-cover" />

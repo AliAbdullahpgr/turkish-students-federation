@@ -3,7 +3,6 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 const editions = [
   {
@@ -58,25 +57,19 @@ export default function StudentsTimesPage() {
       <main className="flex-grow">
         <PageHero title="The Students Times" accentWord="Students" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="RESMİ YAYIN" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                The <span className="text-accent">Students</span> Times
-              </h2>
-              <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Öğrenci konularına, başarılarına ve öğrenci topluluğunun sesine adanmış aylık yayınımız.
-              </p>
-            </div>
+            <p className="mb-10 max-w-[60ch] text-body text-text-secondary">
+              Öğrenci konularına, başarılarına ve öğrenci topluluğunun sesine adanmış aylık yayınımız.
+            </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {editions.map((edition) => (
                 <div
                   key={edition.id}
-                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 hover:shadow-card-hover"
+                  className="bg-surface rounded-[16px] p-8 transition-all hover:-translate-y-1 border border-border-custom"
                 >
-                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase rounded-full mb-4">
+                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase rounded-lg mb-4">
                     {edition.date}
                   </span>
                   <h3 className="text-lg font-bold text-text-primary mb-3">

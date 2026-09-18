@@ -1,74 +1,97 @@
 "use client";
 
 import { motion } from "framer-motion";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import FadeIn from "@/components/animation/FadeIn";
+import { YoutubeIcon } from "@/components/ui/SocialIcon";
 
-function YoutubeIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
-  );
+export interface LatestReleaseSectionProps {
+  title: string;
+  description: string;
+  tags: string[];
+  /** Ready-to-use youtube-nocookie embed URL, or null when no video is set. */
+  embedUrl: string | null;
+  channelUrl: string;
+  ctaLabel: string;
 }
 
-export default function LatestReleaseSection() {
+/**
+ * The homepage YouTube block.
+ *
+ * This section previously rendered a decorative placeholder — a pulsing icon
+ * in a box — with a hardcoded title and a CTA pointing at `#`. It now plays
+ * the video the admin selected and links to the real channel. The embed URL is
+ * derived from the pasted address upstream (see `src/lib/youtube.ts`), so a
+ * blank or unparseable value yields `null` here and the panel is dropped
+ * rather than shown empty.
+ */
+export default function LatestReleaseSection({
+  title,
+  description,
+  tags,
+  embedUrl,
+  channelUrl,
+  ctaLabel,
+}: LatestReleaseSectionProps) {
   return (
-    <section className="py-section bg-surface">
+    <section className="py-section bg-white border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <FadeIn direction="left">
             <div>
-              <SectionEyebrow text="SON YAYIN" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
-                Taleem Se Takmeel Turkey Ka Safar
-              </h2>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {[
-                  "Pakistan Türk Öğrenci Birliği",
-                  "Öğrenci Organizasyonu",
-                  "Eski Başkan",
-                  "Ans Mushi",
-                  "Seminer",
-                  "Gençlik Etkisi",
-                ].map((tag, i) => (
-                  <motion.span
-                    key={tag}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 * i, duration: 0.3 }}
-                    className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-full"
-                  >
-                    {tag}
-                  </motion.span>
-                ))}
-              </div>
-              <PrimaryButton href="#" className="gap-2">
-                <YoutubeIcon className="w-4 h-4" />
-                Youtube Kanalını Takip Et
-              </PrimaryButton>
+              {title && (
+                <h2 className="text-section-title font-heading font-bold text-text-primary mb-4">
+                  {title}
+                </h2>
+              )}
+              {description && (
+                <p className="text-body text-text-secondary leading-relaxed mb-6 whitespace-pre-line">
+                  {description}
+                </p>
+              )}
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {tags.map((tag, i) => (
+                    <motion.span
+                      key={tag}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.1 * i, duration: 0.3 }}
+                      className="px-3 py-1 bg-primary/10 text-primary text-xs font-semibold rounded-lg"
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </div>
+              )}
+              {channelUrl && (
+                <PrimaryButton href={channelUrl} className="gap-2">
+                  <YoutubeIcon className="w-4 h-4" />
+                  {ctaLabel}
+                </PrimaryButton>
+              )}
             </div>
           </FadeIn>
-          <FadeIn direction="right" delay={0.2}>
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-              className="aspect-video bg-primary rounded-[16px] flex items-center justify-center cursor-pointer"
-            >
-              <div className="text-center text-white">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <YoutubeIcon className="w-16 h-16 mx-auto mb-4 opacity-80" />
-                </motion.div>
-                <p className="text-lg font-semibold">Featured Video</p>
-                <p className="text-sm text-white/70">Taleem Se Takmeel Turkey Ka Safar</p>
+
+          {embedUrl && (
+            <FadeIn direction="right" delay={0.2}>
+              <div className="aspect-video overflow-hidden rounded-[16px] bg-primary border border-border-custom">
+                {/*
+                  `loading="lazy"` keeps YouTube's player bundle off the
+                  critical path — this section sits well below the fold.
+                */}
+                <iframe
+                  src={embedUrl}
+                  title={title || "Öne çıkan video"}
+                  loading="lazy"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="h-full w-full border-0"
+                />
               </div>
-            </motion.div>
-          </FadeIn>
+            </FadeIn>
+          )}
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 "use client";
 
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
+import SectionHeader from "@/components/ui/SectionHeader";
 import ActivityCard from "@/components/ui/ActivityCard";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
@@ -18,13 +18,12 @@ interface ActivitiesSectionProps {
 
 export default function ActivitiesSection({ activities }: ActivitiesSectionProps) {
   return (
-    <section className="py-section bg-white">
+    <section className="py-section bg-white border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <FadeIn className="text-center mb-12">
-          <SectionEyebrow text="FAALİYETLERİMİZ" />
-          <h2 className="text-section-title font-heading font-bold text-text-primary">
-            Ne Yapıyoruz?
-          </h2>
+        <FadeIn>
+          <SectionHeader
+            title="Ne Yapıyoruz?"
+          />
         </FadeIn>
 
         <StaggerContainer

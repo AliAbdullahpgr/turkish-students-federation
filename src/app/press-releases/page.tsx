@@ -3,7 +3,6 @@ import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Navigation from "@/components/layout/NavigationRSC";
 import Footer from "@/components/layout/FooterRSC";
 import PageHero from "@/components/ui/PageHero";
-import SectionEyebrow from "@/components/ui/SectionEyebrow";
 
 const pressReleases = [
   {
@@ -64,23 +63,17 @@ export default function PressReleasesPage() {
       <main className="flex-grow">
         <PageHero title="Basın Açıklamaları" accentWord="Açıklamaları" />
 
-        <section className="py-section bg-white">
+        <section className="py-section bg-white border-t border-border-custom">
           <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-            <div className="text-center mb-12">
-              <SectionEyebrow text="RESMİ AÇIKLAMALAR" />
-              <h2 className="text-section-title font-heading font-bold text-text-primary">
-                Son <span className="text-accent">Basın</span> Açıklamaları
-              </h2>
-              <p className="text-body text-text-secondary mt-4 max-w-[600px] mx-auto">
-                Pakistan Türk Öğrenci Birliği&apos;nin en son duyuruları, girişimleri ve resmi açıklamalarıyla bilgi sahibi olun.
-              </p>
-            </div>
+            <p className="mb-10 max-w-[60ch] text-body text-text-secondary">
+              Pakistan Türk Öğrenci Birliği&apos;nin en son duyuruları, girişimleri ve resmi açıklamaları.
+            </p>
 
             <div className="space-y-6">
               {pressReleases.map((item) => (
                 <div
                   key={item.id}
-                  className="bg-surface rounded-[16px] p-6 lg:p-8 transition-all hover:-translate-y-1 hover:shadow-card-hover border-l-4 border-accent"
+                  className="bg-surface rounded-[16px] p-6 lg:p-8 transition-all hover:-translate-y-1 border-l-4 border-accent"
                 >
                   <span className="text-[11px] font-bold text-accent uppercase tracking-[1.5px] block mb-3">
                     {item.date}

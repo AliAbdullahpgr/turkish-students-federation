@@ -6,10 +6,10 @@
   --color-primary: #0B3D2E;
   --color-primary-dark: #072A1F;
   --color-primary-light: #1A5C3A;
-  --color-accent: #237A55;
+  --color-accent: #1D744F;
   --color-accent-light: #8BE0B8;
-  --color-action: #1877F2;
-  --color-action-dark: #166FE5;
+  --color-action: #1271EC;
+  --color-action-dark: #0E5CC4;
   --color-action-light: #E7F3FF;
   --color-turkish-red: #E30A17;
   --color-turkish-red-dark: #C40812;
@@ -17,7 +17,7 @@
   --color-surface: #F4F6F5;
   --color-text-primary: #1A1A1A;
   --color-text-secondary: #555555;
-  --color-text-muted: #888888;
+  --color-text-muted: #707070;
   --color-border-custom: #E0E0E0;
   --color-overlay: rgba(7, 42, 31, 0.65);
 
@@ -27,8 +27,9 @@
   --font-turkish: 'Noto Nastaliq Turkish', 'Jameel Noori Nastaleeq', serif;
 
   /* Typography */
-  --text-section-title: 2.5rem;
+  --text-section-title: clamp(1.875rem, 3vw, 2.25rem);
   --text-section-title--line-height: 1.2;
+  --text-section-title--letter-spacing: -0.02em;
   --text-body: 1rem;
   --text-body--line-height: 1.75;
 
@@ -39,13 +40,12 @@
   --spacing-lg: 40px;
   --spacing-xl: 64px;
   --spacing-2xl: 96px;
-  --spacing-section: 80px;
+  --spacing-section: clamp(56px, 6vw, 80px);
 
   /* Border Radius */
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 20px;
-  --radius-pill: 50px;
   --radius-card: 16px;
 
   /* Box Shadows */
