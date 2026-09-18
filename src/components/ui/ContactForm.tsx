@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import PrimaryButton from "./PrimaryButton";
-import SectionEyebrow from "./SectionEyebrow";
 import FadeIn from "@/components/animation/FadeIn";
 import { useState } from "react";
 
@@ -50,11 +49,9 @@ export default function ContactForm() {
           {/* Form */}
           <FadeIn direction="left">
             <motion.div
-              whileHover={{ boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
               transition={{ duration: 0.3 }}
-              className="bg-white rounded-[16px] p-10 shadow-card"
+              className="bg-white rounded-[16px] p-10 border border-border-custom"
             >
-              <SectionEyebrow text="İLETİŞİME GEÇ" />
               <h2 className="text-section-title font-heading font-bold text-text-primary mb-2">
                 Bize Ulaşın
               </h2>
@@ -64,13 +61,13 @@ export default function ContactForm() {
 
               <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
                 <div>
-                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-name">
                     Ad Soyad
                   </label>
-                  <input
+                  <input id="contact-name"
                     {...register("name", { required: "Ad soyad gereklidir" })}
                     placeholder="Adınızı ve soyadınızı girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                   />
                   {errors.name && (
                     <span className="text-red-500 text-xs mt-1">{errors.name.message}</span>
@@ -79,50 +76,50 @@ export default function ContactForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-email">
                       E-posta
                     </label>
-                    <input
+                    <input id="contact-email"
                       type="email"
                       {...register("email", { required: "E-posta gereklidir" })}
                       placeholder="E-posta adresinizi girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                     />
                     {errors.email && (
                       <span className="text-red-500 text-xs mt-1">{errors.email.message}</span>
                     )}
                   </div>
                   <div>
-                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-whatsapp">
                       WhatsApp
                     </label>
-                    <input
+                    <input id="contact-whatsapp"
                       type="tel"
                       {...register("whatsapp")}
                       placeholder="WhatsApp numaranızı girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-membership">
                       Üyelik No (isteğe bağlı)
                     </label>
-                    <input
+                    <input id="contact-membership"
                       {...register("membership")}
                       placeholder="Üyelik numaranızı girin"
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                     />
                   </div>
                   <div>
-                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                    <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-department">
                       Birim
                     </label>
-                    <select
+                    <select id="contact-department"
                       {...register("department")}
-                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                      className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                     >
                       <option value="">Birim Seçin</option>
                       <option value="general">Genel Soru</option>
@@ -134,13 +131,13 @@ export default function ContactForm() {
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-subject">
                     Konu
                   </label>
-                  <input
+                  <input id="contact-subject"
                     {...register("subject", { required: "Konu gereklidir" })}
                     placeholder="Konuyu girin"
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white"
                   />
                   {errors.subject && (
                     <span className="text-red-500 text-xs mt-1">{errors.subject.message}</span>
@@ -148,14 +145,14 @@ export default function ContactForm() {
                 </div>
 
                 <div>
-                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5">
+                  <label className="block text-[13px] font-semibold text-[#333] mb-1.5" htmlFor="contact-message">
                     Mesaj
                   </label>
-                  <textarea
+                  <textarea id="contact-message"
                     {...register("message", { required: "Mesaj gereklidir" })}
                     rows={5}
                     placeholder="Mesajınızı buraya yazın..."
-                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white focus:shadow-sm resize-none"
+                    className="w-full px-4 py-3 border-[1.5px] border-border-custom rounded-lg text-sm text-[#333] outline-none bg-[#FAFAFA] transition-all duration-300 focus:border-action focus:bg-white resize-none"
                   />
                   {errors.message && (
                     <span className="text-red-500 text-xs mt-1">{errors.message.message}</span>
@@ -178,7 +175,6 @@ export default function ContactForm() {
           {/* Contact Info Card */}
           <FadeIn direction="right" delay={0.2}>
             <motion.div
-              whileHover={{ boxShadow: "0 20px 60px rgba(0,0,0,0.3)" }}
               transition={{ duration: 0.3 }}
               className="bg-primary rounded-[16px] p-10 text-white"
             >
@@ -193,12 +189,12 @@ export default function ContactForm() {
                   transition={{ duration: 0.2 }}
                   className="p-4 bg-white/[0.08] rounded-[10px]"
                 >
-                  <span className="block text-[11px] font-bold tracking-[2px] text-accent mb-1.5">
+                  <span className="block text-[11px] font-bold tracking-[2px] text-accent-light mb-1.5">
                     E-POSTA
                   </span>
                   <a
                     href="mailto:query@tsfturkey.org"
-                    className="text-white no-underline hover:text-accent transition-colors flex items-center gap-2"
+                    className="text-white no-underline hover:text-accent-light transition-colors flex items-center gap-2"
                   >
                     <Mail className="w-4 h-4" />
                     query@tsfturkey.org
@@ -210,7 +206,7 @@ export default function ContactForm() {
                   transition={{ duration: 0.2 }}
                   className="p-4 bg-white/[0.08] rounded-[10px]"
                 >
-                  <span className="block text-[11px] font-bold tracking-[2px] text-accent mb-1.5">
+                  <span className="block text-[11px] font-bold tracking-[2px] text-accent-light mb-1.5">
                     WHATSAPP
                   </span>
                   <span className="flex items-center gap-2">
@@ -224,7 +220,7 @@ export default function ContactForm() {
                   transition={{ duration: 0.2 }}
                   className="p-4 bg-white/[0.08] rounded-[10px]"
                 >
-                  <span className="block text-[11px] font-bold tracking-[2px] text-accent mb-1.5">
+                  <span className="block text-[11px] font-bold tracking-[2px] text-accent-light mb-1.5">
                     ADRES
                   </span>
                   <span className="flex items-start gap-2">
