@@ -17,7 +17,7 @@ export default function Navigation({ navItems }: NavigationProps) {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-[36px] z-[999] border-b border-primary/10 bg-white shadow-sm">
+    <header className="sticky top-[36px] z-[999] border-b border-primary/10 bg-white">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-1 lg:px-12">
         <Link href="/" className="flex items-center">
           <Image

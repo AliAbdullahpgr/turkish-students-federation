@@ -8,16 +8,24 @@ import HeroSection from "@/components/sections/home/HeroSection";
 import WhoWeAreSection from "@/components/sections/about/WhoWeAreSection";
 import EventsPreviewSection from "@/components/sections/home/EventsPreviewSection";
 import ActivitiesSection from "@/components/sections/home/ActivitiesSection";
+import ActivityPostsSection from "@/components/sections/home/ActivityPostsSection";
 import PresidentSection from "@/components/sections/home/PresidentSection";
 import CoursesCarouselSection from "@/components/sections/home/CoursesCarouselSection";
 import LatestReleaseSection from "@/components/sections/home/LatestReleaseSection";
 import MediaNewsSection from "@/components/sections/home/MediaNewsSection";
 import FacebookFeedSection from "@/components/sections/home/FacebookFeedSection";
-import { getSiteIdentity, getHomeMessaging } from "@/db/queries/site-settings";
+import {
+  getSiteIdentity,
+  getHomeMessaging,
+  getPresidentSection,
+  getYoutubeSection,
+} from "@/db/queries/site-settings";
 import { getUpcomingEvents, getRecentEvents } from "@/db/queries/events";
 import { getAllActivities } from "@/db/queries/activities";
 import { getAllCourses } from "@/db/queries/courses";
+import { getPublishedActivityPosts } from "@/db/queries/activity-posts";
 import { getLatestBlogPosts } from "@/db/queries/blog-posts";
+import { youtubeEmbedUrl } from "@/lib/youtube";
 
 export async function generateMetadata(): Promise<Metadata> {
   const identity = await getSiteIdentity();
@@ -34,8 +42,11 @@ export default async function HomePage() {
   const recentEvents = await getRecentEvents();
   const allEvents = [...upcomingEvents, ...recentEvents];
   const activities = await getAllActivities();
+  const activityPosts = await getPublishedActivityPosts(3);
   const courses = await getAllCourses();
   const posts = await getLatestBlogPosts(6);
+  const president = await getPresidentSection();
+  const youtube = await getYoutubeSection();
 
   return (
     <>
@@ -44,12 +55,31 @@ export default async function HomePage() {
       <main className="flex-grow">
         <HeroSection messaging={messaging} identity={identity} />
         <WhoWeAreSection messaging={messaging} identity={identity} />
+        {/* Real activities lead the page; renders nothing until one is published. */}
+        <ActivityPostsSection activities={activityPosts} />
+        <ActivitiesSection activities={activities} />
         <MediaNewsSection posts={posts} />
         <EventsPreviewSection events={allEvents} />
-        <ActivitiesSection activities={activities} />
-        <PresidentSection />
+        {president.visible && (
+          <PresidentSection
+            name={president.name}
+            role={president.role}
+            bio={president.bio}
+            imageUrl={president.imageUrl}
+            imageAlt={president.imageAlt}
+          />
+        )}
         <CoursesCarouselSection courses={courses} />
-        <LatestReleaseSection />
+        {youtube.visible && (
+          <LatestReleaseSection
+            title={youtube.title}
+            description={youtube.description}
+            tags={youtube.tags}
+            embedUrl={youtubeEmbedUrl(youtube.videoUrl)}
+            channelUrl={youtube.channelUrl}
+            ctaLabel={youtube.ctaLabel}
+          />
+        )}
         <FacebookFeedSection />
       </main>
       <Footer />

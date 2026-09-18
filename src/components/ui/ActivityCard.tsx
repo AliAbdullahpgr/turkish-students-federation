@@ -25,9 +25,9 @@ export default function ActivityCard({ icon, title, description }: ActivityCardP
 
   return (
     <motion.div
-      whileHover={{ y: -6, boxShadow: "0 12px 32px rgba(0,0,0,0.12)" }}
+      whileHover={{ y: -6 }}
       transition={{ duration: 0.3 }}
-      className="flex items-start gap-5 p-7 bg-white rounded-md shadow-card cursor-pointer"
+      className="flex items-start gap-5 p-7 bg-white rounded-md cursor-pointer border border-border-custom"
     >
       <motion.div
         whileHover={{ scale: 1.1, rotate: 5 }}
