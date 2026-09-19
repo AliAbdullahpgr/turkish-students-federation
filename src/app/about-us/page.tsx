@@ -40,7 +40,7 @@ export default async function AboutUsPage() {
         <CoreValuesSection />
         <KeyActivitiesSection activities={activities} />
         <LeadershipTeamSection members={team} />
-        <CTABannerSection />
+        <CTABannerSection joinHref={identity.joinHref} guideHref={identity.guideHref} />
       </main>
       <Footer />
     </>

@@ -4,12 +4,26 @@ import { motion } from "framer-motion";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import FadeIn from "@/components/animation/FadeIn";
 
+interface CTABannerSectionProps {
+  /** `join_href` from site settings; defaults to the join page. */
+  joinHref?: string;
+  /** `guide_href` from site settings; defaults to the blog listing. */
+  guideHref?: string;
+}
+
 /**
  * The about page's one saturated field. Every other band on the page is white
  * and separated by a hairline, so this is the single colour event — it should
  * stay singular. Do not tint the neighbouring sections to "balance" it.
+ *
+ * Both destinations used to be literals, so the "Katılım Linki" and "Rehber
+ * Linki" fields in the settings panel saved fine and changed nothing here. The
+ * defaults are the previous literals, so an unset install is unchanged.
  */
-export default function CTABannerSection() {
+export default function CTABannerSection({
+  joinHref = "/join-tsf/",
+  guideHref = "/news-blogs/?type=blog",
+}: CTABannerSectionProps = {}) {
   return (
     <section className="py-section bg-primary">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
@@ -29,11 +43,11 @@ export default function CTABannerSection() {
           <FadeIn delay={0.3}>
             <div className="flex flex-wrap gap-4 mt-8">
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <PrimaryButton href="/join-tsf/">Bugün Üye Olun</PrimaryButton>
+                <PrimaryButton href={joinHref}>Bugün Üye Olun</PrimaryButton>
               </motion.div>
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
                 <PrimaryButton
-                  href="/news-blogs/?type=blog"
+                  href={guideHref}
                   className="bg-transparent text-white border-2 border-white/40 hover:bg-white hover:text-primary"
                 >
                   Öğrenci Bloglarını İncele
