@@ -49,11 +49,36 @@ export function boolean(body: Record<string, unknown>, key: string, fallback: bo
   return value;
 }
 
+/**
+ * Whether an error is a unique-constraint violation.
+ *
+ * The cause chain has to be walked: drizzle rethrows driver errors wrapped, so
+ * the top-level message is only ever `Failed query: insert into ...` and the
+ * `UNIQUE constraint failed` text sits on `error.cause`. Matching just the
+ * outer message — which is what this used to do — turned every duplicate slug
+ * into a 503 "Request could not be completed", so the admin panel reported a
+ * server outage when the real problem was a name already in use.
+ */
+function isUniqueViolation(error: unknown, depth = 0): boolean {
+  if (!error || depth > 6 || typeof error !== "object") return false;
+
+  const candidate = error as { code?: unknown; message?: unknown; cause?: unknown };
+
+  if (typeof candidate.code === "string" && candidate.code.startsWith("SQLITE_CONSTRAINT")) {
+    return true;
+  }
+  if (typeof candidate.message === "string" && /unique constraint/i.test(candidate.message)) {
+    return true;
+  }
+
+  return isUniqueViolation(candidate.cause, depth + 1);
+}
+
 export function apiErrorResponse(error: unknown) {
   if (error instanceof ApiInputError) {
     return NextResponse.json({ error: error.message }, { status: error.status });
   }
-  if (error instanceof Error && /unique constraint|UNIQUE constraint/i.test(error.message)) {
+  if (isUniqueViolation(error)) {
     return NextResponse.json({ error: "A record with that unique value already exists" }, { status: 409 });
   }
   return NextResponse.json({ error: "Request could not be completed" }, { status: 503 });
