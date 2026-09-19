@@ -44,13 +44,25 @@ export async function getAllSiteSettings(): Promise<Record<string, string>> {
   return settings;
 }
 
+/**
+ * `guideName` and `guideHref` read their own settings keys.
+ *
+ * They used to ignore them: `guideName` returned `site_name` and `guideHref`
+ * was the literal `/news-blogs/?type=blog`. The settings endpoint has accepted
+ * and stored `guide_name` and `guide_href` all along, so editing either field
+ * in the admin panel saved successfully and then changed nothing on the site —
+ * including the homepage hero button, which links to `guideHref`.
+ *
+ * Both still fall back the way they used to when the key has never been saved,
+ * so an untouched install reads exactly as before.
+ */
 export async function getSiteIdentity() {
   const settings = await getAllSiteSettings();
   return {
     name: settings.site_name ?? "Pakistan Türk Öğrenci Birliği",
     shortName: settings.site_short_name ?? "PTÖB",
-    guideName: settings.site_name ?? "Pakistan Türk Öğrenci Birliği",
-    guideHref: "/news-blogs/?type=blog",
+    guideName: settings.guide_name ?? settings.site_name ?? "Pakistan Türk Öğrenci Birliği",
+    guideHref: settings.guide_href ?? "/news-blogs/?type=blog",
     joinHref: settings.join_href ?? "/join-tsf/",
     description: settings.site_description ?? "",
     guideDescription: settings.guide_description ?? "",
