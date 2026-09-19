@@ -19,7 +19,10 @@ export async function POST(req: NextRequest) {
   try {
     const body = await readJsonObject(req);
     const id = nanoid();
-    const url = requiredText(body, "url", 2_000);
+    // Cloudinary returns `url` over plain HTTP and only `secure_url` over HTTPS,
+    // so upgrade the scheme here instead of rejecting the upload.
+    const rawUrl = requiredText(body, "url", 2_000);
+    const url = rawUrl.startsWith("http://") ? `https://${rawUrl.slice("http://".length)}` : rawUrl;
     const secureUrl = requiredText(body, "secureUrl", 2_000);
     if (!url.startsWith("https://") || !secureUrl.startsWith("https://")) {
       return NextResponse.json({ error: "Media URLs must use HTTPS" }, { status: 400 });

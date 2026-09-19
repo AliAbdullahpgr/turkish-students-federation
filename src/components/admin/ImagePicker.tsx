@@ -39,6 +39,7 @@ export default function ImagePicker({ previewUrl, onChange, onClear }: ImagePick
         }),
       });
       const media = await res.json();
+      if (!res.ok) throw new Error(media?.error ?? `Media kaydedilemedi (${res.status})`);
       onChange(media.id, result.secure_url);
     } catch (err) {
       console.error("Upload failed:", err);
