@@ -7,7 +7,8 @@ import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 const teamFallbacks = fallbackTeamMembers.map((member) => ({
   ...member,
   bio: member.bio || null,
-  photo: member.photo || null,
+  // No static portraits any more; a real photo is uploaded per member.
+  photo: null as string | null,
   photoMediaId: null,
   isActive: true,
   createdAt: null,

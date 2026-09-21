@@ -95,13 +95,6 @@ async function syncTeamMembers() {
       isActive: true,
     }).onConflictDoNothing({ target: teamMembers.id }).run();
     inserted += result.rowsAffected;
-    if (member.photo) {
-      const mediaId = await ensureStaticMedia(`static-team-${member.id}`, member.photo, member.name);
-      await db.update(teamMembers)
-        .set({ photoMediaId: mediaId })
-        .where(and(eq(teamMembers.id, member.id), isNull(teamMembers.photoMediaId)))
-        .run();
-    }
   }
   console.log(`Team sync complete: ${inserted} missing rows inserted.`);
 }

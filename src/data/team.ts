@@ -1,10 +1,14 @@
+/**
+ * Real people from the guide project. Their placeholder picsum.photos
+ * portraits were removed — a real photo is uploaded per member in the admin
+ * panel, and no photo is better than a stranger's face.
+ */
 export const teamMembers = [
   {
     id: "halid-kaya",
     name: "Halid Kaya",
     role: "Proje Lideri",
     bio: "Pakistan Türk Öğrenci Birliği projesinin lideri ve öğrenci rehberinin hazırlanmasında önemli rol oynamıştır.",
-    photo: "https://picsum.photos/seed/halidkaya/400/400",
     order: 1,
   },
   {
@@ -12,7 +16,6 @@ export const teamMembers = [
     name: "Muhammet Akpunar",
     role: "Editör",
     bio: "Muhammet Akpunar, Pakistan Öğrenci Rehberi'nin editörlüğünü üstlenmiş ve içeriklerin derlenmesinde aktif rol almıştır.",
-    photo: "https://picsum.photos/seed/muhammet/400/400",
     order: 2,
   },
   {
@@ -20,7 +23,6 @@ export const teamMembers = [
     name: "Nurullah Bakırhan",
     role: "Proje Ekibi",
     bio: "Nurullah Bakırhan, Pakistan'daki Türk öğrenci topluluğunun gelişimine katkı sağlayan proje ekibinin değerli bir üyesidir.",
-    photo: "https://picsum.photos/seed/nurullah/400/400",
     order: 3,
   },
   {
@@ -28,7 +30,6 @@ export const teamMembers = [
     name: "Mürsel Salih Kör",
     role: "Tasarımcı",
     bio: "Mürsel Salih Kör, rehberin görsel tasarımını ve projenin estetik yönünü şekillendirmiştir.",
-    photo: "https://picsum.photos/seed/mursel/400/400",
     order: 4,
   },
 ];
