@@ -13,6 +13,10 @@ export default defineConfig({
     // Playwright's `test()` throws when called outside its own runner.
     include: ["src/__tests__/**/*.test.{ts,tsx}"],
     setupFiles: ["./src/__tests__/setup.ts"],
+    // These suites import whole route trees through vite's transform pipeline,
+    // which routinely passes 5s on a cold cache — the failures that produced
+    // were timeouts, not assertions.
+    testTimeout: 30_000,
   },
   resolve: {
     alias: {

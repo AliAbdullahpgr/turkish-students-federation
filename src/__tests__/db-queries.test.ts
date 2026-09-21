@@ -104,12 +104,13 @@ describe("Query Functions Integration", () => {
     expect(identity.joinHref).toBe("/join-tsf/");
   });
 
-  it("getHomeMessaging returns correct values", async () => {
-    const { getHomeMessaging } = await import("@/db/queries/site-settings");
-    const messaging = await getHomeMessaging();
-    expect(messaging.eyebrow).toBeDefined();
-    expect(messaging.titleTop).toBeDefined();
-    expect(messaging.titleBottom).toBeDefined();
+  it("getHomeContent returns every section", async () => {
+    const { getHomeContent } = await import("@/db/queries/home-sections");
+    const home = await getHomeContent();
+    expect(home.hero.titleTop).toBeDefined();
+    expect(home.hero.ctaHref).toBeDefined();
+    expect(home.blog.title).toBeDefined();
+    expect(home.facebook.url).toBeDefined();
   });
 
   it("getAllBlogPosts returns posts ordered by publishedAt desc", async () => {

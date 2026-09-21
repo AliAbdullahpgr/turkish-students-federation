@@ -31,10 +31,10 @@ let eventRoutes: { POST: Handler };
 let activityRoutes: { POST: Handler };
 let activityPostRoutes: { POST: Handler };
 let courseRoutes: { POST: Handler };
-let settingsRoutes: { PUT: Handler };
 let actions: typeof import("@/app/admin/actions");
 
 let siteSettings: typeof import("@/db/queries/site-settings");
+let homeSections: typeof import("@/db/queries/home-sections");
 let blogQueries: typeof import("@/db/queries/blog-posts");
 let eventQueries: typeof import("@/db/queries/events");
 let activityQueries: typeof import("@/db/queries/activities");
@@ -49,10 +49,10 @@ beforeAll(async () => {
   activityRoutes = (await import("@/app/api/admin/activities/route")) as unknown as typeof activityRoutes;
   activityPostRoutes = (await import("@/app/api/admin/activity-posts/route")) as unknown as typeof activityPostRoutes;
   courseRoutes = (await import("@/app/api/admin/courses/route")) as unknown as typeof courseRoutes;
-  settingsRoutes = (await import("@/app/api/admin/site-settings/route")) as unknown as typeof settingsRoutes;
   actions = await import("@/app/admin/actions");
 
   siteSettings = await import("@/db/queries/site-settings");
+  homeSections = await import("@/db/queries/home-sections");
   blogQueries = await import("@/db/queries/blog-posts");
   eventQueries = await import("@/db/queries/events");
   activityQueries = await import("@/db/queries/activities");
@@ -90,51 +90,46 @@ async function runAction(action: (form: FormData) => Promise<void>, fields: Reco
 }
 
 describe("homepage sections render what the admin wrote", () => {
-  it("HeroSection shows the saved messaging and links to the saved guide href", async () => {
-    await settingsRoutes.PUT(
-      jsonRequest("PUT", {
-        site_name: "Pakistan Türk Öğrenci Birliği",
-        home_eyebrow: "ÖĞRENCİ BİRLİĞİ",
-        home_title_top: "Pakistanda",
-        home_title_bottom: "Birlikte Öğrenmek",
-        home_summary: "Kısa tanıtım metni burada.",
-        home_primary_cta: "Blogları Keşfet",
-        home_secondary_cta: "Bize Katıl",
-        guide_href: "/pakistan-rehberi/",
-        join_href: "/join-tsf/",
-      }),
-    );
+  it("HeroSection shows the saved messaging and links to the saved hero href", async () => {
+    await runAction(actions.saveHomeContent, {
+      home_title_top: "Pakistanda",
+      home_title_bottom: "Birlikte Öğrenmek",
+      home_summary: "Kısa tanıtım metni burada.",
+      home_primary_cta: "Faaliyetlerimizi Görün",
+      home_hero_cta_href: "/faaliyetler/",
+      home_hero_image: "/image/association-community-evening.png",
+    });
 
     const { default: HeroSection } = await import("@/components/sections/home/HeroSection");
-    const html = render(HeroSection, {
-      messaging: await siteSettings.getHomeMessaging(),
-      identity: await siteSettings.getSiteIdentity(),
-    });
+    const html = render(HeroSection, { hero: (await homeSections.getHomeContent()).hero });
 
     expect(html).toContain("Pakistanda");
     expect(html).toContain("Birlikte Öğrenmek");
     expect(html).toContain("Kısa tanıtım metni burada.");
-    expect(html).toContain("Blogları Keşfet");
-    // The guide button honours the saved href rather than the old hardcoded one.
-    expect(html).toContain("/pakistan-rehberi");
-    expect(html).not.toContain("/news-blogs/?type=blog");
+    expect(html).toContain("Faaliyetlerimizi Görün");
+    // The hero button has its own href now; it no longer follows the guide link,
+    // which is what used to send every visitor to the blog listing.
+    // `Link` normalises the trailing slash away in the rendered href.
+    expect(html).toContain('href="/faaliyetler"');
+    expect(html).not.toContain("news-blogs");
   });
 
-  it("WhoWeAreSection shows the saved about intro", async () => {
-    await settingsRoutes.PUT(
-      jsonRequest("PUT", {
-        home_about_intro: "Birliğimiz 2015 yılından beri faaliyet göstermektedir.",
-        site_name: "Pakistan Türk Öğrenci Birliği",
-      }),
-    );
+  it("WhoWeAreSection shows the saved about intro and links where the admin said", async () => {
+    await runAction(actions.saveHomeContent, {
+      home_about_intro: "Birliğimiz 2015 yılından beri faaliyet göstermektedir.",
+      home_whoweare_title: "Daha güçlü bir topluluk",
+      home_whoweare_link_label: "Birliğimizi tanıyın",
+      home_whoweare_link_href: "/about-us/",
+    });
 
     const { default: WhoWeAreSection } = await import("@/components/sections/about/WhoWeAreSection");
     const html = render(WhoWeAreSection, {
-      messaging: await siteSettings.getHomeMessaging(),
-      identity: await siteSettings.getSiteIdentity(),
+      content: (await homeSections.getHomeContent()).whoWeAre,
     });
 
     expect(html).toContain("Birliğimiz 2015 yılından beri faaliyet göstermektedir.");
+    expect(html).toContain("Daha güçlü bir topluluk");
+    expect(html).toContain('href="/about-us"');
   });
 
   it("PresidentSection renders the saved president and photo", async () => {
@@ -174,7 +169,10 @@ describe("homepage sections render what the admin wrote", () => {
     );
 
     const { default: ActivitiesSection } = await import("@/components/sections/home/ActivitiesSection");
-    const html = render(ActivitiesSection, { activities: await activityQueries.getAllActivities() });
+    const html = render(ActivitiesSection, {
+      activities: await activityQueries.getAllActivities(),
+      content: (await homeSections.getHomeContent()).whatWeDo,
+    });
 
     expect(html).toContain("Seminerler");
     expect(html).toContain("Akademik seminerler.");
@@ -198,6 +196,7 @@ describe("homepage sections render what the admin wrote", () => {
     const { default: ActivityPostsSection } = await import("@/components/sections/home/ActivityPostsSection");
     const html = render(ActivityPostsSection, {
       activities: await activityPostQueries.getPublishedActivityPosts(3),
+      content: (await homeSections.getHomeContent()).activityPosts,
     });
 
     expect(html).toContain("Yetimhane Ziyareti");
@@ -209,6 +208,7 @@ describe("homepage sections render what the admin wrote", () => {
     const { default: ActivityPostsSection } = await import("@/components/sections/home/ActivityPostsSection");
     const html = render(ActivityPostsSection, {
       activities: await activityPostQueries.getPublishedActivityPosts(3),
+      content: (await homeSections.getHomeContent()).activityPosts,
     });
     expect(html).toBe("");
   });
@@ -223,7 +223,10 @@ describe("homepage sections render what the admin wrote", () => {
     );
 
     const { default: MediaNewsSection } = await import("@/components/sections/home/MediaNewsSection");
-    const html = render(MediaNewsSection, { posts: await blogQueries.getLatestBlogPosts(6) });
+    const html = render(MediaNewsSection, {
+      posts: await blogQueries.getLatestBlogPosts(6),
+      content: (await homeSections.getHomeContent()).blog,
+    });
 
     expect(html).toContain("Karaçi Rehberi");
     expect(html).toContain("karaci-rehberi");
@@ -243,6 +246,7 @@ describe("homepage sections render what the admin wrote", () => {
     const { default: EventsPreviewSection } = await import("@/components/sections/home/EventsPreviewSection");
     const html = render(EventsPreviewSection, {
       events: [...(await eventQueries.getUpcomingEvents()), ...(await eventQueries.getRecentEvents())],
+      content: (await homeSections.getHomeContent()).events,
     });
 
     expect(html).toContain("PTÖB Yıllık Buluşması");
@@ -407,7 +411,10 @@ describe("public list pages render what the admin wrote", () => {
     const { default: CoursesCarouselSection } = await import(
       "@/components/sections/home/CoursesCarouselSection"
     );
-    const html = render(CoursesCarouselSection, { courses: await courseQueries.getAllCourses() });
+    const html = render(CoursesCarouselSection, {
+      courses: await courseQueries.getAllCourses(),
+      content: (await homeSections.getHomeContent()).courses,
+    });
 
     expect(html).toContain("Urduca Başlangıç Kursu");
   });

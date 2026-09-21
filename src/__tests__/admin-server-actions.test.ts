@@ -330,8 +330,15 @@ describe("social accounts action -> public footer", () => {
   it("offers the seeded defaults before anything has been saved", async () => {
     const all = await socialQueries.getAllSocialAccounts();
     expect(all.map((a) => a.platform)).toEqual(["facebook", "instagram", "youtube"]);
-    // Only the one with a real link is offered to the footer.
-    expect(await socialQueries.getVisibleSocialAccounts()).toHaveLength(1);
+
+    // Facebook and Instagram ship with the association's real accounts and so
+    // reach the footer. YouTube has no link yet, and a link-less account is
+    // dropped rather than rendered as a dead icon.
+    const visible = await socialQueries.getVisibleSocialAccounts();
+    expect(visible.map((a) => a.platform)).toEqual(["facebook", "instagram"]);
+    expect(visible.find((a) => a.platform === "instagram")?.url).toBe(
+      "https://www.instagram.com/pakturkogrencibirligi/",
+    );
   });
 
   it("revalidates the root layout so the footer refreshes", async () => {

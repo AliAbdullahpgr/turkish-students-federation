@@ -34,7 +34,12 @@ function render(component: unknown, props: Record<string, unknown>) {
   );
 }
 
-/** The exact key list `src/app/admin/(protected)/site-settings/page.tsx` renders. */
+/**
+ * The exact key list `src/app/admin/(protected)/site-settings/page.tsx` renders.
+ *
+ * The `home_*` keys left this list when the homepage got its own screen; they
+ * are covered by `admin-home-content.test.ts` instead.
+ */
 const SETTING_KEYS = [
   "site_name",
   "site_short_name",
@@ -43,17 +48,10 @@ const SETTING_KEYS = [
   "join_href",
   "site_description",
   "guide_description",
-  "home_eyebrow",
-  "home_title_top",
-  "home_title_bottom",
-  "home_summary",
-  "home_primary_cta",
-  "home_secondary_cta",
-  "home_about_intro",
 ];
 
 describe("every settings key the admin form offers is actually stored", () => {
-  it("accepts and stores all fourteen keys", async () => {
+  it("accepts and stores every key the form renders", async () => {
     const payload = Object.fromEntries(SETTING_KEYS.map((key) => [key, `deger-${key}`]));
     // Both href fields have to be plausible routes rather than the generic
     // marker, since the identity reader hands them straight to a link.
@@ -103,58 +101,5 @@ describe("the about-page CTA honours the saved links", () => {
 
     expect(html).toContain('href="/join-tsf"');
     expect(html).toContain("/news-blogs?type=blog");
-  });
-});
-
-describe("settings keys that the public site currently does not render", () => {
-  /*
-    These two save successfully and appear nowhere on the site. They are
-    asserted rather than fixed because rendering either one is a visual
-    decision, not a defect to patch quietly:
-
-      home_eyebrow       the redesign removed kickers on purpose — see the note
-                         in `src/components/ui/SectionHeader.tsx`. The field is
-                         still offered by the settings form.
-      home_secondary_cta the hero has one button; `HeroSection` still declares
-                         `secondaryCta` in its props type but never renders it.
-
-    If either is ever wired up, these fail and should be deleted — that is the
-    signal, not a nuisance.
-  */
-
-  it("home_eyebrow is stored but never reaches the hero", async () => {
-    await settingsRoutes.PUT(
-      jsonRequest("PUT", { home_eyebrow: "BENZERSIZ-ETIKET", home_title_top: "Ust" }),
-    );
-
-    const messaging = await siteSettings.getHomeMessaging();
-    expect(messaging.eyebrow).toBe("BENZERSIZ-ETIKET");
-
-    const { default: HeroSection } = await import("@/components/sections/home/HeroSection");
-    const html = render(HeroSection, {
-      messaging,
-      identity: await siteSettings.getSiteIdentity(),
-    });
-
-    expect(html).toContain("Ust");
-    expect(html).not.toContain("BENZERSIZ-ETIKET");
-  });
-
-  it("home_secondary_cta is stored but never reaches the hero", async () => {
-    await settingsRoutes.PUT(
-      jsonRequest("PUT", { home_secondary_cta: "BENZERSIZ-BUTON", home_primary_cta: "Birincil" }),
-    );
-
-    const messaging = await siteSettings.getHomeMessaging();
-    expect(messaging.secondaryCta).toBe("BENZERSIZ-BUTON");
-
-    const { default: HeroSection } = await import("@/components/sections/home/HeroSection");
-    const html = render(HeroSection, {
-      messaging,
-      identity: await siteSettings.getSiteIdentity(),
-    });
-
-    expect(html).toContain("Birincil");
-    expect(html).not.toContain("BENZERSIZ-BUTON");
   });
 });

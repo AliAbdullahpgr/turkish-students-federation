@@ -42,27 +42,19 @@ describe("admin site settings -> public site chrome", () => {
     expect(identity.joinHref).toBe("/join-tsf/");
   });
 
-  it("saved homepage messaging reaches the public homepage reader", async () => {
+  it("refuses the home_* keys, which now belong to the homepage screen", async () => {
     await routes.PUT(
       jsonRequest("PUT", {
-        home_eyebrow: "ÖĞRENCİ BİRLİĞİ",
         home_title_top: "Pakistan'da",
-        home_title_bottom: "Birlikte Öğrenmek",
         home_summary: "Kısa tanıtım metni.",
-        home_primary_cta: "Blogları Keşfet",
-        home_secondary_cta: "Bize Katıl",
         home_about_intro: "Hakkımızda giriş metni.",
       }),
     );
 
-    const messaging = await publicQueries.getHomeMessaging();
-    expect(messaging.eyebrow).toBe("ÖĞRENCİ BİRLİĞİ");
-    expect(messaging.titleTop).toBe("Pakistan'da");
-    expect(messaging.titleBottom).toBe("Birlikte Öğrenmek");
-    expect(messaging.summary).toBe("Kısa tanıtım metni.");
-    expect(messaging.primaryCta).toBe("Blogları Keşfet");
-    expect(messaging.secondaryCta).toBe("Bize Katıl");
-    expect(messaging.aboutIntro).toBe("Hakkımızda giriş metni.");
+    // `/admin/home` owns these through `saveHomeContent`, which validates the
+    // links. Accepting them here too would let the two screens overwrite each
+    // other depending on which was saved last.
+    expect(await countRows("site_settings")).toBe(0);
   });
 
   it("updates an existing key in place instead of inserting a duplicate", async () => {
@@ -108,17 +100,14 @@ describe("admin site settings -> public site chrome", () => {
     const identity = await publicQueries.getSiteIdentity();
     expect(identity.name).toBe("Pakistan Türk Öğrenci Birliği");
     expect(identity.shortName).toBe("PTÖB");
-
-    const messaging = await publicQueries.getHomeMessaging();
-    expect(messaging.primaryCta).toBe("Blogları Keşfet");
   });
 
   it("the admin GET reflects exactly what was saved", async () => {
-    await routes.PUT(jsonRequest("PUT", { site_name: "Ad", home_eyebrow: "Üst Başlık" }));
+    await routes.PUT(jsonRequest("PUT", { site_name: "Ad", guide_name: "Rehber" }));
 
     const res = await routes.GET(jsonRequest("GET"));
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ site_name: "Ad", home_eyebrow: "Üst Başlık" });
+    expect(await res.json()).toEqual({ site_name: "Ad", guide_name: "Rehber" });
   });
 
   it("revalidates the root layout so every public page picks the change up", async () => {
