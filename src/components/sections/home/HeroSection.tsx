@@ -3,37 +3,24 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-interface HomeMessaging {
-  eyebrow: string;
-  titleTop: string;
-  titleBottom: string;
-  summary: string;
-  primaryCta: string;
-  secondaryCta: string;
-  aboutIntro: string;
-}
-
-interface SiteIdentity {
-  name: string;
-  shortName: string;
-  guideName: string;
-  guideHref: string;
-  joinHref: string;
-  description: string;
-  guideDescription: string;
-}
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface HeroSectionProps {
-  messaging: HomeMessaging;
-  identity: SiteIdentity;
+  hero: HomeContent["hero"];
 }
 
-export default function HeroSection({ messaging, identity }: HeroSectionProps) {
+/**
+ * Every string and both links come from `HOME_SECTIONS` now, including the
+ * button's destination and the background photo. The button used to follow
+ * `guide_href`, which is the *guide's* link — so the homepage's main call to
+ * action always landed on the blog listing and there was no field anywhere
+ * that could point it somewhere else.
+ */
+export default function HeroSection({ hero }: HeroSectionProps) {
   return (
     <section
       className="relative w-full min-h-[85vh] flex items-center overflow-hidden bg-cover bg-center"
-      style={{ backgroundImage: "url('/image/association-community-evening.png')" }}
+      style={hero.image ? { backgroundImage: `url('${hero.image}')` } : undefined}
     >
       <div className="absolute inset-0 bg-[rgba(7,42,31,0.75)]" />
 
@@ -45,33 +32,38 @@ export default function HeroSection({ messaging, identity }: HeroSectionProps) {
             transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
             className="text-[clamp(40px,7vw,84px)] font-black text-white leading-[1.05] uppercase tracking-tight"
           >
-            {messaging.titleTop}{" "}
-            <span className="text-accent-light">{messaging.titleBottom}</span>
+            {hero.titleTop}{" "}
+            <span className="text-accent-light">{hero.titleBottom}</span>
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-            className="max-w-[560px] text-[17px] leading-7 text-white/80 mt-6"
-          >
-            {messaging.summary}
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mt-8"
-          >
-            <Link
-              href={identity.guideHref}
-              className="inline-flex items-center gap-2 rounded-xl bg-action px-7 py-3.5 text-sm font-bold text-white no-underline transition-colors hover:bg-action-dark"
+          {hero.summary && (
+            <motion.p
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              className="max-w-[560px] text-[17px] leading-7 text-white/80 mt-6"
             >
-              {messaging.primaryCta}
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
+              {hero.summary}
+            </motion.p>
+          )}
+
+          {/* No label or no destination means no button, rather than a button to nowhere. */}
+          {hero.ctaLabel && hero.ctaHref && (
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              className="mt-8"
+            >
+              <Link
+                href={hero.ctaHref}
+                className="inline-flex items-center gap-2 rounded-xl bg-action px-7 py-3.5 text-sm font-bold text-white no-underline transition-colors hover:bg-action-dark"
+              >
+                {hero.ctaLabel}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>

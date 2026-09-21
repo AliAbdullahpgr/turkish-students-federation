@@ -6,46 +6,46 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import FadeIn from "@/components/animation/FadeIn";
-
-interface HomeMessaging {
-  aboutIntro: string;
-}
-
-interface SiteIdentity {
-  name: string;
-  guideHref: string;
-}
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface WhoWeAreSectionProps {
-  messaging: HomeMessaging;
-  identity: SiteIdentity;
+  content: HomeContent["whoWeAre"];
   showPhotos?: boolean;
 }
 
-export default function WhoWeAreSection({ messaging, identity, showPhotos = false }: WhoWeAreSectionProps) {
+/**
+ * The eyebrow, heading, closing paragraph and the "Birliğimizi tanıyın" link
+ * were all literals here. The link in particular is the one the association
+ * asked to point at the about page rather than the blog, so it is a field now.
+ */
+export default function WhoWeAreSection({ content, showPhotos = false }: WhoWeAreSectionProps) {
   return (
     <section id="biz-kimiz" className="bg-white py-section">
       <div className="mx-auto grid max-w-[1280px] gap-10 px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-12">
         <FadeIn>
-          <p className="mb-4 text-sm font-bold text-primary">Biz Kimiz?</p>
+          {content.eyebrow && (
+            <p className="mb-4 text-sm font-bold text-primary">{content.eyebrow}</p>
+          )}
           <h2 className="text-section-title text-balance font-heading font-bold text-primary">
-            Pakistan&apos;da birlikte daha güçlü bir öğrenci topluluğu
+            {content.title}
           </h2>
         </FadeIn>
 
         <FadeIn delay={0.15} className="lg:border-l lg:border-primary/15 lg:pl-10">
           <div className="prose prose-slate max-w-[70ch] text-text-secondary">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {messaging.aboutIntro}
-            </ReactMarkdown>
-            <p>
-              {identity.name}, öğrencilerin Pakistan&apos;daki akademik, sosyal ve kültürel
-              hayata güvenle katılabilmesi için dayanışma, temsil ve bilgi paylaşımı sağlar.
-            </p>
+            {content.intro && (
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.intro}</ReactMarkdown>
+            )}
+            {content.note && <p>{content.note}</p>}
           </div>
-          <Link href="/about-us/" className="mt-7 inline-flex items-center gap-2 font-bold text-primary no-underline hover:text-primary-light">
-            Birliğimizi tanıyın <ArrowRight className="h-4 w-4" />
-          </Link>
+          {content.linkLabel && content.linkHref && (
+            <Link
+              href={content.linkHref}
+              className="mt-7 inline-flex items-center gap-2 font-bold text-primary no-underline hover:text-primary-light"
+            >
+              {content.linkLabel} <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
         </FadeIn>
       </div>
       {showPhotos && <div className="mx-auto mt-12 grid max-w-[1280px] gap-8 px-6 md:grid-cols-2 lg:px-12">

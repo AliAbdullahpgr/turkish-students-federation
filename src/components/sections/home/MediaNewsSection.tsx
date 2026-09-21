@@ -3,6 +3,7 @@
 import PostCard from "@/components/ui/PostCard";
 import FadeIn from "@/components/animation/FadeIn";
 import SectionHeader from "@/components/ui/SectionHeader";
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface BlogPostItem {
   id: string;
@@ -18,9 +19,10 @@ interface BlogPostItem {
 
 interface MediaNewsSectionProps {
   posts: BlogPostItem[];
+  content: HomeContent["blog"];
 }
 
-export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
+export default function MediaNewsSection({ posts, content }: MediaNewsSectionProps) {
   const latestPosts = posts.slice(0, 3);
 
   return (
@@ -29,9 +31,9 @@ export default function MediaNewsSection({ posts }: MediaNewsSectionProps) {
         <FadeIn>
           <SectionHeader
             titleId="home-blog-title"
-            title="Blog"
-            lede="Pakistan'da öğrenci hayatı için hikâyeler, bilgiler ve pratik öneriler."
-            action={{ href: "/news-blogs/?type=blog", label: "Tüm bloglar" }}
+            title={content.title}
+            lede={content.lede || undefined}
+            action={content.cta && content.href ? { href: content.href, label: content.cta } : undefined}
           />
         </FadeIn>
 

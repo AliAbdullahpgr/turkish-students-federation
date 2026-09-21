@@ -3,6 +3,7 @@
 import PostCard from "@/components/ui/PostCard";
 import FadeIn from "@/components/animation/FadeIn";
 import SectionHeader from "@/components/ui/SectionHeader";
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface ActivityPostItem {
   id: string;
@@ -17,6 +18,7 @@ interface ActivityPostItem {
 
 interface ActivityPostsSectionProps {
   activities: ActivityPostItem[];
+  content: HomeContent["activityPosts"];
 }
 
 /**
@@ -26,7 +28,7 @@ interface ActivityPostsSectionProps {
  * an empty "Faaliyetlerimiz" heading over a blank row is worse than no section,
  * and this one sits high on the page where that would be most obvious.
  */
-export default function ActivityPostsSection({ activities }: ActivityPostsSectionProps) {
+export default function ActivityPostsSection({ activities, content }: ActivityPostsSectionProps) {
   if (activities.length === 0) return null;
 
   const visible = activities.slice(0, 3);
@@ -40,9 +42,9 @@ export default function ActivityPostsSection({ activities }: ActivityPostsSectio
         <FadeIn>
           <SectionHeader
             titleId="home-activities-title"
-            title="Faaliyetlerimiz"
-            lede="Birliğimizin gerçekleştirdiği ziyaretler, buluşmalar ve programlar."
-            action={{ href: "/faaliyetler/", label: "Tüm faaliyetler" }}
+            title={content.title}
+            lede={content.lede || undefined}
+            action={content.cta && content.href ? { href: content.href, label: content.cta } : undefined}
           />
         </FadeIn>
 

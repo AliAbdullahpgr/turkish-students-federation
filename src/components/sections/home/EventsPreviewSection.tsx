@@ -4,6 +4,7 @@ import Image from "next/image";
 import FadeIn from "@/components/animation/FadeIn";
 import SectionHeader from "@/components/ui/SectionHeader";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface EventItem {
   id: string;
@@ -17,9 +18,10 @@ interface EventItem {
 
 interface EventsPreviewSectionProps {
   events: EventItem[];
+  content: HomeContent["events"];
 }
 
-export default function EventsPreviewSection({ events }: EventsPreviewSectionProps) {
+export default function EventsPreviewSection({ events, content }: EventsPreviewSectionProps) {
   const visibleEvents = events.slice(0, 4);
 
   return (
@@ -27,8 +29,9 @@ export default function EventsPreviewSection({ events }: EventsPreviewSectionPro
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
         <FadeIn>
           <SectionHeader
-            title="Etkinliklerimiz"
-            action={{ href: "/events/", label: "Tüm etkinlikler" }}
+            title={content.title}
+            lede={content.lede || undefined}
+            action={content.cta && content.href ? { href: content.href, label: content.cta } : undefined}
           />
         </FadeIn>
 

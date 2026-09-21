@@ -4,6 +4,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import ActivityCard from "@/components/ui/ActivityCard";
 import FadeIn from "@/components/animation/FadeIn";
 import StaggerContainer, { StaggerItem } from "@/components/animation/StaggerContainer";
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface ActivityItem {
   id: string;
@@ -14,16 +15,15 @@ interface ActivityItem {
 
 interface ActivitiesSectionProps {
   activities: ActivityItem[];
+  content: HomeContent["whatWeDo"];
 }
 
-export default function ActivitiesSection({ activities }: ActivitiesSectionProps) {
+export default function ActivitiesSection({ activities, content }: ActivitiesSectionProps) {
   return (
     <section className="py-section bg-white border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <FadeIn>
-          <SectionHeader
-            title="Ne Yapıyoruz?"
-          />
+          <SectionHeader title={content.title} lede={content.lede || undefined} />
         </FadeIn>
 
         <StaggerContainer

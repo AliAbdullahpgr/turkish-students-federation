@@ -1,6 +1,7 @@
 import Image from "next/image";
 import SectionHeader from "@/components/ui/SectionHeader";
 import PrimaryButton from "@/components/ui/PrimaryButton";
+import type { HomeContent } from "@/db/queries/home-sections";
 
 interface CourseItem {
   id: string;
@@ -13,15 +14,14 @@ interface CourseItem {
 
 interface CoursesCarouselSectionProps {
   courses: CourseItem[];
+  content: HomeContent["courses"];
 }
 
-export default function CoursesCarouselSection({ courses }: CoursesCarouselSectionProps) {
+export default function CoursesCarouselSection({ courses, content }: CoursesCarouselSectionProps) {
   return (
     <section className="bg-white py-section border-t border-border-custom">
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
-        <SectionHeader
-          title="Kurslarimiz"
-        />
+        <SectionHeader title={content.title} lede={content.lede || undefined} />
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {courses.map((course) => (

@@ -11,7 +11,8 @@ import CoreValuesSection from "@/components/sections/about/CoreValuesSection";
 import KeyActivitiesSection from "@/components/sections/about/KeyActivitiesSection";
 import LeadershipTeamSection from "@/components/sections/about/LeadershipTeamSection";
 import CTABannerSection from "@/components/sections/about/CTABannerSection";
-import { getSiteIdentity, getHomeMessaging } from "@/db/queries/site-settings";
+import { getSiteIdentity } from "@/db/queries/site-settings";
+import { getHomeContent } from "@/db/queries/home-sections";
 import { getAllActivities } from "@/db/queries/activities";
 import { getActiveTeamMembers } from "@/db/queries/team-members";
 
@@ -25,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function AboutUsPage() {
   const identity = await getSiteIdentity();
-  const messaging = await getHomeMessaging();
+  const home = await getHomeContent();
   const activities = await getAllActivities();
   const team = await getActiveTeamMembers();
 
@@ -35,7 +36,7 @@ export default async function AboutUsPage() {
       <Navigation />
       <main className="flex-grow">
         <PageHero title={`${identity.guideName} Hakkında`} accentWord="Öğrenci" />
-        <WhoWeAreSection messaging={messaging} identity={identity} showPhotos />
+        <WhoWeAreSection content={home.whoWeAre} showPhotos />
         <MissionVisionSection />
         <CoreValuesSection />
         <KeyActivitiesSection activities={activities} />

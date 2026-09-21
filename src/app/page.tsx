@@ -16,10 +16,10 @@ import MediaNewsSection from "@/components/sections/home/MediaNewsSection";
 import FacebookFeedSection from "@/components/sections/home/FacebookFeedSection";
 import {
   getSiteIdentity,
-  getHomeMessaging,
   getPresidentSection,
   getYoutubeSection,
 } from "@/db/queries/site-settings";
+import { getHomeContent } from "@/db/queries/home-sections";
 import { getUpcomingEvents, getRecentEvents } from "@/db/queries/events";
 import { getAllActivities } from "@/db/queries/activities";
 import { getAllCourses } from "@/db/queries/courses";
@@ -36,8 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const identity = await getSiteIdentity();
-  const messaging = await getHomeMessaging();
+  const home = await getHomeContent();
   const upcomingEvents = await getUpcomingEvents();
   const recentEvents = await getRecentEvents();
   const allEvents = [...upcomingEvents, ...recentEvents];
@@ -53,13 +52,25 @@ export default async function HomePage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <HeroSection messaging={messaging} identity={identity} />
-        <WhoWeAreSection messaging={messaging} identity={identity} />
-        {/* Real activities lead the page; renders nothing until one is published. */}
-        <ActivityPostsSection activities={activityPosts} />
-        <ActivitiesSection activities={activities} />
-        <MediaNewsSection posts={posts} />
-        <EventsPreviewSection events={allEvents} />
+        <HeroSection hero={home.hero} />
+        {home.whoWeAre.visible && <WhoWeAreSection content={home.whoWeAre} />}
+        {/*
+          Real activities lead the page. Each of these bands also drops out when
+          it has nothing to show, so an editor who has not filled a section yet
+          gets no empty heading over a blank row.
+        */}
+        {home.activityPosts.visible && activityPosts.length > 0 && (
+          <ActivityPostsSection activities={activityPosts} content={home.activityPosts} />
+        )}
+        {home.whatWeDo.visible && activities.length > 0 && (
+          <ActivitiesSection activities={activities} content={home.whatWeDo} />
+        )}
+        {home.blog.visible && posts.length > 0 && (
+          <MediaNewsSection posts={posts} content={home.blog} />
+        )}
+        {home.events.visible && allEvents.length > 0 && (
+          <EventsPreviewSection events={allEvents} content={home.events} />
+        )}
         {president.visible && (
           <PresidentSection
             name={president.name}
@@ -69,7 +80,9 @@ export default async function HomePage() {
             imageAlt={president.imageAlt}
           />
         )}
-        <CoursesCarouselSection courses={courses} />
+        {home.courses.visible && courses.length > 0 && (
+          <CoursesCarouselSection courses={courses} content={home.courses} />
+        )}
         {youtube.visible && (
           <LatestReleaseSection
             title={youtube.title}
@@ -80,7 +93,7 @@ export default async function HomePage() {
             ctaLabel={youtube.ctaLabel}
           />
         )}
-        <FacebookFeedSection />
+        {home.facebook.visible && <FacebookFeedSection content={home.facebook} />}
       </main>
       <Footer />
     </>
