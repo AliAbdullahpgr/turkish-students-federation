@@ -5,6 +5,14 @@ import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 
+/**
+ * Site-wide settings only.
+ *
+ * The `home_*` keys used to live here too, which meant this form and the new
+ * `/admin/home` screen would both write them and the last save would win. The
+ * homepage now owns its own fields; `home_eyebrow` and `home_secondary_cta`
+ * were dropped outright because nothing on the site has ever rendered them.
+ */
 const SETTING_FIELDS = [
   { key: "site_name", label: "Site Adı", short: true },
   { key: "site_short_name", label: "Kısa Ad", short: true },
@@ -13,13 +21,6 @@ const SETTING_FIELDS = [
   { key: "join_href", label: "Katılım Linki", short: true },
   { key: "site_description", label: "Site Açıklaması", short: false },
   { key: "guide_description", label: "Rehber Açıklaması", short: false },
-  { key: "home_eyebrow", label: "Home - Üst Etiket", short: true },
-  { key: "home_title_top", label: "Home - Başlık Üst", short: true },
-  { key: "home_title_bottom", label: "Home - Başlık Alt", short: true },
-  { key: "home_summary", label: "Home - Özet", short: false },
-  { key: "home_primary_cta", label: "Home - Buton 1", short: true },
-  { key: "home_secondary_cta", label: "Home - Buton 2", short: true },
-  { key: "home_about_intro", label: "Home - Hakkımızda Metni", short: false },
 ];
 
 export default function SiteSettingsPage() {
@@ -52,7 +53,11 @@ export default function SiteSettingsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-heading font-bold text-text-primary mb-6">Site Ayarları</h1>
+      <h1 className="text-2xl font-heading font-bold text-text-primary mb-2">Genel site ayarları</h1>
+      <p className="text-text-muted mb-6 text-sm">
+        Site geneli bilgiler. Anasayfadaki bölüm başlıkları ve metinleri için{" "}
+        <a href="/admin/home" className="font-semibold underline">Anasayfa bölümleri</a> sayfasını kullanın.
+      </p>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
         {SETTING_FIELDS.map((field) =>
           field.short ? (

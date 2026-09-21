@@ -12,15 +12,15 @@ import { revalidateSiteContent } from "@/lib/content-revalidation";
  * saving those three fields silently discarded the value and the form then
  * re-displayed the stale one, with no error anywhere.
  *
- * The president_* and youtube_* keys are deliberately absent: they are written
- * by their own server actions in `src/app/admin/actions.ts`, which validate
- * the image path and the YouTube address before the write.
+ * The president_*, youtube_* and home_* keys are deliberately absent: they are
+ * written by their own server actions in `src/app/admin/actions.ts`, which
+ * validate the image path, the YouTube address and every homepage link before
+ * the write. Leaving `home_*` here as well would let this endpoint and the
+ * `/admin/home` screen overwrite each other.
  */
 const editableKeys = new Set([
   "site_name", "site_short_name", "join_href", "site_description",
   "guide_name", "guide_href", "guide_description",
-  "home_eyebrow", "home_title_top", "home_title_bottom", "home_summary",
-  "home_primary_cta", "home_secondary_cta", "home_about_intro",
 ]);
 
 export async function GET() {

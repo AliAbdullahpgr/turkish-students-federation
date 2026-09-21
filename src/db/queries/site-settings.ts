@@ -1,7 +1,7 @@
 import { db } from "@/db/client";
 import { siteSettings } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { homeMessaging, siteIdentity } from "@/data/siteContent";
+import { siteIdentity } from "@/data/siteContent";
 import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 
 const staticSettings: Record<string, string> = {
@@ -12,13 +12,6 @@ const staticSettings: Record<string, string> = {
   join_href: siteIdentity.joinHref,
   site_description: siteIdentity.description,
   guide_description: siteIdentity.guideDescription,
-  home_eyebrow: homeMessaging.eyebrow,
-  home_title_top: homeMessaging.titleTop,
-  home_title_bottom: homeMessaging.titleBottom,
-  home_summary: homeMessaging.summary,
-  home_primary_cta: homeMessaging.primaryCta,
-  home_secondary_cta: homeMessaging.secondaryCta,
-  home_about_intro: homeMessaging.aboutIntro,
 };
 
 export async function getSiteSetting(key: string): Promise<string | null> {
@@ -69,18 +62,6 @@ export async function getSiteIdentity() {
   };
 }
 
-export async function getHomeMessaging() {
-  const settings = await getAllSiteSettings();
-  return {
-    eyebrow: settings.home_eyebrow ?? "Pakistan Türk Öğrenci Birliği",
-    titleTop: settings.home_title_top ?? "Pakistan'da",
-    titleBottom: settings.home_title_bottom ?? "Öğrenci Hayatı",
-    summary: settings.home_summary ?? "",
-    primaryCta: settings.home_primary_cta ?? "Blogları Keşfet",
-    secondaryCta: settings.home_secondary_cta ?? "Bize Katıl",
-    aboutIntro: settings.home_about_intro ?? "",
-  };
-}
 
 /**
  * The copy that was previously hardcoded in `PresidentSection.tsx`. Kept as
@@ -121,6 +102,9 @@ export async function getPresidentSection() {
  * `video` holds whatever address the editor pasted; the embed and thumbnail
  * are derived from it at render time by `src/lib/youtube.ts`.
  */
+/** The association's featured video, until an editor picks another one. */
+const DEFAULT_YOUTUBE_VIDEO = "https://www.youtube.com/watch?v=yr5MlusL0jE";
+
 export async function getYoutubeSection() {
   const settings = await getAllSiteSettings();
   const tags = (settings.youtube_tags ?? "")
@@ -132,7 +116,7 @@ export async function getYoutubeSection() {
     eyebrow: settings.youtube_eyebrow ?? "SON YAYIN",
     title: settings.youtube_title ?? "",
     description: settings.youtube_description ?? "",
-    videoUrl: settings.youtube_video_url ?? "",
+    videoUrl: settings.youtube_video_url ?? DEFAULT_YOUTUBE_VIDEO,
     channelUrl: settings.youtube_channel_url ?? "",
     ctaLabel: settings.youtube_cta_label ?? "Youtube Kanalını Takip Et",
     tags,
