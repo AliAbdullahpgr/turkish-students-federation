@@ -14,9 +14,9 @@ export type SocialAccount = {
 
 /**
  * Seeds the editor before anything has been saved. These mirror the values the
- * footer used to hardcode; the two whose links were `#` are listed with an
- * empty url so they show up in the admin as "needs a link" rather than
- * silently rendering a dead icon on the site.
+ * footer used to hardcode. Instagram now carries the association's real
+ * account; YouTube is still listed with an empty url, so it shows up in the
+ * admin as "needs a link" rather than silently rendering a dead icon.
  */
 export const defaultSocialAccounts: SocialAccount[] = [
   {
@@ -27,7 +27,14 @@ export const defaultSocialAccounts: SocialAccount[] = [
     active: true,
     openInNewTab: true,
   },
-  { id: "", platform: "instagram", label: "Instagram", url: "", active: true, openInNewTab: true },
+  {
+    id: "",
+    platform: "instagram",
+    label: "Instagram",
+    url: "https://www.instagram.com/pakturkogrencibirligi/",
+    active: true,
+    openInNewTab: true,
+  },
   { id: "", platform: "youtube", label: "YouTube", url: "", active: true, openInNewTab: true },
 ];
 
