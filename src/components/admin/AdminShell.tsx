@@ -6,6 +6,7 @@ import {
   Calendar,
   ChevronDown,
   FileText,
+  Home,
   Image as ImageIcon,
   LayoutDashboard,
   Link2,
@@ -53,7 +54,8 @@ const navigation: NavGroup[] = [
   {
     label: "Website içeriği",
     items: [
-      { href: "/admin/site-settings", label: "Anasayfa metinleri", description: "Başlıklar, özet, butonlar", icon: Type },
+      { href: "/admin/home", label: "Anasayfa bölümleri", description: "Her bölümün başlığı, metni ve görünürlüğü", icon: Home },
+      { href: "/admin/site-settings", label: "Genel site ayarları", description: "Site adı, açıklama, bağlantılar", icon: Type },
       { href: "/admin/president", label: "Başkan bölümü", description: "Anasayfadaki başkan kartı", icon: UserSquare },
       { href: "/admin/youtube", label: "YouTube bölümü", description: "Kanal ve öne çıkan video", icon: CirclePlay },
       { href: "/admin/social", label: "Sosyal medya hesapları", description: "Instagram, YouTube, Facebook", icon: Link2 },

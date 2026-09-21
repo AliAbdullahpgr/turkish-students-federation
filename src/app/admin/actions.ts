@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { siteSettings, socialAccounts } from "@/db/schema";
+import { HOME_FIELDS, homeFieldMaxLength } from "@/db/queries/home-sections";
 import { requireAdmin } from "@/lib/auth-guard";
 import { revalidateSiteContent } from "@/lib/content-revalidation";
 import { isValidLinkTarget } from "@/lib/public-routes";
@@ -55,6 +56,42 @@ async function writeSettings(values: Record<string, string>) {
       await db.insert(siteSettings).values({ key, value }).run();
     }
   }
+}
+
+/**
+ * The whole homepage in one save.
+ *
+ * Fields are driven off `HOME_SECTIONS` rather than a list kept here, so a new
+ * homepage field cannot be added to the form and then silently dropped on the
+ * write — which is exactly how `guide_name` and `guide_href` used to behave in
+ * the settings endpoint.
+ */
+export async function saveHomeContent(form: FormData) {
+  await requireAdmin();
+
+  const values: Record<string, string> = {};
+
+  for (const field of HOME_FIELDS) {
+    if (field.kind === "toggle") {
+      values[field.key] = checkbox(form, field.key);
+      continue;
+    }
+
+    const value = text(form, field.key, homeFieldMaxLength(field));
+
+    // A blank link is allowed — it means "no button". A non-blank one has to be
+    // a real target, so a typo cannot put a dead link on the homepage.
+    if (field.kind === "href" && value && !isValidLinkTarget(value)) {
+      redirect(`/admin/home?error=href&field=${encodeURIComponent(field.key)}`);
+    }
+
+    values[field.key] = value;
+  }
+
+  await writeSettings(values);
+
+  revalidateSiteContent();
+  redirect("/admin/home?saved=1");
 }
 
 export async function savePresidentSection(form: FormData) {
