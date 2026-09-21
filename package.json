@@ -11,6 +11,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "content:sync": "tsx --env-file=.env scripts/sync-static-content.ts",
+    "content:clean": "tsx --env-file=.env scripts/remove-placeholder-content.ts",
     "test": "vitest run --exclude \"**/db-crud.test.ts\" --exclude \"**/db-queries.test.ts\" --exclude \"**/seed.test.ts\" --exclude \"**/node_modules/**\"",
     "test:db": "vitest run src/__tests__/db-crud.test.ts src/__tests__/db-queries.test.ts src/__tests__/seed.test.ts",
     "test:e2e": "playwright test",
