@@ -46,7 +46,7 @@ export default function EventsPageClient({ events, activeTab }: EventsPageClient
                     : "bg-surface text-text-secondary hover:text-primary"
                 }`}
               >
-                {status === "upcoming" ? "YAKLASAN" : "GECMIS"}
+                {status === "upcoming" ? "YAKLAŞAN" : "GEÇMİŞ"}
               </Link>
             ))}
           </div>
@@ -58,17 +58,14 @@ export default function EventsPageClient({ events, activeTab }: EventsPageClient
                 className="group flex h-full flex-col overflow-hidden rounded-md border border-border-custom transition-transform duration-300 hover:-translate-y-1"
               >
                 {event.posterImage && (
-                  <div className="relative aspect-[4/3] overflow-hidden bg-surface">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-surface">
                     <Image
                       src={event.posterImage}
                       alt={event.title}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="object-contain"
                     />
-                    <div className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[10px] font-bold text-primary">
-                      PTOB
-                    </div>
                   </div>
                 )}
 
