@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminUi";
 import PresidentForm from "@/app/admin/(protected)/president/PresidentForm";
 import { getPresidentSection } from "@/db/queries/site-settings";
@@ -31,12 +29,6 @@ export default async function AdminPresidentPage({
         eyebrow="Website içeriği"
         title="Başkan bölümü"
         description="Anasayfadaki başkan kartı. Adı, görevi, mesajı ve fotoğrafı buradan güncelleyin."
-        action={
-          <Link href="/" target="_blank" rel="noreferrer" className="admin-button admin-button-secondary">
-            Website&apos;i görüntüle
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </Link>
-        }
       />
       <PresidentForm
         president={president}

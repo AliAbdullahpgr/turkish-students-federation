@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminUi";
 import SocialAccountsForm from "@/app/admin/(protected)/social/SocialAccountsForm";
 import { getAllSocialAccounts } from "@/db/queries/social-accounts";
@@ -28,12 +26,6 @@ export default async function AdminSocialPage({
         eyebrow="Website içeriği"
         title="Sosyal medya hesapları"
         description="Hesapları ekleyin, sırasını değiştirin ve hangilerinin yayında olacağını seçin. Bağlantısı olmayan hesaplar website'de görünmez."
-        action={
-          <Link href="/" target="_blank" rel="noreferrer" className="admin-button admin-button-secondary">
-            Website&apos;i görüntüle
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </Link>
-        }
       />
       <SocialAccountsForm
         initialAccounts={accounts}

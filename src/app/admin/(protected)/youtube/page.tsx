@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminUi";
 import YoutubeForm from "@/app/admin/(protected)/youtube/YoutubeForm";
 import { getYoutubeSection } from "@/db/queries/site-settings";
@@ -30,12 +28,6 @@ export default async function AdminYoutubePage({
         eyebrow="Website içeriği"
         title="YouTube bölümü"
         description="Anasayfadaki öne çıkan video ve kanal bağlantısı. Video adresini yapıştırmanız yeterli; yerleştirme otomatik oluşturulur."
-        action={
-          <Link href="/" target="_blank" rel="noreferrer" className="admin-button admin-button-secondary">
-            Website&apos;i görüntüle
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </Link>
-        }
       />
       <YoutubeForm
         youtube={youtube}

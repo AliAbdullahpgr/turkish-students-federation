@@ -1,5 +1,3 @@
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminUi";
 import HomeContentForm from "@/app/admin/(protected)/home/HomeContentForm";
 import {
@@ -39,12 +37,6 @@ export default async function AdminHomePage({
         eyebrow="Website içeriği"
         title="Anasayfa"
         description="Anasayfadaki her bölümün başlığı, metni, bağlantısı ve görünürlüğü. Bölümler sitedeki sırayla listelenir."
-        action={
-          <Link href="/" target="_blank" rel="noreferrer" className="admin-button admin-button-secondary">
-            Website&apos;i görüntüle
-            <ArrowUpRight className="size-4" aria-hidden="true" />
-          </Link>
-        }
       />
       <HomeContentForm
         sections={HOME_SECTIONS}
