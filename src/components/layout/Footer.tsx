@@ -17,16 +17,11 @@ const quickLinks = [
   { label: "Gizlilik Politikası", href: "/privacy/" },
 ];
 
-const literatureLinks = [
-  { label: "Kitaplar", href: "/books/" },
-  { label: "Bülten", href: "/newsletter/" },
-];
-
 export default function Footer({ description, socialAccounts }: FooterProps) {
   return (
     <footer className="bg-surface pt-16 text-text-secondary">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.2fr]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr]">
           <div>
             <Image
               src="/logo.png"
@@ -73,24 +68,6 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
             </ul>
           </div>
 
-          <div>
-            <h2 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-text-primary">
-              Edebiyat
-            </h2>
-            <ul className="m-0 list-none p-0">
-              {literatureLinks.map((link) => (
-                <li key={link.label} className="mb-1">
-                  <Link
-                    href={link.href}
-                    prefetch={false}
-                    className="inline-block py-1 text-sm text-text-secondary no-underline transition-colors hover:text-accent"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           <div>
             <h2 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-text-primary">

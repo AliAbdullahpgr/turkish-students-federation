@@ -51,14 +51,14 @@ describe("admin navigation -> public header and footer", () => {
   });
 
   it("nests a child item under its parent", async () => {
-    const parent = await (await createItem({ label: "Yayınlar", href: "/books/" })).json();
-    await createItem({ label: "Bülten", href: "/newsletter/", parentId: parent.id });
+    const parent = await (await createItem({ label: "Yayınlar", href: "/events/" })).json();
+    await createItem({ label: "Bülten", href: "/departments/", parentId: parent.id });
 
     const tree = await publicQueries.getNavigationTree();
     expect(tree).toHaveLength(1);
     expect(tree[0].children).toHaveLength(1);
     expect(tree[0].children![0].label).toBe("Bülten");
-    expect(tree[0].children![0].href).toBe("/newsletter/");
+    expect(tree[0].children![0].href).toBe("/departments/");
   });
 
   it("a parent with no children reports undefined rather than an empty array", async () => {
@@ -105,7 +105,7 @@ describe("admin navigation -> public header and footer", () => {
   it("orders the public navigation by sortOrder", async () => {
     await createItem({ label: "Üçüncü", href: "/events/", sortOrder: 30 });
     await createItem({ label: "Birinci", href: "/about-us/", sortOrder: 10 });
-    await createItem({ label: "İkinci", href: "/books/", sortOrder: 20 });
+    await createItem({ label: "İkinci", href: "/events/", sortOrder: 20 });
 
     const tree = await publicQueries.getNavigationTree();
     expect(tree.map((i) => i.label)).toEqual(["Birinci", "İkinci", "Üçüncü"]);
@@ -113,7 +113,7 @@ describe("admin navigation -> public header and footer", () => {
 
   it("the reorder endpoint rearranges the public menu", async () => {
     const a = await (await createItem({ label: "A", href: "/about-us/", sortOrder: 1 })).json();
-    const b = await (await createItem({ label: "B", href: "/books/", sortOrder: 2 })).json();
+    const b = await (await createItem({ label: "B", href: "/events/", sortOrder: 2 })).json();
 
     const res = await reorder.PUT(
       jsonRequest("PUT", {
@@ -131,7 +131,7 @@ describe("admin navigation -> public header and footer", () => {
 
   it("the reorder endpoint can nest an item under another", async () => {
     const parent = await (await createItem({ label: "Üst", href: "/about-us/" })).json();
-    const loose = await (await createItem({ label: "Alt", href: "/books/" })).json();
+    const loose = await (await createItem({ label: "Alt", href: "/events/" })).json();
     expect(await publicQueries.getNavigationTree()).toHaveLength(2);
 
     await reorder.PUT(jsonRequest("PUT", { items: [{ id: loose.id, parentId: parent.id, sortOrder: 0 }] }));
@@ -148,7 +148,7 @@ describe("admin navigation -> public header and footer", () => {
 
   it("deleting a parent removes its children from the public menu too", async () => {
     const parent = await (await createItem({ label: "Üst", href: "/about-us/" })).json();
-    await createItem({ label: "Alt", href: "/books/", parentId: parent.id });
+    await createItem({ label: "Alt", href: "/events/", parentId: parent.id });
     expect(await countRows("navigation_items")).toBe(2);
 
     await idRoutes.DELETE(jsonRequest("DELETE"), routeParams(parent.id));

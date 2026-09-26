@@ -404,7 +404,7 @@ describe("public list pages render what the admin wrote", () => {
         title: "Urduca Başlangıç Kursu",
         instructor: "Dr. Kamran",
         description: "Sıfırdan Urduca.",
-        href: "/literature/",
+        href: "/faaliyetler/",
       }),
     );
 

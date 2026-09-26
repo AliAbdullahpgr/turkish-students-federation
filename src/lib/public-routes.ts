@@ -1,19 +1,13 @@
 const publicRoutePrefixes = [
   "/",
   "/about-us/",
-  "/books/",
   "/contact-us/",
   "/departments/",
   "/events/",
   "/faaliyetler/",
   "/join-tsf/",
-  "/literature/",
   "/news-blogs/",
-  "/newsletter/",
-  "/pakistan-rehberi/",
-  "/press-releases/",
   "/privacy/",
-  "/students-times/",
   "/terms/",
 ];
 

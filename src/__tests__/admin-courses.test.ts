@@ -32,7 +32,7 @@ function createCourse(overrides: Record<string, unknown> = {}) {
       title: "Urduca Başlangıç Kursu",
       instructor: "Dr. Kamran",
       description: "Sıfırdan Urduca öğrenin.",
-      href: "/literature/",
+      href: "/faaliyetler/",
       ...overrides,
     }),
   );
@@ -50,7 +50,7 @@ describe("admin courses -> public homepage", () => {
     expect(all[0].title).toBe("Urduca Başlangıç Kursu");
     expect(all[0].instructor).toBe("Dr. Kamran");
     expect(all[0].description).toBe("Sıfırdan Urduca öğrenin.");
-    expect(all[0].href).toBe("/literature/");
+    expect(all[0].href).toBe("/faaliyetler/");
   });
 
   it("surfaces the course thumbnail as a public HTTPS URL", async () => {
@@ -101,14 +101,14 @@ describe("admin courses -> public homepage", () => {
     const created = await (await createCourse()).json();
 
     const ok = await idRoutes.PUT(
-      jsonRequest("PUT", { title: "Yeni Kurs Adı", instructor: "Dr. Zehra", href: "/books/" }),
+      jsonRequest("PUT", { title: "Yeni Kurs Adı", instructor: "Dr. Zehra", href: "/events/" }),
       routeParams(created.id),
     );
     expect(ok.status).toBe(200);
     let all = await publicQueries.getAllCourses();
     expect(all[0].title).toBe("Yeni Kurs Adı");
     expect(all[0].instructor).toBe("Dr. Zehra");
-    expect(all[0].href).toBe("/books/");
+    expect(all[0].href).toBe("/events/");
 
     const bad = await idRoutes.PUT(
       jsonRequest("PUT", { title: "Yeni Kurs Adı", href: "javascript:alert(1)" }),
@@ -116,7 +116,7 @@ describe("admin courses -> public homepage", () => {
     );
     expect(bad.status).toBe(400);
     all = await publicQueries.getAllCourses();
-    expect(all[0].href).toBe("/books/");
+    expect(all[0].href).toBe("/events/");
   });
 
   it("a deleted course disappears from the public list", async () => {
