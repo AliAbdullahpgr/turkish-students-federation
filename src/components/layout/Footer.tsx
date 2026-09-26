@@ -21,7 +21,7 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
   return (
     <footer className="bg-surface pt-16 text-text-secondary">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr]">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr]">
           <div>
             <Image
               src="/logo.png"
@@ -66,30 +66,6 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
                 </li>
               ))}
             </ul>
-          </div>
-
-
-          <div>
-            <h2 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-text-primary">
-              İletişime Geç
-            </h2>
-            <p className="mb-4 text-sm leading-relaxed">
-              Gelecek güncellemelerimizi kaçırma! Hemen abone ol!
-            </p>
-            <form className="flex flex-col gap-2.5">
-              <input
-                type="email"
-                aria-label="E-posta adresiniz"
-                placeholder="E-posta adresinizi girin"
-                className="rounded-lg border border-border-custom bg-white px-4 py-2.5 text-sm text-text-primary outline-none transition-all placeholder:text-text-muted focus:border-action"
-              />
-              <button
-                type="submit"
-                className="rounded-xl bg-action px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-action-dark"
-              >
-                Abone Ol
-              </button>
-            </form>
           </div>
         </div>
       </div>
