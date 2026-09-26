@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { X } from "lucide-react";
 import { saveYoutubeSection } from "@/app/admin/actions";
 import { AdminCard, FormField, inputClass } from "@/components/admin/AdminUi";
 import { AdminSubmitButton, UnsavedChangesGuard } from "@/components/admin/FormActions";
@@ -121,16 +122,7 @@ export default function YoutubeForm({
           />
         </FormField>
 
-        <FormField
-          label="Etiketler"
-          hint="Virgülle ayırın. Örnek: Seminer, Gençlik Etkisi, Öğrenci Organizasyonu"
-        >
-          <input
-            name="tags"
-            defaultValue={youtube.tags.join(", ")}
-            className={inputClass}
-          />
-        </FormField>
+        <TagsField initial={youtube.tags} />
       </AdminCard>
 
       <AdminCard
@@ -159,5 +151,78 @@ export default function YoutubeForm({
         <AdminSubmitButton>YouTube bölümünü kaydet</AdminSubmitButton>
       </div>
     </form>
+  );
+}
+
+/**
+ * The tags under the video title, one removable chip each.
+ *
+ * This used to be a single comma-separated text box, and clearing a tag meant
+ * finding it inside that string — easy to miss, which is how tags "would not
+ * go away". The form still posts one comma-joined `tags` value, so the save
+ * action and the stored format are unchanged.
+ */
+function TagsField({ initial }: { initial: string[] }) {
+  const [tags, setTags] = useState(initial);
+  const [draft, setDraft] = useState("");
+
+  function add(raw: string) {
+    const next = raw
+      .split(",")
+      .map((tag) => tag.trim())
+      .filter((tag) => tag && !tags.includes(tag));
+    if (next.length) setTags([...tags, ...next]);
+    setDraft("");
+  }
+
+  return (
+    <FormField
+      label="Etiketler"
+      hint="Yazıp Enter'a basın. Bir etiketi kaldırmak için yanındaki × işaretine tıklayın. Hiç etiket yoksa bu satır sitede gösterilmez."
+    >
+      {tags.length > 0 && (
+        <ul className="admin-tag-list" aria-label="Eklenen etiketler">
+          {tags.map((tag) => (
+            <li key={tag} className="admin-tag">
+              <span>{tag}</span>
+              <button
+                type="button"
+                onClick={() => setTags(tags.filter((candidate) => candidate !== tag))}
+                aria-label={`${tag} etiketini kaldır`}
+              >
+                <X className="size-3.5" aria-hidden="true" />
+              </button>
+            </li>
+          ))}
+          <li>
+            <button type="button" className="admin-tag-clear" onClick={() => setTags([])}>
+              Tümünü kaldır
+            </button>
+          </li>
+        </ul>
+      )}
+      <input
+        value={draft}
+        onChange={(event) => {
+          const value = event.target.value;
+          if (value.includes(",")) add(value);
+          else setDraft(value);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            // Enter would otherwise submit the whole form mid-edit.
+            event.preventDefault();
+            add(draft);
+          } else if (event.key === "Backspace" && !draft && tags.length) {
+            setTags(tags.slice(0, -1));
+          }
+        }}
+        onBlur={() => draft && add(draft)}
+        placeholder="Yeni etiket…"
+        aria-label="Yeni etiket"
+        className={inputClass}
+      />
+      <input type="hidden" name="tags" value={tags.join(", ")} />
+    </FormField>
   );
 }

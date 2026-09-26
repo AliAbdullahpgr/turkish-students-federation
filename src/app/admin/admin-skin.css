@@ -935,3 +935,57 @@ a.ad-stat:hover {
   flex: 1 1 280px;
   gap: 10px;
 }
+
+/* Removable tags (YouTube section). */
+.pl-shell .admin-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.pl-shell .admin-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: var(--ad-border);
+  border-radius: 6px;
+  background: var(--ad-mist);
+  color: var(--ad-green-ink);
+  padding: 3px 4px 3px 10px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.pl-shell .admin-tag button {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--ad-muted);
+  cursor: pointer;
+}
+
+.pl-shell .admin-tag button:hover {
+  background: #f7d0cc;
+  color: #692725;
+}
+
+.pl-shell .admin-tag-clear {
+  border: 0;
+  background: none;
+  color: var(--ad-muted);
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.pl-shell .admin-tag-clear:hover {
+  color: #692725;
+}
