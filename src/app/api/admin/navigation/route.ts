@@ -7,12 +7,13 @@ import { nanoid } from "nanoid";
 import { apiErrorResponse, boolean, integer, optionalText, readJsonObject, requiredText } from "@/lib/api-validation";
 import { isKnownPublicHref } from "@/lib/public-routes";
 import { revalidateNavigationContent } from "@/lib/content-revalidation";
+import { liveNavigationRows } from "@/db/queries/navigation";
 
 export async function GET() {
   const unauthorizedResponse = await requireAdminRequest();
   if (unauthorizedResponse) return unauthorizedResponse;
   const all = await db.select().from(navigationItems).orderBy(asc(navigationItems.sortOrder)).all();
-  return NextResponse.json(all);
+  return NextResponse.json(liveNavigationRows(all));
 }
 
 export async function POST(req: NextRequest) {

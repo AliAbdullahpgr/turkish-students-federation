@@ -5,6 +5,21 @@ import { navigationItems } from "@/db/schema";
 import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
 import { isKnownPublicHref, normalizePublicHref } from "@/lib/public-routes";
 
+type NavigationRow = { id: string; parentId: string | null; href: string };
+
+/**
+ * Rows pointing at a page the site no longer has (the old "Pakistan Rehberi"
+ * and "Yayınlar" entries, or a typo) are dropped, and so is anything nested
+ * under them. They are left out rather than rewritten to "/": a menu entry that
+ * silently opens the homepage is worse than no entry. The admin reads through
+ * this too, so those rows cannot be listed or opened there either.
+ */
+export function liveNavigationRows<T extends NavigationRow>(rows: T[]): T[] {
+  const known = rows.filter((row) => isKnownPublicHref(row.href));
+  const ids = new Set(known.map((row) => row.id));
+  return known.filter((row) => row.parentId === null || ids.has(row.parentId));
+}
+
 export interface NavItem {
   label: string;
   href: string;
@@ -34,10 +49,7 @@ export async function getNavigationTree(): Promise<NavItem[]> {
     );
   }
 
-  // A row pointing at a page the site no longer has (a removed section, a
-  // typo) is left out rather than rewritten to "/": a menu entry that silently
-  // opens the homepage is worse than no entry. Its children go with it.
-  const live = all.filter((item) => isKnownPublicHref(item.href));
+  const live = liveNavigationRows(all);
 
   return live
     .filter((item) => item.parentId === null)

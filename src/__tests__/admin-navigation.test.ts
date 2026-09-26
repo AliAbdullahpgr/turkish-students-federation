@@ -160,6 +160,13 @@ describe("admin navigation -> public header and footer", () => {
 
     const tree = await publicQueries.getNavigationTree();
     expect(tree.map((item) => item.label)).toEqual(["Hakkımızda"]);
+
+    // The admin cannot list or open them either.
+    const listed = (await (await routes.GET(jsonRequest("GET"))).json()) as { label: string }[];
+    expect(listed.map((item) => item.label)).toEqual(["Hakkımızda"]);
+    for (const id of ["pubs", "pubs-books", "guide", "guide-visa"]) {
+      expect((await idRoutes.GET(jsonRequest("GET"), routeParams(id))).status).toBe(404);
+    }
   });
 
   it("deleting a parent removes its children from the public menu too", async () => {
