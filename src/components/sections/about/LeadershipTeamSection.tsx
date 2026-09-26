@@ -20,7 +20,7 @@ export default function LeadershipTeamSection({ members }: LeadershipTeamSection
       <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
         <SectionHeader
           title={<>Proje <span className="text-accent">Ekibimiz</span></>}
-          lede="Kararli, adanmis ve ogrenci topluluguna derinden bagli; Pakistan Ogrenci Rehberi&apos;ni hazirlayan ekiple tanisin."
+          lede="Kararlı, adanmış ve öğrenci topluluğuna derinden bağlı; Pakistan Öğrenci Rehberi&apos;ni hazırlayan ekiple tanışın."
         />
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">

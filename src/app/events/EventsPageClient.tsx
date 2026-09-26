@@ -31,7 +31,7 @@ export default function EventsPageClient({ events, activeTab }: EventsPageClient
       <section className="bg-white py-section border-t border-border-custom">
         <div className="max-w-[1280px] mx-auto px-6 lg:px-12">
           <SectionHeader
-            title={<>Yaklasan ve <span className="text-accent">Gecmis</span> Etkinlikler</>}
+            title={<>Yaklaşan ve <span className="text-accent">Geçmiş</span> Etkinlikler</>}
           />
 
           <div className="mb-10 flex justify-center">

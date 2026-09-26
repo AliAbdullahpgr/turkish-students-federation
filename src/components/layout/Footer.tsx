@@ -10,16 +10,16 @@ interface FooterProps {
 
 const quickLinks = [
   { label: "Ana Sayfa", href: "/" },
-  { label: "Hakkimizda", href: "/about-us/" },
+  { label: "Hakkımızda", href: "/about-us/" },
   { label: "Etkinlikler", href: "/events/" },
   { label: "Birimlerimiz", href: "/departments/" },
-  { label: "Kullanim Kosullari", href: "/terms/" },
-  { label: "Gizlilik Politikasi", href: "/privacy/" },
+  { label: "Kullanım Koşulları", href: "/terms/" },
+  { label: "Gizlilik Politikası", href: "/privacy/" },
 ];
 
 const literatureLinks = [
   { label: "Kitaplar", href: "/books/" },
-  { label: "Bulten", href: "/newsletter/" },
+  { label: "Bülten", href: "/newsletter/" },
 ];
 
 export default function Footer({ description, socialAccounts }: FooterProps) {
@@ -30,7 +30,7 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
           <div>
             <Image
               src="/logo.png"
-              alt="MSL Pakistan"
+              alt="Turkish Student Federation"
               width={112}
               height={112}
               className="mb-4 h-28 w-28 object-contain"
@@ -56,7 +56,7 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
 
           <div>
             <h2 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-text-primary">
-              Hizli Baglantilar
+              Hızlı Bağlantılar
             </h2>
             <ul className="m-0 list-none p-0">
               {quickLinks.map((link) => (
@@ -94,10 +94,10 @@ export default function Footer({ description, socialAccounts }: FooterProps) {
 
           <div>
             <h2 className="mb-5 text-[15px] font-bold uppercase tracking-wider text-text-primary">
-              Iletisime Gec
+              İletişime Geç
             </h2>
             <p className="mb-4 text-sm leading-relaxed">
-              Gelecek guncellemelerimizi kacirma! Hemen abone ol!
+              Gelecek güncellemelerimizi kaçırma! Hemen abone ol!
             </p>
             <form className="flex flex-col gap-2.5">
               <input
