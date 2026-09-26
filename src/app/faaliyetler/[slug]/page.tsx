@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { formatActivityDate } from "@/lib/format-date";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -37,7 +38,7 @@ export default async function ActivityDetailPage({ params }: ActivityPageProps) 
   if (!activity) notFound();
 
   const minutes = readingTime(activity.body || activity.excerpt || "");
-  const meta = [activity.location, activity.happenedAt?.slice(0, 10)].filter(Boolean);
+  const meta = [activity.location, formatActivityDate(activity.happenedAt)].filter(Boolean);
 
   return (
     <>

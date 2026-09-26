@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { formatActivityDate } from "@/lib/format-date";
 import AnnouncementBar from "@/components/layout/AnnouncementBarRSC";
 import Footer from "@/components/layout/FooterRSC";
 import Navigation from "@/components/layout/NavigationRSC";
@@ -39,7 +40,7 @@ export default async function ActivitiesPage() {
                     title={activity.title}
                     excerpt={activity.excerpt}
                     href={`/faaliyetler/${activity.slug}/`}
-                    date={activity.happenedAt?.slice(0, 10) ?? undefined}
+                    date={formatActivityDate(activity.happenedAt)}
                     category={activity.category ?? undefined}
                     author={activity.location ?? undefined}
                     thumbnail={activity.thumbnail ?? undefined}

@@ -1,6 +1,7 @@
 "use client";
 
 import PostCard from "@/components/ui/PostCard";
+import { formatActivityDate } from "@/lib/format-date";
 import FadeIn from "@/components/animation/FadeIn";
 import SectionHeader from "@/components/ui/SectionHeader";
 import type { HomeContent } from "@/db/queries/home-sections";
@@ -55,7 +56,7 @@ export default function ActivityPostsSection({ activities, content }: ActivityPo
               title={activity.title}
               excerpt={activity.excerpt}
               href={`/faaliyetler/${activity.slug}/`}
-              date={activity.happenedAt?.slice(0, 10) ?? undefined}
+              date={formatActivityDate(activity.happenedAt)}
               category={activity.category ?? undefined}
               author={activity.location ?? undefined}
               thumbnail={activity.thumbnail ?? undefined}
