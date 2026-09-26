@@ -3,7 +3,7 @@ import { navItems as fallbackNavItems } from "@/data/navigation";
 import { db } from "@/db/client";
 import { navigationItems } from "@/db/schema";
 import { staticFallbackOrThrow } from "@/db/queries/static-fallback";
-import { normalizePublicHref } from "@/lib/public-routes";
+import { isKnownPublicHref, normalizePublicHref } from "@/lib/public-routes";
 
 export interface NavItem {
   label: string;
@@ -34,18 +34,20 @@ export async function getNavigationTree(): Promise<NavItem[]> {
     );
   }
 
-  return all
+  // A row pointing at a page the site no longer has (a removed section, a
+  // typo) is left out rather than rewritten to "/": a menu entry that silently
+  // opens the homepage is worse than no entry. Its children go with it.
+  const live = all.filter((item) => isKnownPublicHref(item.href));
+
+  return live
     .filter((item) => item.parentId === null)
     .map((item) => {
-      const children = all.filter((child) => child.parentId === item.id);
+      const children = live.filter((child) => child.parentId === item.id);
       return {
         label: item.label,
-        href: normalizePublicHref(item.href),
+        href: item.href,
         children: children.length
-          ? children.map((child) => ({
-              label: child.label,
-              href: normalizePublicHref(child.href),
-            }))
+          ? children.map((child) => ({ label: child.label, href: child.href }))
           : undefined,
       };
     });

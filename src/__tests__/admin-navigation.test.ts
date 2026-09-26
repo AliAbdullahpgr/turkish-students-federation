@@ -7,6 +7,7 @@ import {
   routeParams,
   countRows,
   revalidatedPaths,
+  testClient,
 } from "./helpers/admin-harness";
 
 type Handler = (req: Request, ctx?: unknown) => Promise<Response>;
@@ -144,6 +145,21 @@ describe("admin navigation -> public header and footer", () => {
   it("rejects a malformed reorder payload", async () => {
     expect((await reorder.PUT(jsonRequest("PUT", { items: "nope" }))).status).toBe(400);
     expect((await reorder.PUT(jsonRequest("PUT", { items: [{ id: "x" }] }))).status).toBe(400);
+  });
+
+  it("leaves out rows that point at a page the site no longer has, children included", async () => {
+    await createItem({ label: "Hakkımızda", href: "/about-us/", sortOrder: 1 });
+    // Written straight to the table: the admin API already refuses these links.
+    await testClient.execute(
+      `INSERT INTO navigation_items (id, parent_id, label, href, sort_order, is_visible) VALUES
+        ('pubs', NULL, 'Yayınlar', '/literature/', 2, 1),
+        ('pubs-books', 'pubs', 'Kitaplar', '/books/', 0, 1),
+        ('guide', NULL, 'Pakistan Rehberi', '/pakistan-rehberi/', 3, 1),
+        ('guide-visa', 'guide', 'Vize', '/pakistan-rehberi/#vize', 0, 1)`,
+    );
+
+    const tree = await publicQueries.getNavigationTree();
+    expect(tree.map((item) => item.label)).toEqual(["Hakkımızda"]);
   });
 
   it("deleting a parent removes its children from the public menu too", async () => {
