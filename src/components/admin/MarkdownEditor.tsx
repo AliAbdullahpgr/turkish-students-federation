@@ -18,7 +18,7 @@ interface MarkdownEditorProps {
 export default function MarkdownEditor({
   value,
   onChange,
-  placeholder = "Icerik yazin...",
+  placeholder = "İçerik yazın...",
   minHeight = "320px",
   label,
   error,
@@ -45,7 +45,7 @@ export default function MarkdownEditor({
                 mode === "split" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Bolunmus
+              Bölünmüş
             </button>
             <button
               type="button"
@@ -54,7 +54,7 @@ export default function MarkdownEditor({
                 mode === "edit" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Duzenle
+              Düzenle
             </button>
             <button
               type="button"
@@ -63,7 +63,7 @@ export default function MarkdownEditor({
                 mode === "preview" ? "bg-primary text-white" : "text-text-secondary hover:text-primary"
               }`}
             >
-              Onizle
+              Önizle
             </button>
           </div>
         </div>
@@ -74,6 +74,11 @@ export default function MarkdownEditor({
           preview={preview}
           height={minHeight}
           visibleDragbar={false}
+          // The library's fullscreen mode (also Ctrl/Cmd+0 inside the editor)
+          // writes `overflow: hidden` to <body> and never restores it if the
+          // editor unmounts while fullscreen, which locked scrolling on every
+          // admin page after the next navigation.
+          overflow={false}
           textareaProps={{ placeholder }}
         />
       </div>

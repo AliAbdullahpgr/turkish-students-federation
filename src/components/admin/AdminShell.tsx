@@ -187,6 +187,10 @@ export default function AdminShell({
   useEffect(() => {
     setNavOpen(false);
     setNavQuery("");
+    // Dialogs, the mobile nav and the markdown editor all lock scrolling by
+    // writing to <body>. One that unmounts mid-lock would leave every later
+    // page unscrollable, so a new page always starts unlocked.
+    document.body.style.overflow = "";
   }, [pathname]);
 
   function toggleGroup(label: string) {
