@@ -22,7 +22,7 @@ export default function Navigation({ navItems }: NavigationProps) {
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
-            alt="MSL Pakistan"
+            alt="Turkish Student Federation"
             width={112}
             height={112}
             className="h-20 w-auto object-contain"
