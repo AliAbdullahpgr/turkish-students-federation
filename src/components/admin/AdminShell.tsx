@@ -5,7 +5,6 @@ import {
   BookOpen,
   Calendar,
   ChevronDown,
-  FileText,
   Home,
   Image as ImageIcon,
   LayoutDashboard,
@@ -70,7 +69,6 @@ const navigation: NavGroup[] = [
       { href: "/admin/events", label: "Etkinlikler", description: "Yaklaşan ve geçmiş etkinlikler", icon: Calendar },
       { href: "/admin/activities", label: "Aktiviteler", description: "Faaliyet kartları", icon: Activity },
       { href: "/admin/courses", label: "Kurslar", description: "Kurs listesi", icon: BookOpen },
-      { href: "/admin/guide-sections", label: "Rehber bölümleri", description: "Pakistan rehberi içeriği", icon: FileText },
     ],
   },
   {

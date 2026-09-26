@@ -164,18 +164,6 @@ describe("Query Functions Integration", () => {
     expect(all.length).toBe(6);
   });
 
-  it("getGuideSectionTree builds nested hierarchy", async () => {
-    const { getGuideSectionTree } = await import("@/db/queries/guide-sections");
-    const tree = await getGuideSectionTree();
-    expect(tree.length).toBeGreaterThan(0);
-
-    // Find a section with children
-    const pakistanHakkinda = tree.find((s) => s.id === "pakistan-hakkinda");
-    expect(pakistanHakkinda).toBeDefined();
-    expect(pakistanHakkinda!.children).toBeDefined();
-    expect(pakistanHakkinda!.children!.length).toBeGreaterThan(0);
-  });
-
   it("getNavigationTree builds nested NavItem structure", async () => {
     const { getNavigationTree } = await import("@/db/queries/navigation");
     const tree = await getNavigationTree();

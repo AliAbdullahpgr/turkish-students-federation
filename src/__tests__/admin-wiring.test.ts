@@ -97,18 +97,6 @@ describe("queries reach the public site", () => {
     expect(queryModules.length).toBeGreaterThan(5);
   });
 
-  /**
-   * `guide-sections` is editable in the admin ("Rehber bölümleri"), has a REST
-   * API and is seeded, but nothing on the public site reads it: the "Pakistan
-   * Rehberi" nav entry permanently redirects to the blog. Editing it therefore
-   * changes nothing a visitor can see.
-   *
-   * Listed here so the suite stays green while the gap stays visible. Remove the
-   * entry once a public page renders the guide — or delete the admin screen and
-   * the table if the blog has genuinely replaced it.
-   */
-  const KNOWN_ORPHANED = new Set(["guide-sections.ts"]);
-
   it.each(queryModules)("%s exports a getter the public site calls", (file) => {
     const source = read(path.join(QUERIES_DIR, file));
     const exported = [...source.matchAll(/export async function (\w+)/g)].map((m) => m[1]);
@@ -116,14 +104,6 @@ describe("queries reach the public site", () => {
     expect(exported.length, `${file} exports no async getters`).toBeGreaterThan(0);
 
     const used = exported.some((name) => publicSource.includes(name));
-
-    if (KNOWN_ORPHANED.has(file)) {
-      expect(
-        used,
-        `${file} is now wired to a public page — remove it from KNOWN_ORPHANED`,
-      ).toBe(false);
-      return;
-    }
 
     expect(used, `none of ${file}'s exports (${exported.join(", ")}) are used by a public page`).toBe(
       true,
