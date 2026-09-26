@@ -17,7 +17,7 @@ import { getAllSiteSettings } from "@/db/queries/site-settings";
  * settings-key allowlist.
  */
 
-export type HomeFieldKind = "text" | "long" | "href" | "toggle";
+export type HomeFieldKind = "text" | "long" | "href" | "image" | "toggle";
 
 export interface HomeField {
   key: string;
@@ -75,9 +75,9 @@ export const HOME_SECTIONS: HomeSectionSpec[] = [
       {
         key: "home_hero_image",
         label: "Arka plan görseli",
-        kind: "href",
+        kind: "image",
         fallback: "/image/association-community-evening.png",
-        help: "Medya kütüphanesinden bir yol veya https ile başlayan bir adres.",
+        help: "Yükleyin veya kütüphaneden seçin. Elle girerseniz /image/… ya da https://… ile başlamalıdır.",
       },
     ],
   },

@@ -80,8 +80,9 @@ export async function saveHomeContent(form: FormData) {
     const value = text(form, field.key, homeFieldMaxLength(field));
 
     // A blank link is allowed — it means "no button". A non-blank one has to be
-    // a real target, so a typo cannot put a dead link on the homepage.
-    if (field.kind === "href" && value && !isValidLinkTarget(value)) {
+    // a real target, so a typo cannot put a dead link on the homepage. Image
+    // paths go through the same check: `/image/…` or an https address.
+    if ((field.kind === "href" || field.kind === "image") && value && !isValidLinkTarget(value)) {
       redirect(`/admin/home?error=href&field=${encodeURIComponent(field.key)}`);
     }
 

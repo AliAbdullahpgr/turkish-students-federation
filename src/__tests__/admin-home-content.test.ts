@@ -46,6 +46,7 @@ async function runAction(
 function sampleFor(field: import("@/db/queries/home-sections").HomeField) {
   if (field.kind === "toggle") return "on";
   if (field.kind === "href") return `/faaliyetler/?k=${field.key}`;
+  if (field.kind === "image") return `/image/${field.key}.png`;
   return `deger-${field.key}`;
 }
 

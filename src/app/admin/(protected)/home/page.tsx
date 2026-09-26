@@ -7,6 +7,7 @@ import {
   HOME_SECTIONS,
   getHomeSettingsForAdmin,
 } from "@/db/queries/home-sections";
+import { getPresidentSection, getYoutubeSection } from "@/db/queries/site-settings";
 
 export const metadata = { title: "Anasayfa" };
 
@@ -25,7 +26,12 @@ export default async function AdminHomePage({
 }: {
   searchParams: Promise<{ saved?: string; error?: string; field?: string }>;
 }) {
-  const [values, params] = await Promise.all([getHomeSettingsForAdmin(), searchParams]);
+  const [values, president, youtube, params] = await Promise.all([
+    getHomeSettingsForAdmin(),
+    getPresidentSection(),
+    getYoutubeSection(),
+    searchParams,
+  ]);
 
   return (
     <>
@@ -43,6 +49,7 @@ export default async function AdminHomePage({
       <HomeContentForm
         sections={HOME_SECTIONS}
         values={values}
+        managedVisibility={{ president: president.visible, youtube: youtube.visible }}
         saved={params.saved === "1"}
         error={errorMessage(params.error, params.field)}
       />
