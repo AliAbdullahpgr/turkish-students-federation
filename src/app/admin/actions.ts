@@ -109,7 +109,6 @@ export async function savePresidentSection(form: FormData) {
   }
 
   await writeSettings({
-    president_eyebrow: text(form, "eyebrow"),
     president_name: name,
     president_role: role,
     president_bio: text(form, "bio", MAX_LONG),
@@ -138,7 +137,6 @@ export async function saveYoutubeSection(form: FormData) {
   }
 
   await writeSettings({
-    youtube_eyebrow: text(form, "eyebrow"),
     youtube_title: text(form, "title"),
     youtube_description: text(form, "description", MAX_LONG),
     youtube_video_url: rawVideo,

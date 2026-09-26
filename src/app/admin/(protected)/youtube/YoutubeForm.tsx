@@ -101,14 +101,9 @@ export default function YoutubeForm({
         title="Bölüm metinleri"
         description="Videonun yanında görünen başlık, açıklama ve etiketler."
       >
-        <div className="admin-settings-grid">
-          <FormField label="Üst etiket">
-            <input name="eyebrow" defaultValue={youtube.eyebrow} className={inputClass} />
-          </FormField>
-          <FormField label="Başlık">
-            <input name="title" defaultValue={youtube.title} className={inputClass} />
-          </FormField>
-        </div>
+        <FormField label="Başlık" hint="Boş bırakılırsa gizlenir.">
+          <input name="title" defaultValue={youtube.title} className={inputClass} />
+        </FormField>
 
         <FormField
           label="Açıklama"

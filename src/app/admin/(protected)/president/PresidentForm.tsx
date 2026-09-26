@@ -58,9 +58,6 @@ export default function PresidentForm({
         </label>
 
         <div className="admin-settings-grid">
-          <FormField label="Üst etiket" hint="Başlığın üzerindeki küçük yazı.">
-            <input name="eyebrow" defaultValue={president.eyebrow} className={inputClass} />
-          </FormField>
           <FormField label="Başkanın adı" required>
             <input name="name" defaultValue={president.name} required className={inputClass} />
           </FormField>
