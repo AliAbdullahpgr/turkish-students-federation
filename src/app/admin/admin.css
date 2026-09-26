@@ -2451,6 +2451,9 @@
   .admin-settings-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /* Without this, a field with no hint stretches its input to match a
+       neighbour that has one, and the row of inputs stops lining up. */
+    align-items: start;
     gap: 18px;
   }
 

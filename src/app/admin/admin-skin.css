@@ -77,6 +77,7 @@
 }
 
 .pl-btn--subtle {
+  white-space: nowrap;
   border: var(--ad-border);
   border-radius: var(--ad-radius-control);
   background: #ffffff;
@@ -597,6 +598,19 @@ a.ad-stat:hover {
   margin-bottom: 18px;
   padding: 0;
   border: 0;
+}
+
+/* Form cards stack their fields with one rhythm; without it a label sat
+   directly on the input row above it. Scoped to forms so table cards and
+   dashboard cards keep their own layout. */
+.pl-main form .admin-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pl-main form .admin-card > .admin-card-header {
+  margin-bottom: 0;
 }
 
 .pl-shell .admin-card-heading h2 {
