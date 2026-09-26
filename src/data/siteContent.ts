@@ -16,7 +16,9 @@ const excerpt = (content: string | undefined, maxLength: number) => {
     trimmed.lastIndexOf("?")
   );
 
-  return `${trimmed.slice(0, lastSentence > 120 ? lastSentence + 1 : maxLength).trim()}...`;
+  // A cut at a sentence end already reads as finished; "..." there gave "....".
+  if (lastSentence > 120) return trimmed.slice(0, lastSentence + 1).trim();
+  return `${trimmed.trim()}...`;
 };
 
 const whoWeAre = findGuideSection("biz-kimiz");
