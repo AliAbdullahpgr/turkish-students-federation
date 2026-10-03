@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 import DataTable from "@/components/admin/DataTable";
+import ConfirmDeleteButton from "@/components/admin/ConfirmDeleteButton";
+import { SavedNotice } from "@/components/admin/useAdminSubmit";
 
 interface ActivityPost {
   id: string;
@@ -27,8 +29,8 @@ export default function ActivityPostsListPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    if (!confirm("Bu faaliyeti silmek istediğinize emin misiniz?")) return;
-    await fetch(`/api/admin/activity-posts/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/activity-posts/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("delete failed");
     setPosts((prev) => prev.filter((p) => p.id !== id));
   }
 
@@ -48,6 +50,9 @@ export default function ActivityPostsListPage() {
           <Plus className="h-4 w-4" /> Yeni Faaliyet
         </Link>
       </div>
+
+      <SavedNotice />
+
 
       <DataTable
         loading={loading}
@@ -72,16 +77,12 @@ export default function ActivityPostsListPage() {
           <div className="flex items-center justify-end gap-2">
             <Link
               href={`/admin/activity-posts/${post.id}/edit`}
+              aria-label={`${post.title} düzenle`}
               className="p-2 text-text-secondary hover:text-primary"
             >
               <Pencil className="h-4 w-4" />
             </Link>
-            <button
-              onClick={() => handleDelete(post.id)}
-              className="p-2 text-text-secondary hover:text-turkish-red"
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
+            <ConfirmDeleteButton label={post.title} onConfirm={() => handleDelete(post.id)} />
           </div>
         )}
       />

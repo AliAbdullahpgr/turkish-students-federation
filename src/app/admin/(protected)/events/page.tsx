@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 import DataTable from "@/components/admin/DataTable";
+import ConfirmDeleteButton from "@/components/admin/ConfirmDeleteButton";
+import { SavedNotice } from "@/components/admin/useAdminSubmit";
 
 interface EventItem {
   id: string;
@@ -26,8 +28,8 @@ export default function EventsListPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    if (!confirm("Bu etkinliği silmek istediğinize emin misiniz?")) return;
-    await fetch(`/api/admin/events/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/events/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("delete failed");
     setEvents((prev) => prev.filter((e) => e.id !== id));
   }
 
@@ -42,6 +44,9 @@ export default function EventsListPage() {
           <Plus className="w-4 h-4" /> Yeni Etkinlik
         </Link>
       </div>
+
+      <SavedNotice />
+
 
       <DataTable
         loading={loading}
@@ -65,12 +70,10 @@ export default function EventsListPage() {
         ]}
         actions={(event) => (
           <div className="flex items-center justify-end gap-2">
-            <Link href={`/admin/events/${event.id}/edit`} className="p-2 text-text-secondary hover:text-primary">
+            <Link href={`/admin/events/${event.id}/edit`} aria-label={`${event.title} düzenle`} className="p-2 text-text-secondary hover:text-primary">
               <Pencil className="w-4 h-4" />
             </Link>
-            <button onClick={() => handleDelete(event.id)} className="p-2 text-text-secondary hover:text-turkish-red">
-              <Trash2 className="w-4 h-4" />
-            </button>
+            <ConfirmDeleteButton label={event.title} onConfirm={() => handleDelete(event.id)} />
           </div>
         )}
       />

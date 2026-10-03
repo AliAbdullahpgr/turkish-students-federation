@@ -66,7 +66,7 @@ export default function ActivityPostForm({
     });
 
     if (res.ok) {
-      router.push("/admin/activity-posts");
+      router.push("/admin/activity-posts?saved=1");
       router.refresh();
       return;
     }

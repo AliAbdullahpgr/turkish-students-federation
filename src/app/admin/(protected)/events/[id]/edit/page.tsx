@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import PageHeader from "@/components/admin/PageHeader";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface EventForm {
   title: string;
@@ -17,7 +18,7 @@ interface EventForm {
 }
 
 export default function EditEventPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/events");
   const params = useParams();
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
@@ -41,27 +42,20 @@ export default function EditEventPage() {
   }, [id, reset]);
 
   async function onSubmit(data: EventForm) {
-    const res = await fetch(`/api/admin/events/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, posterMediaId }),
-    });
-
-    if (res.ok) {
-      router.push("/admin/events");
-    }
+    await submit(`/api/admin/events/${id}`, "PUT", { ...data, posterMediaId });
   }
 
   if (loading) {
-    return <p className="text-text-muted">Yukleniyor...</p>;
+    return <p className="text-text-muted">Yükleniyor...</p>;
   }
 
   return (
     <div>
-      <PageHeader title="Etkinlik Duzenle" backHref="/admin/events" />
+      <PageHeader title="Etkinlik Düzenle" backHref="/admin/events" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Afis Gorseli">
+        <FormError message={error} />
+        <FormField label="Afiş Görseli">
           <ImageUploadField
             value={posterMediaId}
             previewUrl={posterPreviewUrl}
@@ -76,7 +70,7 @@ export default function EditEventPage() {
           />
         </FormField>
 
-        <FormField label="Baslik" required>
+        <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
             className="admin-input"
@@ -95,8 +89,8 @@ export default function EditEventPage() {
               {...register("status")}
               className="admin-input"
             >
-              <option value="upcoming">Yaklasan</option>
-              <option value="recent">Gecmis</option>
+              <option value="upcoming">Yaklaşan</option>
+              <option value="recent">Geçmiş</option>
             </select>
           </FormField>
         </div>
@@ -119,15 +113,16 @@ export default function EditEventPage() {
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
+            disabled={saving}
             className="admin-button admin-button-primary"
           >
-            Guncelle
+            Güncelle
           </button>
           <Link
             href="/admin/events"
             className="admin-button admin-button-secondary"
           >
-            Iptal
+            İptal
           </Link>
         </div>
       </form>

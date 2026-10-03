@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   label: string;
@@ -16,7 +17,7 @@ interface FormData {
 }
 
 export default function EditNavigationItemPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/navigation");
   const params = useParams();
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
@@ -38,12 +39,7 @@ export default function EditNavigationItemPage() {
   }, [id, reset]);
 
   async function onSubmit(data: FormData) {
-    const res = await fetch(`/api/admin/navigation/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) router.push("/admin/navigation");
+    await submit(`/api/admin/navigation/${id}`, "PUT", data);
   }
 
   if (loading) return <p className="text-text-muted">Yükleniyor...</p>;
@@ -53,6 +49,7 @@ export default function EditNavigationItemPage() {
       <PageHeader title="Link Düzenle" backHref="/admin/navigation" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormError message={error} />
         <FormField label="Etiket" required>
           <input
             {...register("label", { required: true })}
@@ -98,7 +95,7 @@ export default function EditNavigationItemPage() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="admin-button admin-button-primary">
+          <button type="submit" disabled={saving} className="admin-button admin-button-primary">
             Güncelle
           </button>
           <Link href="/admin/navigation" className="admin-button admin-button-secondary">

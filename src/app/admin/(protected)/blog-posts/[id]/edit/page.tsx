@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface BlogPostForm {
   title: string;
@@ -21,7 +22,7 @@ interface BlogPostForm {
 }
 
 export default function EditBlogPostPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/blog-posts");
   const params = useParams();
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
@@ -50,27 +51,20 @@ export default function EditBlogPostPage() {
   }, [id, reset]);
 
   async function onSubmit(data: BlogPostForm) {
-    const res = await fetch(`/api/admin/blog-posts/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, thumbnailMediaId }),
-    });
-
-    if (res.ok) {
-      router.push("/admin/blog-posts");
-    }
+    await submit(`/api/admin/blog-posts/${id}`, "PUT", { ...data, thumbnailMediaId });
   }
 
   if (loading) {
-    return <p className="text-text-muted">Yukleniyor...</p>;
+    return <p className="text-text-muted">Yükleniyor...</p>;
   }
 
   return (
     <div>
-      <PageHeader title="Blog Yazisini Duzenle" backHref="/admin/blog-posts" />
+      <PageHeader title="Blog Yazısıni Düzenle" backHref="/admin/blog-posts" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Kapak Gorseli">
+        <FormError message={error} />
+        <FormField label="Kapak Görseli">
           <ImageUploadField
             value={thumbnailMediaId}
             previewUrl={thumbnailPreviewUrl}
@@ -85,14 +79,14 @@ export default function EditBlogPostPage() {
           />
         </FormField>
 
-        <FormField label="Baslik" required>
+        <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
             className="admin-input"
           />
         </FormField>
 
-        <FormField label="Ozet">
+        <FormField label="Özet">
           <textarea
             {...register("excerpt")}
             rows={3}
@@ -100,11 +94,11 @@ export default function EditBlogPostPage() {
           />
         </FormField>
 
-        <FormField label="Icerik">
+        <FormField label="İçerik">
           <MarkdownEditor
             value={bodyValue}
             onChange={(value) => setValue("body", value)}
-            placeholder="Blog icerigini markdown formatinda yazin..."
+            placeholder="Blog içeriğini markdown formatında yazın..."
             minHeight="400px"
           />
         </FormField>
@@ -132,7 +126,7 @@ export default function EditBlogPostPage() {
         </FormField>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Yayin Tarihi">
+          <FormField label="Yayın Tarihi">
             <input
               type="date"
               {...register("publishedAt")}
@@ -141,22 +135,23 @@ export default function EditBlogPostPage() {
           </FormField>
           <label className="flex items-center gap-3 self-end rounded-md border border-border-custom bg-white px-4 py-2.5 text-sm">
             <input type="checkbox" {...register("isFeatured")} />
-            Ana sayfada one cikar
+            Anasayfada öne çıkar
           </label>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
+            disabled={saving}
             className="admin-button admin-button-primary"
           >
-            Guncelle
+            Güncelle
           </button>
           <Link
             href="/admin/blog-posts"
             className="admin-button admin-button-secondary"
           >
-            Iptal
+            İptal
           </Link>
         </div>
       </form>

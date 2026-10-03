@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 import PageHeader from "@/components/admin/PageHeader";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface BlogPostForm {
   title: string;
@@ -21,7 +21,7 @@ interface BlogPostForm {
 }
 
 export default function NewBlogPostPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/blog-posts");
   const { register, handleSubmit, watch, setValue } = useForm<BlogPostForm>({
     defaultValues: {
       category: "Blog",
@@ -34,23 +34,16 @@ export default function NewBlogPostPage() {
   const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: BlogPostForm) {
-    const res = await fetch("/api/admin/blog-posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, thumbnailMediaId }),
-    });
-
-    if (res.ok) {
-      router.push("/admin/blog-posts");
-    }
+    await submit("/api/admin/blog-posts", "POST", { ...data, thumbnailMediaId });
   }
 
   return (
     <div>
-      <PageHeader title="Yeni Blog Yazisi" backHref="/admin/blog-posts" />
+      <PageHeader title="Yeni Blog Yazısı" backHref="/admin/blog-posts" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
-        <FormField label="Kapak Gorseli">
+        <FormError message={error} />
+        <FormField label="Kapak Görseli">
           <ImageUploadField
             value={thumbnailMediaId}
             previewUrl={thumbnailPreviewUrl}
@@ -65,14 +58,14 @@ export default function NewBlogPostPage() {
           />
         </FormField>
 
-        <FormField label="Baslik" required>
+        <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
             className="admin-input"
           />
         </FormField>
 
-        <FormField label="Ozet">
+        <FormField label="Özet">
           <textarea
             {...register("excerpt")}
             rows={3}
@@ -80,17 +73,17 @@ export default function NewBlogPostPage() {
           />
         </FormField>
 
-        <FormField label="Icerik">
+        <FormField label="İçerik">
           <MarkdownEditor
             value={bodyValue}
             onChange={(value) => setValue("body", value)}
-            placeholder="Blog icerigini markdown formatinda yazin..."
+            placeholder="Blog içeriğini markdown formatında yazın..."
             minHeight="400px"
           />
         </FormField>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Slug" hint="Bos birakilirsa otomatik olusturulur">
+          <FormField label="Slug" hint="Boş bırakılırsa otomatik oluşturulur">
             <input
               {...register("slug")}
               placeholder="otomatik-olusturulur"
@@ -114,7 +107,7 @@ export default function NewBlogPostPage() {
         </FormField>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <FormField label="Yayin Tarihi">
+          <FormField label="Yayın Tarihi">
             <input
               type="date"
               {...register("publishedAt")}
@@ -123,13 +116,14 @@ export default function NewBlogPostPage() {
           </FormField>
           <label className="flex items-center gap-3 self-end rounded-md border border-border-custom bg-white px-4 py-2.5 text-sm">
             <input type="checkbox" {...register("isFeatured")} />
-            Ana sayfada one cikar
+            Anasayfada öne çıkar
           </label>
         </div>
 
         <div className="flex flex-wrap gap-3">
           <button
             type="submit"
+            disabled={saving}
             className="admin-button admin-button-primary"
           >
             Kaydet
@@ -138,7 +132,7 @@ export default function NewBlogPostPage() {
             href="/admin/blog-posts"
             className="admin-button admin-button-secondary"
           >
-            Iptal
+            İptal
           </Link>
         </div>
       </form>

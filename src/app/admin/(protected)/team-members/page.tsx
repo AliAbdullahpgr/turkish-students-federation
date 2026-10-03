@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 import DataTable from "@/components/admin/DataTable";
+import ConfirmDeleteButton from "@/components/admin/ConfirmDeleteButton";
+import { SavedNotice } from "@/components/admin/useAdminSubmit";
 
 interface TeamMember {
   id: string;
@@ -25,8 +27,8 @@ export default function TeamMembersListPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    if (!confirm("Silmek istediğinize emin misiniz?")) return;
-    await fetch(`/api/admin/team-members/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/team-members/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("delete failed");
     setMembers((prev) => prev.filter((m) => m.id !== id));
   }
 
@@ -39,6 +41,9 @@ export default function TeamMembersListPage() {
         </Link>
       </div>
 
+      <SavedNotice />
+
+
       <DataTable
         loading={loading}
         data={members}
@@ -50,12 +55,10 @@ export default function TeamMembersListPage() {
         ]}
         actions={(m) => (
           <div className="flex items-center justify-end gap-2">
-            <Link href={`/admin/team-members/${m.id}/edit`} className="p-2 text-text-secondary hover:text-primary">
+            <Link href={`/admin/team-members/${m.id}/edit`} aria-label={`${m.name} düzenle`} className="p-2 text-text-secondary hover:text-primary">
               <Pencil className="w-4 h-4" />
             </Link>
-            <button onClick={() => handleDelete(m.id)} className="p-2 text-text-secondary hover:text-turkish-red">
-              <Trash2 className="w-4 h-4" />
-            </button>
+            <ConfirmDeleteButton label={m.name} onConfirm={() => handleDelete(m.id)} />
           </div>
         )}
       />

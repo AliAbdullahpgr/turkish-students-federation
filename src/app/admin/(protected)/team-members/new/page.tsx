@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 import ImageUploadField from "@/components/admin/ImageUploadField";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   name: string;
@@ -18,7 +18,7 @@ interface FormData {
 }
 
 export default function NewTeamMemberPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/team-members");
   const { register, handleSubmit, watch, setValue } = useForm<FormData>({
     defaultValues: { order: 0, isActive: true },
   });
@@ -28,12 +28,7 @@ export default function NewTeamMemberPage() {
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: FormData) {
-    const res = await fetch("/api/admin/team-members", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, photoMediaId }),
-    });
-    if (res.ok) router.push("/admin/team-members");
+    await submit("/api/admin/team-members", "POST", { ...data, photoMediaId });
   }
 
   return (
@@ -41,6 +36,7 @@ export default function NewTeamMemberPage() {
       <PageHeader title="Yeni Ekip Üyesi" backHref="/admin/team-members" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormError message={error} />
         <FormField label="Fotoğraf">
           <ImageUploadField
             value={photoMediaId}
@@ -95,7 +91,7 @@ export default function NewTeamMemberPage() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="admin-button admin-button-primary">
+          <button type="submit" disabled={saving} className="admin-button admin-button-primary">
             Kaydet
           </button>
           <Link href="/admin/team-members" className="admin-button admin-button-secondary">

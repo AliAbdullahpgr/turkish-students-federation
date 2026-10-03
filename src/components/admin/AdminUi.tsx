@@ -7,7 +7,8 @@ import {
   LoaderCircle,
 } from "lucide-react";
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { cloneElement, isValidElement, useId } from "react";
+import type { ReactElement, ReactNode } from "react";
 import { ListControls } from "@/components/admin/ListControls";
 
 export type AdminStatus =
@@ -154,15 +155,24 @@ export function FormField({
   required?: boolean;
   children: ReactNode;
 }) {
+  // A single native control gets an id so the label names it for screen readers
+  // and focuses it on click; composite children (editors, pickers) are left alone.
+  const generatedId = useId();
+  const isNativeControl = isValidElement(children) && typeof children.type === "string";
+  const controlId = isNativeControl ? ((children.props as { id?: string }).id ?? generatedId) : undefined;
+  const control = isNativeControl
+    ? cloneElement(children as ReactElement<{ id?: string }>, { id: controlId })
+    : children;
+
   return (
     <div className="admin-field">
-      <label className="admin-field-label">
+      <label className="admin-field-label" htmlFor={controlId}>
         <span>
           {label}
           {required && <span className="admin-required"> *</span>}
         </span>
       </label>
-      {children}
+      {control}
       {hint && !error && <span className="admin-field-hint">{hint}</span>}
       {error && (
         <span className="admin-field-error" role="alert">

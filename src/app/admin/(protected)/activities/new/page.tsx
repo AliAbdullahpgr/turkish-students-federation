@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   title: string;
@@ -19,18 +19,13 @@ const ICON_OPTIONS = [
 ];
 
 export default function NewActivityPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/activities");
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: { icon: "Monitor", sortOrder: 0 },
   });
 
   async function onSubmit(data: FormData) {
-    const res = await fetch("/api/admin/activities", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) router.push("/admin/activities");
+    await submit("/api/admin/activities", "POST", data);
   }
 
   return (
@@ -38,6 +33,7 @@ export default function NewActivityPage() {
       <PageHeader title="Yeni Aktivite" backHref="/admin/activities" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormError message={error} />
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
@@ -75,7 +71,7 @@ export default function NewActivityPage() {
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="admin-button admin-button-primary">
+          <button type="submit" disabled={saving} className="admin-button admin-button-primary">
             Kaydet
           </button>
           <Link href="/admin/activities" className="admin-button admin-button-secondary">

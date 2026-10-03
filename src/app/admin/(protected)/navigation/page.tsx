@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { Fragment } from "react";
+import ConfirmDeleteButton from "@/components/admin/ConfirmDeleteButton";
+import { SavedNotice } from "@/components/admin/useAdminSubmit";
 
 interface NavItem {
   id: string;
@@ -35,8 +37,8 @@ export default function NavigationListPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm("Silmek istediğinize emin misiniz?")) return;
-    await fetch(`/api/admin/navigation/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/navigation/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("delete failed");
     setItems((prev) => prev.filter((i) => i.id !== id));
   }
 
@@ -50,6 +52,9 @@ export default function NavigationListPage() {
           <Plus className="w-4 h-4" /> Yeni Link
         </Link>
       </div>
+
+      <SavedNotice />
+
 
       {loading ? (
         <p className="text-text-muted">Yükleniyor...</p>
@@ -87,9 +92,7 @@ export default function NavigationListPage() {
                         <Link href={`/admin/navigation/${item.id}/edit`} className="p-2 text-text-secondary hover:text-primary">
                           Düzenle
                         </Link>
-                        <button onClick={() => handleDelete(item.id)} className="p-2 text-text-secondary hover:text-turkish-red ml-1">
-                          Sil
-                        </button>
+                        <ConfirmDeleteButton label={item.label} onConfirm={() => handleDelete(item.id)} />
                       </td>
                     </tr>
                     {children.map((child) => (
@@ -106,9 +109,7 @@ export default function NavigationListPage() {
                           <Link href={`/admin/navigation/${child.id}/edit`} className="p-2 text-text-secondary hover:text-primary">
                             Düzenle
                           </Link>
-                          <button onClick={() => handleDelete(child.id)} className="p-2 text-text-secondary hover:text-turkish-red ml-1">
-                            Sil
-                          </button>
+                          <ConfirmDeleteButton label={child.label} onConfirm={() => handleDelete(child.id)} />
                         </td>
                       </tr>
                     ))}

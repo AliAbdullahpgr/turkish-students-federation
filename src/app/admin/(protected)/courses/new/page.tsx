@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import FormField from "@/components/admin/FormField";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import PageHeader from "@/components/admin/PageHeader";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   title: string;
@@ -16,7 +16,7 @@ interface FormData {
 }
 
 export default function NewCoursePage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/courses");
   const { register, handleSubmit } = useForm<FormData>({
     defaultValues: { href: "#" },
   });
@@ -24,15 +24,7 @@ export default function NewCoursePage() {
   const [thumbnailPreviewUrl, setThumbnailPreviewUrl] = useState<string | null>(null);
 
   async function onSubmit(data: FormData) {
-    const res = await fetch("/api/admin/courses", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, thumbnailMediaId }),
-    });
-
-    if (res.ok) {
-      router.push("/admin/courses");
-    }
+    await submit("/api/admin/courses", "POST", { ...data, thumbnailMediaId });
   }
 
   return (
@@ -40,7 +32,8 @@ export default function NewCoursePage() {
       <PageHeader title="Yeni Kurs" backHref="/admin/courses" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl space-y-6">
-        <FormField label="Kapak Gorseli">
+        <FormError message={error} />
+        <FormField label="Kapak Görseli">
           <ImageUploadField
             value={thumbnailMediaId}
             previewUrl={thumbnailPreviewUrl}
@@ -55,21 +48,21 @@ export default function NewCoursePage() {
           />
         </FormField>
 
-        <FormField label="Baslik" required>
+        <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
             className="admin-input"
           />
         </FormField>
 
-        <FormField label="Egitmen">
+        <FormField label="Eğitmen">
           <input
             {...register("instructor")}
             className="admin-input"
           />
         </FormField>
 
-        <FormField label="Aciklama">
+        <FormField label="Açıklama">
           <textarea
             {...register("description")}
             rows={3}
@@ -87,6 +80,7 @@ export default function NewCoursePage() {
         <div className="flex gap-3">
           <button
             type="submit"
+            disabled={saving}
             className="admin-button admin-button-primary"
           >
             Kaydet
@@ -95,7 +89,7 @@ export default function NewCoursePage() {
             href="/admin/courses"
             className="admin-button admin-button-secondary"
           >
-            Iptal
+            İptal
           </Link>
         </div>
       </form>

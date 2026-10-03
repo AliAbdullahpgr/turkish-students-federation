@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Trash2, Copy, Check } from "lucide-react";
+import { Copy, Check } from "lucide-react";
+import ConfirmDeleteButton from "@/components/admin/ConfirmDeleteButton";
 
 interface MediaItem {
   id: string;
@@ -24,8 +25,8 @@ export default function MediaLibraryPage() {
   }, []);
 
   async function handleDelete(id: string) {
-    if (!confirm("Bu medyayı silmek istediğinize emin misiniz?")) return;
-    await fetch(`/api/admin/media/${id}`, { method: "DELETE" });
+    const res = await fetch(`/api/admin/media/${id}`, { method: "DELETE" });
+    if (!res.ok) throw new Error("delete failed");
     setItems((prev) => prev.filter((i) => i.id !== id));
   }
 
@@ -56,9 +57,7 @@ export default function MediaLibraryPage() {
                     {copied === item.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
                     {copied === item.id ? "Kopyalandı" : "URL"}
                   </button>
-                  <button onClick={() => handleDelete(item.id)} className="text-xs text-text-secondary hover:text-turkish-red ml-auto">
-                    <Trash2 className="w-3 h-3" />
-                  </button>
+                  <ConfirmDeleteButton label={item.cloudinaryPublicId} onConfirm={() => handleDelete(item.id)} compact />
                 </div>
               </div>
             </div>

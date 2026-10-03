@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
 import MarkdownEditor from "@/components/admin/MarkdownEditor";
 import ImageUploadField from "@/components/admin/ImageUploadField";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   name: string;
@@ -18,7 +19,7 @@ interface FormData {
 }
 
 export default function EditTeamMemberPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/team-members");
   const params = useParams();
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
@@ -40,12 +41,7 @@ export default function EditTeamMemberPage() {
   }, [id, reset]);
 
   async function onSubmit(data: FormData) {
-    const res = await fetch(`/api/admin/team-members/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...data, photoMediaId }),
-    });
-    if (res.ok) router.push("/admin/team-members");
+    await submit(`/api/admin/team-members/${id}`, "PUT", { ...data, photoMediaId });
   }
 
   if (loading) return <p className="text-text-muted">Yükleniyor...</p>;
@@ -55,6 +51,7 @@ export default function EditTeamMemberPage() {
       <PageHeader title="Üye Düzenle" backHref="/admin/team-members" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormError message={error} />
         <FormField label="Fotoğraf">
           <ImageUploadField
             value={photoMediaId}
@@ -109,7 +106,7 @@ export default function EditTeamMemberPage() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <button type="submit" className="admin-button admin-button-primary">
+          <button type="submit" disabled={saving} className="admin-button admin-button-primary">
             Güncelle
           </button>
           <Link href="/admin/team-members" className="admin-button admin-button-secondary">

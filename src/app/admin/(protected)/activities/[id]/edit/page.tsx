@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import PageHeader from "@/components/admin/PageHeader";
 import FormField from "@/components/admin/FormField";
+import { FormError, useAdminSubmit } from "@/components/admin/useAdminSubmit";
 
 interface FormData {
   title: string;
@@ -20,7 +21,7 @@ const ICON_OPTIONS = [
 ];
 
 export default function EditActivityPage() {
-  const router = useRouter();
+  const { error, saving, submit } = useAdminSubmit("/admin/activities");
   const params = useParams();
   const id = params.id as string;
   const [loading, setLoading] = useState(true);
@@ -36,12 +37,7 @@ export default function EditActivityPage() {
   }, [id, reset]);
 
   async function onSubmit(data: FormData) {
-    const res = await fetch(`/api/admin/activities/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-    if (res.ok) router.push("/admin/activities");
+    await submit(`/api/admin/activities/${id}`, "PUT", data);
   }
 
   if (loading) return <p className="text-text-muted">Yükleniyor...</p>;
@@ -51,6 +47,7 @@ export default function EditActivityPage() {
       <PageHeader title="Aktivite Düzenle" backHref="/admin/activities" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-4xl space-y-6">
+        <FormError message={error} />
         <FormField label="Başlık" required>
           <input
             {...register("title", { required: true })}
@@ -88,7 +85,7 @@ export default function EditActivityPage() {
         </FormField>
 
         <div className="flex gap-3">
-          <button type="submit" className="admin-button admin-button-primary">
+          <button type="submit" disabled={saving} className="admin-button admin-button-primary">
             Güncelle
           </button>
           <Link href="/admin/activities" className="admin-button admin-button-secondary">
