@@ -6,6 +6,7 @@ import { events } from "@/db/schema/events";
 import { teamMembers } from "@/db/schema/team-members";
 import { courses } from "@/db/schema/courses";
 import { activities } from "@/db/schema/activities";
+import { departments } from "@/db/schema/departments";
 import { guideSections } from "@/db/schema/guide-sections";
 import { navigationItems } from "@/db/schema/navigation-items";
 
@@ -24,6 +25,7 @@ import { events as staticEvents } from "@/data/events";
 import { teamMembers as staticTeam } from "@/data/team";
 import { courses as staticCourses } from "@/data/courses";
 import { activities as staticActivities } from "@/data/activities";
+import { departments as staticDepartments } from "@/data/departments";
 import { pakistanGuideData } from "@/data/pakistanGuide";
 import { navItems } from "@/data/navigation";
 
@@ -125,6 +127,21 @@ async function seedActivities() {
     });
   }
   console.log(`  ✅ activities: ${staticActivities.length} records`);
+}
+
+async function seedDepartments() {
+  for (let i = 0; i < staticDepartments.length; i++) {
+    const department = staticDepartments[i];
+    await db.insert(departments).values({
+      id: department.slug,
+      slug: department.slug,
+      name: department.name,
+      summary: department.summary,
+      icon: department.icon,
+      sortOrder: i,
+    });
+  }
+  console.log(`  ✅ departments: ${staticDepartments.length} records`);
 }
 
 async function seedGuideSectionsRecursive(
@@ -237,6 +254,7 @@ async function main() {
   // Use raw SQL for clearing to avoid FK constraint issues
   await db.run(sql`DELETE FROM navigation_items`);
   await db.run(sql`DELETE FROM guide_sections`);
+  await db.run(sql`DELETE FROM departments`);
   await db.run(sql`DELETE FROM activities`);
   await db.run(sql`DELETE FROM courses`);
   await db.run(sql`DELETE FROM team_members`);
@@ -250,6 +268,7 @@ async function main() {
   await seedTeamMembers();
   await seedCourses();
   await seedActivities();
+  await seedDepartments();
   await seedGuideSections();
   await seedNavigation();
 

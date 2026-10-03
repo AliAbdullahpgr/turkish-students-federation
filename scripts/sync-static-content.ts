@@ -1,7 +1,8 @@
 import { db } from "../src/db/client";
-import { blogPosts, courses, events, media, teamMembers } from "../src/db/schema";
+import { blogPosts, courses, departments, events, media, teamMembers } from "../src/db/schema";
 import { blogPosts as staticBlogPosts } from "../src/data/blogs";
 import { courses as staticCourses } from "../src/data/courses";
+import { departments as staticDepartments } from "../src/data/departments";
 import { events as staticEvents } from "../src/data/events";
 import { guideBlogPosts } from "../src/data/guideBlogPosts";
 import { teamMembers as staticTeamMembers } from "../src/data/team";
@@ -99,6 +100,22 @@ async function syncTeamMembers() {
   console.log(`Team sync complete: ${inserted} missing rows inserted.`);
 }
 
+async function syncDepartments() {
+  let inserted = 0;
+  for (const [sortOrder, department] of staticDepartments.entries()) {
+    const result = await db.insert(departments).values({
+      id: department.slug,
+      slug: department.slug,
+      name: department.name,
+      summary: department.summary,
+      icon: department.icon,
+      sortOrder,
+    }).onConflictDoNothing({ target: departments.slug }).run();
+    inserted += result.rowsAffected;
+  }
+  console.log(`Department sync complete: ${inserted} missing rows inserted.`);
+}
+
 async function syncCourseMedia() {
   for (const course of staticCourses) {
     if (course.thumbnail) {
@@ -116,6 +133,7 @@ Promise.all([
   syncBlogPosts(),
   syncEvents(),
   syncTeamMembers(),
+  syncDepartments(),
   syncCourseMedia(),
 ]).catch((error) => {
   console.error("Static content sync failed:", error);

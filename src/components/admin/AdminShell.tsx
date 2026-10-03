@@ -3,7 +3,9 @@
 import {
   Activity,
   BookOpen,
+  Building2,
   Calendar,
+  GalleryHorizontal,
   ChevronDown,
   Home,
   Image as ImageIcon,
@@ -54,6 +56,7 @@ const navigation: NavGroup[] = [
     label: "Website içeriği",
     items: [
       { href: "/admin/home", label: "Anasayfa bölümleri", description: "Her bölümün başlığı, metni ve görünürlüğü", icon: Home },
+      { href: "/admin/slider", label: "Slayt yöneticisi", description: "Anasayfa üst alanındaki slaytlar", icon: GalleryHorizontal },
       { href: "/admin/site-settings", label: "Genel site ayarları", description: "Site adı, açıklama, bağlantılar", icon: Type },
       { href: "/admin/president", label: "Başkan bölümü", description: "Anasayfadaki başkan kartı", icon: UserSquare },
       { href: "/admin/youtube", label: "YouTube bölümü", description: "Kanal ve öne çıkan video", icon: CirclePlay },
@@ -73,7 +76,10 @@ const navigation: NavGroup[] = [
   },
   {
     label: "Kurum",
-    items: [{ href: "/admin/team-members", label: "Ekip üyeleri", description: "Yönetim ve ekip kartları", icon: Users }],
+    items: [
+      { href: "/admin/departments", label: "Birimler", description: "Birim sayfaları, ekipleri ve galerileri", icon: Building2 },
+      { href: "/admin/team-members", label: "Ekip üyeleri", description: "Yönetim ve ekip kartları", icon: Users },
+    ],
   },
   {
     label: "İletişim",

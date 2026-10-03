@@ -30,6 +30,10 @@ export function revalidateActivityPostContent(slug?: string) {
   revalidate(["/", "/faaliyetler", ...(slug ? [`/faaliyetler/${slug}`] : [])]);
 }
 
+export function revalidateDepartmentContent(slug?: string) {
+  revalidate(["/departments", ...(slug ? [`/departments/${slug}`] : [])]);
+}
+
 export function revalidateNavigationContent() {
   revalidatePath("/", "layout");
 }
