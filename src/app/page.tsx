@@ -24,7 +24,7 @@ import { getUpcomingEvents, getRecentEvents } from "@/db/queries/events";
 import { getAllActivities } from "@/db/queries/activities";
 import { getAllCourses } from "@/db/queries/courses";
 import { getPublishedActivityPosts } from "@/db/queries/activity-posts";
-import { getLatestBlogPosts } from "@/db/queries/blog-posts";
+import { getHomeBlogPosts } from "@/db/queries/blog-posts";
 import { youtubeEmbedUrl } from "@/lib/youtube";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,7 +43,7 @@ export default async function HomePage() {
   const activities = await getAllActivities();
   const activityPosts = await getPublishedActivityPosts(3);
   const courses = await getAllCourses();
-  const posts = await getLatestBlogPosts(6);
+  const posts = await getHomeBlogPosts(6);
   const president = await getPresidentSection();
   const youtube = await getYoutubeSection();
 
@@ -52,7 +52,7 @@ export default async function HomePage() {
       <AnnouncementBar />
       <Navigation />
       <main className="flex-grow">
-        <HeroSection hero={home.hero} />
+        <HeroSection slides={home.heroSlides} />
         {home.whoWeAre.visible && <WhoWeAreSection content={home.whoWeAre} />}
         {/*
           Real activities lead the page. Each of these bands also drops out when

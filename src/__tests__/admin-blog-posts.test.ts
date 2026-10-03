@@ -224,4 +224,16 @@ describe("admin blog posts -> public /news-blogs", () => {
     });
     expect((row.rows[0] as unknown as { body: string }).body).toBe(body);
   });
+
+  it("posts marked \"öne çıkar\" lead the homepage band even when older", async () => {
+    await createPost({ title: "Yeni", publishedAt: "2026-05-01" });
+    await createPost({ title: "Eski öne çıkan", publishedAt: "2026-01-01", isFeatured: true });
+    await createPost({ title: "Orta", publishedAt: "2026-03-01" });
+
+    const titles = (await publicQueries.getHomeBlogPosts(3)).map((p) => p.title);
+    expect(titles).toEqual(["Eski öne çıkan", "Yeni", "Orta"]);
+
+    // The dashboard-style \"latest\" reader stays purely chronological.
+    expect((await publicQueries.getLatestBlogPosts(3))[0].title).toBe("Yeni");
+  });
 });

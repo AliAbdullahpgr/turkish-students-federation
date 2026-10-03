@@ -3,6 +3,7 @@ import HomeContentForm from "@/app/admin/(protected)/home/HomeContentForm";
 import {
   HOME_FIELD_BY_KEY,
   HOME_SECTIONS,
+  getHeroSlidesForAdmin,
   getHomeSettingsForAdmin,
 } from "@/db/queries/home-sections";
 import { getPresidentSection, getYoutubeSection } from "@/db/queries/site-settings";
@@ -24,11 +25,12 @@ export default async function AdminHomePage({
 }: {
   searchParams: Promise<{ saved?: string; error?: string; field?: string }>;
 }) {
-  const [values, president, youtube, params] = await Promise.all([
+  const [values, president, youtube, params, heroSlides] = await Promise.all([
     getHomeSettingsForAdmin(),
     getPresidentSection(),
     getYoutubeSection(),
     searchParams,
+    getHeroSlidesForAdmin(),
   ]);
 
   return (
@@ -42,6 +44,7 @@ export default async function AdminHomePage({
         sections={HOME_SECTIONS}
         values={values}
         managedVisibility={{ president: president.visible, youtube: youtube.visible }}
+        slidesCustomised={heroSlides.customised}
         saved={params.saved === "1"}
         error={errorMessage(params.error, params.field)}
       />

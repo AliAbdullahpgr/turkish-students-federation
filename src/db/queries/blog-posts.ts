@@ -71,6 +71,32 @@ export async function getLatestBlogPosts(limit = 6) {
   }
 }
 
+/**
+ * The homepage blog band: posts marked "Ana sayfada öne çıkar" first, then the
+ * newest. Without this the checkbox saved but changed nothing on the site.
+ */
+export async function getHomeBlogPosts(limit = 6) {
+  try {
+    return await db
+      .select(blogPostSelection)
+      .from(blogPosts)
+      .leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id))
+      .orderBy(desc(blogPosts.isFeatured), desc(blogPosts.publishedAt))
+      .limit(limit)
+      .all();
+  } catch (error) {
+    return staticFallbackOrThrow(
+      error,
+      [...allFallbackPosts]
+        .sort(
+          (a, b) =>
+            Number(b.isFeatured) - Number(a.isFeatured) || (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""),
+        )
+        .slice(0, limit),
+    );
+  }
+}
+
 export async function getBlogPostBySlug(slug: string) {
   try {
     const post = await db.select(blogPostSelection).from(blogPosts).leftJoin(media, eq(blogPosts.thumbnailMediaId, media.id)).where(eq(blogPosts.slug, slug)).get();

@@ -24,6 +24,7 @@ export default function HomeContentForm({
   sections,
   values,
   managedVisibility,
+  slidesCustomised,
   saved,
   error,
 }: {
@@ -31,6 +32,8 @@ export default function HomeContentForm({
   values: Record<string, string>;
   /** Saved visibility of the sections edited on their own screens, keyed by section id. */
   managedVisibility: Record<string, boolean>;
+  /** Whether the hero slider has saved slides, which then replace the single hero below. */
+  slidesCustomised: boolean;
   saved: boolean;
   error: string | null;
 }) {
@@ -64,7 +67,20 @@ export default function HomeContentForm({
                 <ArrowUpRight className="size-4" aria-hidden="true" />
               </Link>
             ) : (
-              <SectionFields fields={section.fields} values={values} />
+              <>
+                {section.id === "hero" && (
+                  <p className="text-sm text-text-secondary">
+                    {slidesCustomised
+                      ? "Anasayfada şu an slaytlar gösteriliyor; aşağıdaki alanlar kullanılmıyor. "
+                      : "Birden fazla slayt eklemek, sıralamak veya gizlemek için "}
+                    <Link href="/admin/slider" className="font-semibold underline">
+                      Slayt yöneticisini
+                    </Link>{" "}
+                    kullanın.
+                  </p>
+                )}
+                <SectionFields fields={section.fields} values={values} />
+              </>
             )}
           </AdminCard>
         </div>

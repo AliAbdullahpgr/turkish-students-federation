@@ -1,5 +1,6 @@
 import { homeMessaging } from "@/data/siteContent";
 import { getAllSiteSettings } from "@/db/queries/site-settings";
+import { HERO_SLIDES_KEY, readHeroSlides, type HeroSlide } from "@/lib/hero-slides";
 
 /**
  * Every editable field on the homepage, in one list.
@@ -263,6 +264,8 @@ export interface HomeSectionCopy {
 }
 
 export interface HomeContent {
+  /** Slides the carousel shows: the saved active ones, or one slide built from `hero`. */
+  heroSlides: HeroSlide[];
   hero: {
     titleTop: string;
     titleBottom: string;
@@ -296,6 +299,33 @@ export interface HomeContent {
  * clearing a lede in the panel must actually clear it on the site, otherwise
  * the field looks broken. Only a key that has never been written falls back.
  */
+/** The single hero the site had before slides existed, as a slide. */
+export function legacySlide(hero: HomeContent["hero"]): HeroSlide {
+  return {
+    id: "hero",
+    titleTop: hero.titleTop,
+    titleBottom: hero.titleBottom,
+    summary: hero.summary,
+    ctaLabel: hero.ctaLabel,
+    ctaHref: hero.ctaHref,
+    image: hero.image,
+    imageAlt: "",
+    active: true,
+  };
+}
+
+/**
+ * Everything the slider screen needs: every saved slide (hidden ones too), or
+ * the legacy hero as slide one so a first edit starts from what is live.
+ */
+export async function getHeroSlidesForAdmin(): Promise<{ slides: HeroSlide[]; customised: boolean }> {
+  const settings = await getAllSiteSettings();
+  const saved = readHeroSlides(settings[HERO_SLIDES_KEY]);
+  if (saved.length > 0) return { slides: saved, customised: true };
+  const home = await getHomeContent();
+  return { slides: [legacySlide(home.hero)], customised: false };
+}
+
 export async function getHomeContent(): Promise<HomeContent> {
   const settings = await getAllSiteSettings();
 
@@ -306,7 +336,18 @@ export async function getHomeContent(): Promise<HomeContent> {
   };
   const enabled = (key: string) => value(key) !== "0";
 
+  const hero = {
+    titleTop: value("home_title_top"),
+    titleBottom: value("home_title_bottom"),
+    summary: value("home_summary"),
+    ctaLabel: value("home_primary_cta"),
+    ctaHref: value("home_hero_cta_href"),
+    image: value("home_hero_image"),
+  };
+  const savedSlides = readHeroSlides(settings[HERO_SLIDES_KEY]).filter((slide) => slide.active);
+
   return {
+    heroSlides: savedSlides.length > 0 ? savedSlides : [legacySlide(hero)],
     hero: {
       titleTop: value("home_title_top"),
       titleBottom: value("home_title_bottom"),

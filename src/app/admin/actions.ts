@@ -9,6 +9,7 @@ import { HOME_FIELDS, homeFieldMaxLength } from "@/db/queries/home-sections";
 import { requireAdmin } from "@/lib/auth-guard";
 import { revalidateSiteContent } from "@/lib/content-revalidation";
 import { isValidLinkTarget } from "@/lib/public-routes";
+import { HERO_SLIDES_KEY, parseHeroSlides } from "@/lib/hero-slides";
 import { extractYoutubeVideoId, normalizeYoutubeChannelUrl } from "@/lib/youtube";
 
 /**
@@ -93,6 +94,29 @@ export async function saveHomeContent(form: FormData) {
 
   revalidateSiteContent();
   redirect("/admin/home?saved=1");
+}
+
+/**
+ * The hero slider. The client posts the whole list as JSON in one hidden field;
+ * it is re-validated here, so the limits hold even for a hand-built request.
+ */
+export async function saveHeroSlides(form: FormData) {
+  await requireAdmin();
+
+  let input: unknown;
+  try {
+    input = JSON.parse(text(form, "slides", 200_000));
+  } catch {
+    redirect("/admin/slider?error=invalid");
+  }
+
+  const parsed = parseHeroSlides(input);
+  if (!parsed.ok) redirect(`/admin/slider?error=${parsed.error}`);
+
+  await writeSettings({ [HERO_SLIDES_KEY]: JSON.stringify(parsed.slides) });
+
+  revalidateSiteContent();
+  redirect("/admin/slider?saved=1");
 }
 
 export async function savePresidentSection(form: FormData) {

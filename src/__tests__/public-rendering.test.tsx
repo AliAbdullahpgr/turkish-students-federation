@@ -101,7 +101,7 @@ describe("homepage sections render what the admin wrote", () => {
     });
 
     const { default: HeroSection } = await import("@/components/sections/home/HeroSection");
-    const html = render(HeroSection, { hero: (await homeSections.getHomeContent()).hero });
+    const html = render(HeroSection, { slides: (await homeSections.getHomeContent()).heroSlides });
 
     expect(html).toContain("Pakistanda");
     expect(html).toContain("Birlikte Öğrenmek");
