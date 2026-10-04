@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Inter, Lora, Noto_Nastaliq_Urdu } from "next/font/google";
 import { siteIdentity } from "@/data/siteContent";
 import "./globals.css";
+import { SITE_URL } from "@/lib/site-url";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteIdentity.guideName,
     description: siteIdentity.guideDescription,
-    url: "https://tsfturkey.org",
+    url: SITE_URL,
     siteName: siteIdentity.name,
     locale: "tr_TR",
     type: "website",

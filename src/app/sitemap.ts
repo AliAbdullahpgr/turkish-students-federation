@@ -1,57 +1,59 @@
+import { SITE_URL } from "@/lib/site-url";
+
 export const dynamic = "force-static";
 
 export default function sitemap() {
   return [
     {
-      url: "https://tsfturkey.org",
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: "https://tsfturkey.org/about-us/",
+      url: `${SITE_URL}/about-us/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://tsfturkey.org/contact-us/",
+      url: `${SITE_URL}/contact-us/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://tsfturkey.org/news-blogs/",
+      url: `${SITE_URL}/news-blogs/`,
       lastModified: new Date(),
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
-      url: "https://tsfturkey.org/events/",
+      url: `${SITE_URL}/events/`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://tsfturkey.org/join-tsf/",
+      url: `${SITE_URL}/join-tsf/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://tsfturkey.org/departments/",
+      url: `${SITE_URL}/departments/`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
-      url: "https://tsfturkey.org/terms/",
+      url: `${SITE_URL}/terms/`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.4,
     },
     {
-      url: "https://tsfturkey.org/privacy/",
+      url: `${SITE_URL}/privacy/`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.4,
